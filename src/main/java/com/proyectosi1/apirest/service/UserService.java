@@ -4,7 +4,6 @@ import com.proyectosi1.apirest.entity.UserEntity;
 import com.proyectosi1.apirest.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

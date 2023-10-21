@@ -1,6 +1,5 @@
 package com.proyectosi1.apirest.service;
 
-import com.proyectosi1.apirest.entity.ColorEntity;
 import org.springframework.stereotype.Service;
 
 import com.proyectosi1.apirest.entity.MarcaEntity;

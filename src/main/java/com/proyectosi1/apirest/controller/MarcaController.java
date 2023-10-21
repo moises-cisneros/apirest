@@ -1,6 +1,5 @@
 package com.proyectosi1.apirest.controller;
 
-import com.proyectosi1.apirest.entity.ColorEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.proyectosi1.apirest.entity.MarcaEntity;
