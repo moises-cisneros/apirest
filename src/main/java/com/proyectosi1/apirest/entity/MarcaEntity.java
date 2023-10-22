@@ -1,5 +1,7 @@
 package com.proyectosi1.apirest.entity;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,4 +23,6 @@ public class MarcaEntity {
     private String nombre;
     private String pais;
 
+    @OneToMany(mappedBy = "marca")
+    private List<ProductoEntity> producto;
 }
