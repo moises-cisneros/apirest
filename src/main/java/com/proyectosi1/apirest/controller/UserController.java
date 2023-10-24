@@ -3,9 +3,11 @@ package com.proyectosi1.apirest.controller;
 import com.proyectosi1.apirest.entity.UserEntity;
 import com.proyectosi1.apirest.service.UserService;
 
+import com.proyectosi1.apirest.utils.Role;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,13 +48,14 @@ public class UserController {
         return userService.obtenerRolCliente(user);
     }
 
+
     @PostMapping("/getRole")
-    public String getRole(@RequestParam String username) {
+    public Role getRole(@RequestParam String username) {
         UserEntity user = userService.obtenerUsuarioPorUsername(username);
         if (user != null) {
             return user.getRole();
         } else {
-            return "ADMIN";
+            return Role.ADMIN;
         }
     }
 
