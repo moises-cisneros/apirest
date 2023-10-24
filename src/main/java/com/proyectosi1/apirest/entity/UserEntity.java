@@ -1,18 +1,26 @@
 package com.proyectosi1.apirest.entity;
 
+import com.proyectosi1.apirest.utils.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "USUARIO", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})}) // No tener repetido el username
-public class UserEntity  {
+@Table(name = "USUARIO", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
+// No tener repetido el username
+public class UserEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,5 +34,36 @@ public class UserEntity  {
     private String password;
 
     @Column(nullable = false)
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // Devuelve una colección de autoridades (roles) asociados a este usuario
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        // Indica si la cuenta del usuario no ha caducado.
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        // Indica si la cuenta del usuario no está bloqueada.
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        // Indica si las credenciales del usuario (contraseña) no han caducado.
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        // Indica si el usuario está habilitado y puede iniciar sesión.
+        return true;
+    }
 }
