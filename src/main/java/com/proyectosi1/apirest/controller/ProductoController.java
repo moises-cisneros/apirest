@@ -24,7 +24,6 @@ public class ProductoController {
 
     @PostMapping
     public ProductoEntity crearProducto(@RequestBody ProductoEntity producto) {
-        producto.getColor().getId();
         return productoService.crearProducto(producto);
     }
 
