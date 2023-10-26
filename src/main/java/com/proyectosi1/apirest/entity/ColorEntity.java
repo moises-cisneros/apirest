@@ -1,5 +1,7 @@
 package com.proyectosi1.apirest.entity;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,4 +21,7 @@ public class ColorEntity {
     private Integer id;
     private String nombre;
     private String descripcion;
+
+    @OneToMany(mappedBy = "color")
+    List<ProductoEntity> producto;
 }
