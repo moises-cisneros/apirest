@@ -24,5 +24,5 @@ public class BodegaEntity {
     private Integer capacidad;
 
     @OneToMany(mappedBy = "bodega")
-    private List<ProductoEntity> producto;
+    private List<InventarioEntity> inventario;
 }

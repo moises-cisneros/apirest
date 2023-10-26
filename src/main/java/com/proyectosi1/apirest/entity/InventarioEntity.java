@@ -16,8 +16,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "PRODUCTO_DISPONIBLE")
-public class ProductoDisponibleEntity {
+@Table(name = "INVENTARIO")
+public class InventarioEntity {
 
     @Id
     @GeneratedValue
@@ -32,6 +32,10 @@ public class ProductoDisponibleEntity {
     @ManyToOne
     @JoinColumn(name = "id_producto")
     private ProductoEntity producto;
+
+    @ManyToOne
+    @JoinColumn(name = "id_bodega")
+    private BodegaEntity bodega;
 
     
 }

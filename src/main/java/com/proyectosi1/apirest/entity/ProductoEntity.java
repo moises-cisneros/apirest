@@ -37,10 +37,6 @@ public class ProductoEntity {
     private ColorEntity color;
 
     @ManyToOne
-    @JoinColumn(name = "id_bodega")
-    private BodegaEntity bodega;
-
-    @ManyToOne
     @JoinColumn(name = "id_categoria")
     private CategoryEntity categoria;
 
@@ -49,6 +45,6 @@ public class ProductoEntity {
     private MarcaEntity marca;
 
     @OneToMany(mappedBy = "producto")
-    private List<ProductoDisponibleEntity> productoDisponible;
+    private List<InventarioEntity> inventario;
 
 }

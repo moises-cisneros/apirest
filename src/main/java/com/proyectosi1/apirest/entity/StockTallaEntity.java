@@ -26,5 +26,5 @@ public class StockTallaEntity {
     private String talla;
 
     @OneToMany(mappedBy = "talla")
-    private List<ProductoDisponibleEntity> productoDisponible;
+    private List<InventarioEntity> inventario;
 }
