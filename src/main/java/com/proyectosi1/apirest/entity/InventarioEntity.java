@@ -37,5 +37,4 @@ public class InventarioEntity {
     @JoinColumn(name = "id_bodega")
     private BodegaEntity bodega;
 
-    
 }

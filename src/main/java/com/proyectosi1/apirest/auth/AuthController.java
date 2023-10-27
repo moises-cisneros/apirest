@@ -37,4 +37,14 @@ public class AuthController {
             return Role.ADMIN;
         }
     }
+
+    @GetMapping("/roleGet")
+    public Role roleGet(@RequestParam String username) {
+        UserEntity user = userService.obtenerUsuarioPorUsername(username);
+        if (user != null) {
+            return user.getRole();
+        } else {
+            return Role.ADMIN;
+        }
+    }
 }

@@ -1,11 +1,8 @@
 package com.proyectosi1.apirest.entity;
 
-import java.util.List;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,6 +22,4 @@ public class StockTallaEntity {
     private Integer id;
     private String talla;
 
-    @OneToMany(mappedBy = "talla")
-    private List<InventarioEntity> inventario;
 }

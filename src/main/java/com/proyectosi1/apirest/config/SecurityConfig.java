@@ -27,7 +27,7 @@ public class SecurityConfig {
                         .requestMatchers("/color").permitAll()
                         .requestMatchers("/category").permitAll()
                         .requestMatchers("/marca").permitAll()
-                        .requestMatchers("/productoDisponible").permitAll()
+                        .requestMatchers("/inventario").permitAll()
                         .requestMatchers("/producto").permitAll()
                         .requestMatchers("/stocktalla").permitAll()
                         .anyRequest().authenticated()

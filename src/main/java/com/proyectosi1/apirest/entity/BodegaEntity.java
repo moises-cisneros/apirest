@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,6 +13,7 @@ import java.util.List;
 @Entity
 @Table(name = "BODEGA")
 public class BodegaEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -23,6 +22,4 @@ public class BodegaEntity {
     @Column(nullable = false)
     private Integer capacidad;
 
-    @OneToMany(mappedBy = "bodega")
-    private List<InventarioEntity> inventario;
 }
