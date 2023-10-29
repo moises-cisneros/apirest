@@ -11,40 +11,40 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.proyectosi1.apirest.entity.StockTallaEntity;
-import com.proyectosi1.apirest.service.StockTallaService;
+import com.proyectosi1.apirest.entity.TallaEntity;
+import com.proyectosi1.apirest.service.TallaService;
 
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/stocktalla")
+@RequestMapping("/talla")
 @RequiredArgsConstructor
-public class StockTallaController {
-    private final StockTallaService stockTallaService;
+public class TallaController {
+    private final TallaService tallaService;
 
     @PostMapping
-    public StockTallaEntity crearStockTalla(@RequestBody StockTallaEntity stockTalla) {
-        return stockTallaService.crearStockTalla(stockTalla);
+    public TallaEntity crearStockTalla(@RequestBody TallaEntity stockTalla) {
+        return tallaService.crearStockTalla(stockTalla);
     }
 
     @PutMapping("/{id}")
-    public StockTallaEntity updateStockTalla(@RequestBody StockTallaEntity stockTalla) {
-        return stockTallaService.updateStockTalla(stockTalla);
+    public TallaEntity updateStockTalla(@RequestBody TallaEntity stockTalla) {
+        return tallaService.updateStockTalla(stockTalla);
     }
 
     @DeleteMapping("/{id}")
     public void deleteStockTalla(@PathVariable Integer id) {
-        stockTallaService.deleteStockTalla(id);
+        tallaService.deleteStockTalla(id);
     }
 
     @GetMapping("/{id}")
-    public StockTallaEntity getStockTalla(@PathVariable Integer id) {
-        return stockTallaService.getStockTalla(id);
+    public TallaEntity getStockTalla(@PathVariable Integer id) {
+        return tallaService.getStockTalla(id);
     }
 
     @GetMapping
-    public List<StockTallaEntity> getAllStockTalla() {
-        return stockTallaService.getAllStockTalla();
+    public List<TallaEntity> getAllStockTalla() {
+        return tallaService.getAllStockTalla();
     }
 
 
