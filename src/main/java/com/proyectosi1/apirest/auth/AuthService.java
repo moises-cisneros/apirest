@@ -3,7 +3,6 @@ package com.proyectosi1.apirest.auth;
 import com.proyectosi1.apirest.auth.jwt.JwtService;
 import com.proyectosi1.apirest.auth.permission.PermissionEntity;
 import com.proyectosi1.apirest.auth.permission.PermissionRepository;
-import com.proyectosi1.apirest.auth.permission.PermissionService;
 import com.proyectosi1.apirest.auth.role.RoleEntity;
 import com.proyectosi1.apirest.auth.user.UserEntity;
 import com.proyectosi1.apirest.auth.user.UserRepository;

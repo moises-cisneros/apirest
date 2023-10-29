@@ -2,15 +2,12 @@ package com.proyectosi1.apirest.auth.role;
 
 import com.proyectosi1.apirest.auth.permission.PermissionEntity;
 import com.proyectosi1.apirest.auth.permission.PermissionRepository;
-import com.proyectosi1.apirest.auth.user.UserEntity;
 import com.proyectosi1.apirest.dto.RolePermissionDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service

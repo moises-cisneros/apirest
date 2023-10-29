@@ -31,7 +31,4 @@ public class RoleEntity {
     )
     private List<PermissionEntity> permisos;
 
-    public void setPermisos(List<PermissionEntity> permisos) {
-        this.permisos = permisos;
-    }
 }
