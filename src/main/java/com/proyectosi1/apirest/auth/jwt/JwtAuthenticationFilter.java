@@ -31,7 +31,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String token = getTokenFromRequest(request);
         final String username;
 
-        // Si no se encuentra un token en la solicitud, pasa al siguiente filtro en la cadena.
+        // Si no se encuentra un token en la  solicitud, pasa al siguiente filtro en la cadena.
         if (token == null) {
             filterChain.doFilter(request, response);
             return;

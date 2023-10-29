@@ -1,9 +1,5 @@
-package com.proyectosi1.apirest.controller;
+package com.proyectosi1.apirest.auth.user;
 
-import com.proyectosi1.apirest.entity.UserEntity;
-import com.proyectosi1.apirest.service.UserService;
-
-import com.proyectosi1.apirest.utils.Role;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -48,7 +44,7 @@ public class UserController {
         return userService.obtenerRolCliente(user);
     }
 
-
+    /*
     @PostMapping("/getRole")
     public Role getRole(@RequestParam String username) {
         UserEntity user = userService.obtenerUsuarioPorUsername(username);
@@ -57,7 +53,7 @@ public class UserController {
         } else {
             return Role.ADMIN;
         }
-    }
+    }*/
 
     @PostMapping("/login")
     public ResponseEntity<UserEntity> login(@RequestParam String username, @RequestParam String password) {

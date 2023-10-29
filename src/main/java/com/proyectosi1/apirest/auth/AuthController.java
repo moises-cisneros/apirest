@@ -1,8 +1,6 @@
 package com.proyectosi1.apirest.auth;
 
-import com.proyectosi1.apirest.entity.UserEntity;
-import com.proyectosi1.apirest.service.UserService;
-import com.proyectosi1.apirest.utils.Role;
+import com.proyectosi1.apirest.auth.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +25,7 @@ public class AuthController {
         return ResponseEntity.ok(authService.login(request));
     }
 
+    /*
     // Obtener el rol del usuario
     @PostMapping("/getRole")
     public Role getRole(@RequestParam String username) {
@@ -46,5 +45,5 @@ public class AuthController {
         } else {
             return Role.ADMIN;
         }
-    }
+    }*/
 }

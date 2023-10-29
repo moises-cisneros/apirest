@@ -1,7 +1,4 @@
-package com.proyectosi1.apirest.service;
-
-import com.proyectosi1.apirest.entity.UserEntity;
-import com.proyectosi1.apirest.repository.UserRepository;
+package com.proyectosi1.apirest.auth.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

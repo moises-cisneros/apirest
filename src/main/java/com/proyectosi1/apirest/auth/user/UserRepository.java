@@ -1,6 +1,5 @@
-package com.proyectosi1.apirest.repository;
+package com.proyectosi1.apirest.auth.user;
 
-import com.proyectosi1.apirest.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
