@@ -1,4 +1,6 @@
-package com.proyectosi1.apirest.entity;
+package com.proyectosi1.apirest.product.nota_egreso;
+
+import java.util.Date;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -10,18 +12,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity 
-@Table (name = "EGRESO_PRODUCTO")
-public class Egreso_ProductoEntity {
+@Entity
+@Table (name = "NOTA_EGRESO")
+public class NotaEgresoEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String descripcion;
 
+    @Temporal(TemporalType.DATE)
+    private Date fecha;
+    private Integer cantidad_total;
 
-    private Integer cantidad;
-    private String talla;
-
-    @ManyToOne
-    @JoinColumn(name = "id_nota_egreso")
-    private Nota_EgresoEntity idNota_egreso;       
 }

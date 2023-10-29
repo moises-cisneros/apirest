@@ -1,4 +1,4 @@
-package com.proyectosi1.apirest.entity;
+package com.proyectosi1.apirest.product.nota_ingreso;
 
 import java.util.Date;
 
@@ -13,15 +13,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table (name = "NOTA_EGRESO")
-public class Nota_EgresoEntity {
+@Table (name = "NOTA_INGRESO")
+public class NotaIngresoEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String descripcion;
     @Temporal(TemporalType.DATE)
-    private Date fecha;
+    private Date fecha;   
     private Integer cantidad_total;
 
 }

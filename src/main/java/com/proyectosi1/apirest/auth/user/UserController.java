@@ -1,5 +1,6 @@
 package com.proyectosi1.apirest.auth.user;
 
+import com.proyectosi1.apirest.dto.GetRoleDTO;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -39,9 +40,9 @@ public class UserController {
         return userService.obtenerTodosLosUsuarios();
     }
 
-    @GetMapping("/getRole")
-    public String getRole(@RequestBody UserEntity user) {
-        return userService.obtenerRolCliente(user);
+    @GetMapping("/get-role")
+    public GetRoleDTO getRole(@RequestBody String username) {
+        return userService.getRole(username);
     }
 
     /*
@@ -55,13 +56,4 @@ public class UserController {
         }
     }*/
 
-    @PostMapping("/login")
-    public ResponseEntity<UserEntity> login(@RequestParam String username, @RequestParam String password) {
-        UserEntity user = userService.obtenerUsuarioPorUsername(username);
-        if (user != null && password.equals(user.getPassword())) {
-            return ResponseEntity.ok(user);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
 }

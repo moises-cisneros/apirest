@@ -16,5 +16,5 @@ import java.util.List;
 public class NotaIngresoDTO {
     String descripcion;
     Date fecha;
-    List<ProductoDTO> productos;
+    List<IngresoProductoDTO> detalleIngreso;
 }

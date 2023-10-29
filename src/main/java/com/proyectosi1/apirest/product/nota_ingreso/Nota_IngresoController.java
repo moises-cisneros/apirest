@@ -1,8 +1,4 @@
-package com.proyectosi1.apirest.controller;
-
-import com.proyectosi1.apirest.entity.Nota_IngresoEntity;
-
-import com.proyectosi1.apirest.service.Nota_IngresoService;
+package com.proyectosi1.apirest.product.nota_ingreso;
 
 import lombok.RequiredArgsConstructor;
 
@@ -14,15 +10,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/nota_ingreso")
 @RequiredArgsConstructor
 public class Nota_IngresoController {
-    private final Nota_IngresoService nota_IngresoService;
+    private final NotaIngresoService nota_IngresoService;
     
     @PostMapping
-    public Nota_IngresoEntity createNota_Ingreso(@RequestBody Nota_IngresoEntity nota_Ingreso) {
+    public NotaIngresoEntity createNota_Ingreso(@RequestBody NotaIngresoEntity nota_Ingreso) {
         return nota_IngresoService.createNota_Ingreso(nota_Ingreso);
     }
 
     @PutMapping("/{id}")
-    public Nota_IngresoEntity updateNota_Ingreso(@PathVariable Integer id, @RequestBody Nota_IngresoEntity nota_Ingreso) {
+    public NotaIngresoEntity updateNota_Ingreso(@PathVariable Integer id, @RequestBody NotaIngresoEntity nota_Ingreso) {
         nota_Ingreso.setId(id);
         return nota_IngresoService.updateNota_Ingreso(nota_Ingreso);
     }
@@ -33,12 +29,12 @@ public class Nota_IngresoController {
     }
 
     @GetMapping("/{id}")
-    public Nota_IngresoEntity getNota_Ingreso(@PathVariable Integer id) {
+    public NotaIngresoEntity getNota_Ingreso(@PathVariable Integer id) {
         return nota_IngresoService.getNota_Ingreso(id);
     }
 
     @GetMapping
-    public List<Nota_IngresoEntity> getAllNota_Ingreso() {
+    public List<NotaIngresoEntity> getAllNota_Ingreso() {
         return nota_IngresoService.getAllNota_Ingreso();
     }
 }

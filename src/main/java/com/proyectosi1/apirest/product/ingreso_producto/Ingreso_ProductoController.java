@@ -1,7 +1,5 @@
-package com.proyectosi1.apirest.controller;
+package com.proyectosi1.apirest.product.ingreso_producto;
 
-import com.proyectosi1.apirest.entity.Ingreso_ProductoEntity;
-import com.proyectosi1.apirest.service.Ingreso_ProductoService;
 import lombok.RequiredArgsConstructor;
 import java.util.List;
 import org.springframework.web.bind.annotation.*;
@@ -10,15 +8,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/ingreso_producto")
 @RequiredArgsConstructor
 public class Ingreso_ProductoController {
-    private final Ingreso_ProductoService ingreso_ProductoService;
-    
+    private final IngresoProductoService ingreso_ProductoService;
+    /*
     @PostMapping
-    public Ingreso_ProductoEntity createIngreso_Producto(@RequestBody Ingreso_ProductoEntity ingreso_Producto) {
+    public IngresoProductoEntity createIngreso_Producto(@RequestBody IngresoProductoEntity ingreso_Producto) {
         return ingreso_ProductoService.createIngreso_Producto(ingreso_Producto);
     }
 
     @PutMapping("/{id}")
-    public Ingreso_ProductoEntity updateIngreso_Producto(@PathVariable Integer id, @RequestBody Ingreso_ProductoEntity ingreso_Producto) {
+    public IngresoProductoEntity updateIngreso_Producto(@PathVariable Integer id, @RequestBody IngresoProductoEntity ingreso_Producto) {
         ingreso_Producto.setId(id);
         return ingreso_ProductoService.updateIngreso_Producto(ingreso_Producto);
     }
@@ -29,13 +27,13 @@ public class Ingreso_ProductoController {
     }
 
     @GetMapping("/{id}")
-    public Ingreso_ProductoEntity getIngreso_Producto(@PathVariable Integer id) {
+    public IngresoProductoEntity getIngreso_Producto(@PathVariable Integer id) {
         return ingreso_ProductoService.getIngreso_Producto(id);
     }
 
     @GetMapping
-    public List<Ingreso_ProductoEntity> getAllIngreso_Producto() {
+    public List<IngresoProductoEntity> getAllIngreso_Producto() {
         return ingreso_ProductoService.getAllIngreso_Productos();
-    }
+    }*/
 }
 

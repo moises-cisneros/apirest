@@ -54,4 +54,9 @@ public class ProductoController {
     public EnvioProductoTallaDTO sendProductSize() {
         return productoService.sendProductSize();
     }
+
+    @PostMapping("/nota-ingreso")
+    public void setNotaIngreso (@RequestBody NotaIngresoDTO notaIngreso) {
+        productoService.setNotaIngreso(notaIngreso);
+    }
 }

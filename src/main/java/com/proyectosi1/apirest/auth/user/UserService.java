@@ -1,5 +1,6 @@
 package com.proyectosi1.apirest.auth.user;
 
+import com.proyectosi1.apirest.dto.GetRoleDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -39,5 +40,13 @@ public class UserService {
     public UserEntity obtenerUsuarioPorUsername(String username) {
         Optional<UserEntity> optionalUser = userRepository.findByUsername(username);
         return optionalUser.orElse(null);
+    }
+
+    public GetRoleDTO getRole(String username) {
+        GetRoleDTO getRole = new GetRoleDTO();
+
+        getRole.setRole(userRepository.findByUsername(username).get().getRole().getName());
+
+        return getRole;
     }
 }
