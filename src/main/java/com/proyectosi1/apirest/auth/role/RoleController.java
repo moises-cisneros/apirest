@@ -40,7 +40,7 @@ public class RoleController {
     }
 
     @PostMapping("/add-permission")
-    public RoleEntity addListPermisos (@RequestBody RolePermissionDTO rolePermissionDTO) {
-        return roleService.addListPermisos(rolePermissionDTO);
+    public RoleEntity addListPermissions (@RequestBody RolePermissionDTO rolePermissionDTO) {
+        return roleService.addListPermissions(rolePermissionDTO);
     }
 }

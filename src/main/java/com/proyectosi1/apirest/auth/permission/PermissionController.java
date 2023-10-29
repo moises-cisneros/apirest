@@ -1,5 +1,6 @@
 package com.proyectosi1.apirest.auth.permission;
 
+import com.proyectosi1.apirest.dto.PermissionDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,8 +34,13 @@ public class PermissionController {
         return permissionService.getPermission(id);
     }
 
-    @GetMapping
+    /*@GetMapping
     public List<PermissionEntity> getAllPermission() {
         return permissionService.getAllPermission();
+    }*/
+
+    @GetMapping()
+    public List<PermissionDTO> getAllPermissions() {
+        return permissionService.getAllPermissions();
     }
 }

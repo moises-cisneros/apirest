@@ -1,6 +1,6 @@
 package com.proyectosi1.apirest.auth.role;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.proyectosi1.apirest.auth.permission.PermissionEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -23,7 +23,7 @@ public class RoleEntity {
     private Integer id;
     private String name;
 
-    //@JsonIgnore
+    @JsonIgnoreProperties("roles")
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "Rol_Permiso", joinColumns = @JoinColumn(name = "id_rol", referencedColumnName = "id"),

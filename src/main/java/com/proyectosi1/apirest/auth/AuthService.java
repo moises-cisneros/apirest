@@ -27,7 +27,6 @@ public class AuthService {
     private static RoleEntity userRegister;
     private final RoleService roleService;
     private final PermissionRepository permissionRepository;
-    private final PermissionService permissionService;
 
     public AuthResponse register(RegisterRequest request) {
 

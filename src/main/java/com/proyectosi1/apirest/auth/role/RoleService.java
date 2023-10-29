@@ -39,13 +39,25 @@ public class RoleService {
         return roleRepository.findAll();
     }
 
-    public RoleEntity addListPermisos (RolePermissionDTO rolePermissionDTO) {
+    public RoleEntity addListPermissions (RolePermissionDTO rolePermissionDTO) {
         RoleEntity roleEntity = roleRepository.findByName(rolePermissionDTO.getNameRole());
 
+        List<PermissionEntity> auxPermissionsList = new ArrayList<>(roleEntity.getPermisos());
+
+        // Agregar o actualizar los permisos
         for (String permissionName : rolePermissionDTO.getPermissions()) {
             PermissionEntity permission = permissionRepository.findByNombre(permissionName);
             if (permission != null) {
-                roleEntity.getPermisos().add(permission);
+                if (!roleEntity.getPermisos().contains(permission)) {
+                    roleEntity.getPermisos().add(permission);
+                }
+            }
+        }
+
+        // Eliminar permisos que fueron quitados del rol
+        for (PermissionEntity auxPermission : auxPermissionsList) {
+            if (!rolePermissionDTO.getPermissions().contains(auxPermission.getNombre())) {
+                roleEntity.getPermisos().remove(auxPermission);
             }
         }
 
