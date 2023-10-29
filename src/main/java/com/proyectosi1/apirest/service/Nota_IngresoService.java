@@ -1,8 +1,3 @@
-/*package com.proyectosi1.apirest.service;
-
-public class Nota_IngresoService {
-    
-}*/
 package com.proyectosi1.apirest.service;
 
 import java.util.List;

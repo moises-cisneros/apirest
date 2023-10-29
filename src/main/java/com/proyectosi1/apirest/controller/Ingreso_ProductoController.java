@@ -1,13 +1,9 @@
 package com.proyectosi1.apirest.controller;
 
 import com.proyectosi1.apirest.entity.Ingreso_ProductoEntity;
-
 import com.proyectosi1.apirest.service.Ingreso_ProductoService;
-
 import lombok.RequiredArgsConstructor;
-
 import java.util.List;
-
 import org.springframework.web.bind.annotation.*;
 
 @RestController

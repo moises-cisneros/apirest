@@ -1,8 +1,3 @@
-/*package com.proyectosi1.apirest.controller;
-
-public class Egreso_ProductoController {
-    
-}*/
 package com.proyectosi1.apirest.controller;
 
 import com.proyectosi1.apirest.entity.Egreso_ProductoEntity;
