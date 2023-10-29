@@ -6,20 +6,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity
-@Table(name = "BODEGA")
-public class BodegaEntity {
+@Table(name = "Talla")
+public class TallaEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
-    private String descripcion;
-    @Column(nullable = false)
-    private Integer capacidad;
+    private String talla;
 
 }

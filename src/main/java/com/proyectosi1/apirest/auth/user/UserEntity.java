@@ -1,6 +1,6 @@
-package com.proyectosi1.apirest.entity;
+package com.proyectosi1.apirest.auth.user;
 
-import com.proyectosi1.apirest.utils.Role;
+import com.proyectosi1.apirest.auth.role.RoleEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,14 +33,19 @@ public class UserEntity implements UserDetails {
     private String username;
     private String password;
 
+    /*
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private Role role;*/
+
+    @ManyToOne
+    @JoinColumn(name = "id_rol")
+    private RoleEntity role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // Devuelve una colección de autoridades (roles) asociados a este usuario
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return List.of(new SimpleGrantedAuthority(role.getName()));
     }
 
     @Override

@@ -14,7 +14,7 @@ import java.util.List;
 public class MarcaService {
     private final MarcaRepository marcaRepository;
 
-    public MarcaEntity crearMarca(MarcaEntity marca) {
+    public MarcaEntity createMarca(MarcaEntity marca) {
         return marcaRepository.save(marca);
     }
 

@@ -1,8 +1,12 @@
 package com.proyectosi1.apirest.auth;
 
 import com.proyectosi1.apirest.auth.jwt.JwtService;
-import com.proyectosi1.apirest.entity.UserEntity;
-import com.proyectosi1.apirest.repository.UserRepository;
+import com.proyectosi1.apirest.auth.permission.PermissionEntity;
+import com.proyectosi1.apirest.auth.permission.PermissionRepository;
+import com.proyectosi1.apirest.auth.role.RoleEntity;
+import com.proyectosi1.apirest.auth.user.UserEntity;
+import com.proyectosi1.apirest.auth.user.UserRepository;
+import com.proyectosi1.apirest.auth.role.RoleService;
 import com.proyectosi1.apirest.utils.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,8 +23,18 @@ public class AuthService {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private static RoleEntity userRegister;
+    private final RoleService roleService;
+    private final PermissionRepository permissionRepository;
 
     public AuthResponse register(RegisterRequest request) {
+
+        // Asignar el rol automaticamente
+        autoAssignRole();
+
+        // Agregar permisos
+        addPermissions();
+
         // Crear un nuevo objeto de usuario utilizando los datos proporcionados en el registro.
         UserEntity user = UserEntity.builder()
                 .username(request.getUsername())
@@ -28,7 +42,7 @@ public class AuthService {
                 .name(request.getName())
                 .phone(request.getPhone())
                 .email(request.getEmail())
-                .role(Role.CLIENTE) // Codificar la contraseña antes de almacenarla.
+                .role(userRegister)
                 .build();
 
         // Guardar el nuevo usuario en el repositorio (almacenar en la base de datos).
@@ -38,6 +52,26 @@ public class AuthService {
         return AuthResponse.builder()
                 .token(jwtService.getToken(user))
                 .build();
+    }
+
+    private void addPermissions() {
+        if (permissionRepository.count() == 0) {
+            permissionRepository.save(PermissionEntity.builder().nombre("LEER_PRODUCTO").build());
+            permissionRepository.save(PermissionEntity.builder().nombre("MODIFICAR_PERFIL").build());
+            permissionRepository.save(PermissionEntity.builder().nombre("LEER_NOTAVENTA").build());
+            permissionRepository.save(PermissionEntity.builder().nombre("AGREGAR_PRODUCTO").build());
+        }
+    }
+
+    private void autoAssignRole() {
+        if (userRepository.count() == 0) {
+            userRegister = RoleEntity.builder().id(1).name(Role.ADMIN.name()).build();
+            roleService.createRole(RoleEntity.builder().id(1).name(Role.ADMIN.name()).build());
+            roleService.createRole(RoleEntity.builder().id(2).name(Role.CLIENTE.name()).build());
+
+        } else {
+            userRegister = RoleEntity.builder().id(2).name(Role.CLIENTE.name()).build();
+        }
     }
 
     public AuthResponse login(LoginRequest request) {
