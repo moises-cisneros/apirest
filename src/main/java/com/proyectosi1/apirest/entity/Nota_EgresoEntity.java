@@ -16,10 +16,9 @@ import lombok.NoArgsConstructor;
 @Table (name = "NOTA_EGRESO")
 public class Nota_EgresoEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-
+    
     private String descripcion;
     private Date fecha;
     private Integer cantidad_total;

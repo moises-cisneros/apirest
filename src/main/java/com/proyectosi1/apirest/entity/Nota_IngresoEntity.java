@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Table (name = "NOTA_INGRESO")
 public class Nota_IngresoEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String descripcion;
