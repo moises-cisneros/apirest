@@ -23,14 +23,14 @@ public class IngresoProductoService {
         return ingreso_ProductoRepository.save((ingreso_Producto));
     }
 
-    public void deleteIngreso_Producto(Integer id) {
+/*    public void deleteIngreso_Producto(Integer id) {
         ingreso_ProductoRepository.deleteById(id);
     }
 
     public IngresoProductoEntity getIngreso_Producto(Integer id) {
         return ingreso_ProductoRepository.findById(id).orElse(null);
     }
-
+ */
     public List<IngresoProductoEntity> getAllIngreso_Productos() {
         return ingreso_ProductoRepository.findAll();
     }

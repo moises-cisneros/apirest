@@ -3,11 +3,11 @@ package com.proyectosi1.apirest.service;
 import com.proyectosi1.apirest.dto.*;
 import com.proyectosi1.apirest.entity.TallaEntity;
 import com.proyectosi1.apirest.product.ingreso_producto.IngresoProductoEntity;
-import com.proyectosi1.apirest.product.ingreso_producto.IngresoProductoId;
 import com.proyectosi1.apirest.product.ingreso_producto.IngresoProductoRepository;
 import com.proyectosi1.apirest.product.nota_ingreso.NotaIngresoEntity;
 import com.proyectosi1.apirest.product.nota_ingreso.NotaIngresoRepository;
 import com.proyectosi1.apirest.repository.TallaRepository;
+
 import org.springframework.stereotype.Service;
 
 import com.proyectosi1.apirest.entity.ProductoEntity;
@@ -25,9 +25,7 @@ public class ProductoService {
     private final TallaRepository tallaRepository;
     private final NotaIngresoRepository notaIngresoRepository;
     private final IngresoProductoRepository ingresoProductoRepository;
-
-    private static Integer count=0;
-
+ 
     public ProductoEntity crearProducto(ProductoEntity producto) {
         return productoRepository.save(producto);
     }
@@ -75,8 +73,6 @@ public class ProductoService {
     }
 
     public void setNotaIngreso(NotaIngresoDTO notaIngreso) {
-        //NotaIngresoDTO notaIngreso = new NotaIngresoDTO();
-
         // Guardo la nota de ingreso
         NotaIngresoEntity notaIngresoEntity = new NotaIngresoEntity();
         notaIngresoEntity.setDescripcion(notaIngreso.getDescripcion());
@@ -84,55 +80,19 @@ public class ProductoService {
 
         // id de nota de ingreso
         Integer idNota = notaIngresoRepository.saveAndFlush(notaIngresoEntity).getId();
-
-
-        /*
-        // Guardar los detalle ingreso
-        for (int i = 0; i < notaIngreso.getDetalleIngreso().size(); i++) {
-            IngresoProductoEntity ingresoProducto = new IngresoProductoEntity();
-
-            // Verificacion
-            //System.out.println(ingresoProductoRepository.findMaxId());
-            System.out.println("Id nota" + idNota);
-
-            IngresoProductoId ids = new IngresoProductoId();
-            ids.setId_nota_ingreso(idNota);
-            //ids.setId(ingresoProductoRepository.findMaxId() + 1);
-            count++;
-            System.out.println("Count" + count);
-            ids.setId(count);
-
-            ingresoProducto.setId(ids);
-            ingresoProducto.setCantidad(notaIngreso.getDetalleIngreso().get(i).getCantidad());
-
-            ProductoEntity producto = new ProductoEntity();
-            TallaEntity talla = new TallaEntity();
-
-            producto.setId(notaIngreso.getDetalleIngreso().get(i).getId_producto());
-            talla.setId(notaIngreso.getDetalleIngreso().get(i).getId_talla());
-
-            ingresoProducto.setProducto(producto);
-            ingresoProducto.setTalla(talla);
-
-            ingresoProductoRepository.save(ingresoProducto);
-
-         */
-
+        
         for (IngresoProductoDTO detalle : notaIngreso.getDetalleIngreso()) {
             IngresoProductoEntity ingresoProducto = new IngresoProductoEntity();
 
-            IngresoProductoId ids = new IngresoProductoId();
-            ids.setId_nota_ingreso(notaIngresoEntity.getId()); // Asignar el ID de la nota de ingreso
-
-            ingresoProducto.setId(ids);
+            ingresoProducto.setId_nota_ingreso(notaIngresoEntity);
             ingresoProducto.setCantidad(detalle.getCantidad());
-
-            ProductoEntity producto = productoRepository.getById(detalle.getId_producto());
-            TallaEntity talla = tallaRepository.getById(detalle.getId_talla());
+            ingresoProducto.setId(null);
+            ProductoEntity producto = getProducto(detalle.getId_producto());
+            TallaEntity talla = tallaRepository.findById(detalle.getId_talla()).orElse(null);
 
             ingresoProducto.setProducto(producto);
             ingresoProducto.setTalla(talla);
-
+            System.out.println(ingresoProducto.toString());
             ingresoProductoRepository.save(ingresoProducto);
         }
     }

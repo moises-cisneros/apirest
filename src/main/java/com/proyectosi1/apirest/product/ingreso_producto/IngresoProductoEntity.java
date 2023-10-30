@@ -15,16 +15,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table (name = "INGRESO_PRODUCTO")
+@IdClass(IngresoProductoId.class)
 public class IngresoProductoEntity {
 
-    @EmbeddedId
-    private IngresoProductoId id;
-
-    public void setId(IngresoProductoId id) {
-        this.id = id;
-    }
-
-    @MapsId("id_nota_ingreso")
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ingreso_producto_gen")
+    @SequenceGenerator(name = "ingreso_producto_gen")
+    private Integer id;
+    @Id
     @ManyToOne
     @JoinColumn(name = "id_nota_ingreso")
     private NotaIngresoEntity id_nota_ingreso;
