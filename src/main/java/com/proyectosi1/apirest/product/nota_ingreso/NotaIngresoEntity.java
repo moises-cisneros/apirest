@@ -19,6 +19,7 @@ public class NotaIngresoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(length = 150)
     private String descripcion;
     @Temporal(TemporalType.DATE)
     private Date fecha;   

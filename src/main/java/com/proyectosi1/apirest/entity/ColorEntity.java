@@ -17,7 +17,9 @@ public class ColorEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(length = 50)
     private String nombre;
+    @Column(length = 150)
     private String descripcion;
 
 }

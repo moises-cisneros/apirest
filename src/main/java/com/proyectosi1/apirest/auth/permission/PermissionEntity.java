@@ -21,6 +21,7 @@ public class PermissionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(length = 50)
     private String nombre;
 
     //@JsonIgnore
