@@ -39,5 +39,5 @@ public class ProductoEntity {
     @ManyToOne
     @JoinColumn(name = "id_marca")
     private MarcaEntity marca;
-
+    
 }
