@@ -1,25 +1,25 @@
-package com.proyectosi1.apirest.service;
+package com.proyectosi1.apirest.product.nota_ingreso;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.proyectosi1.apirest.entity.Nota_IngresoEntity;
-import com.proyectosi1.apirest.repository.Nota_IngresoRepository;
+import com.proyectosi1.apirest.product.nota_ingreso.NotaIngresoEntity;
+import com.proyectosi1.apirest.product.nota_ingreso.NotaIngresoRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
-public class Nota_IngresoService {
-    private final Nota_IngresoRepository nota_IngresoRepository;
+public class NotaIngresoService {
+    private final NotaIngresoRepository nota_IngresoRepository;
 
-    public Nota_IngresoEntity createNota_Ingreso(Nota_IngresoEntity nota_ingreso){
+    public NotaIngresoEntity createNota_Ingreso(NotaIngresoEntity nota_ingreso){
         return nota_IngresoRepository.save(nota_ingreso);
     }
 
     // Actualiza un registro de Nota_Egreso en la base de datos
-    public Nota_IngresoEntity updateNota_Ingreso(Nota_IngresoEntity nota_ingreso) {
+    public NotaIngresoEntity updateNota_Ingreso(NotaIngresoEntity nota_ingreso) {
         return nota_IngresoRepository.save((nota_ingreso));
     }
 
@@ -27,11 +27,11 @@ public class Nota_IngresoService {
         nota_IngresoRepository.deleteById(id);
     }
 
-    public Nota_IngresoEntity getNota_Ingreso(Integer id) {
+    public NotaIngresoEntity getNota_Ingreso(Integer id) {
         return nota_IngresoRepository.findById(id).orElse(null);
     }
 
-    public List<Nota_IngresoEntity> getAllNota_Ingreso() {
+    public List<NotaIngresoEntity> getAllNota_Ingreso() {
         return nota_IngresoRepository.findAll();
     }
 

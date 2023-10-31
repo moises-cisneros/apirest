@@ -1,10 +1,13 @@
 package com.proyectosi1.apirest.service;
 
-import com.proyectosi1.apirest.dto.EnvioProductoTallaDTO;
-import com.proyectosi1.apirest.dto.NotaIngresoDTO;
-import com.proyectosi1.apirest.dto.ProductoDTO;
-import com.proyectosi1.apirest.dto.TallaDTO;
+import com.proyectosi1.apirest.dto.*;
+import com.proyectosi1.apirest.entity.TallaEntity;
+import com.proyectosi1.apirest.product.ingreso_producto.IngresoProductoEntity;
+import com.proyectosi1.apirest.product.ingreso_producto.IngresoProductoRepository;
+import com.proyectosi1.apirest.product.nota_ingreso.NotaIngresoEntity;
+import com.proyectosi1.apirest.product.nota_ingreso.NotaIngresoRepository;
 import com.proyectosi1.apirest.repository.TallaRepository;
+
 import org.springframework.stereotype.Service;
 
 import com.proyectosi1.apirest.entity.ProductoEntity;
@@ -20,7 +23,9 @@ import java.util.List;
 public class ProductoService {
     private final ProductoRepository productoRepository;
     private final TallaRepository tallaRepository;
-
+    private final NotaIngresoRepository notaIngresoRepository;
+    private final IngresoProductoRepository ingresoProductoRepository;
+ 
     public ProductoEntity crearProducto(ProductoEntity producto) {
         return productoRepository.save(producto);
     }
@@ -37,7 +42,7 @@ public class ProductoService {
         return productoRepository.findById(id).orElse(null);
     }
 
-    public List<ProductoEntity> getAllProducto(){
+    public List<ProductoEntity> getAllProducto() {
         return productoRepository.findAll();
     }
 
@@ -65,5 +70,30 @@ public class ProductoService {
         envioProductoTalla.setProductos(listProductos);
 
         return envioProductoTalla;
+    }
+
+    public void setNotaIngreso(NotaIngresoDTO notaIngreso) {
+        // Guardo la nota de ingreso
+        NotaIngresoEntity notaIngresoEntity = new NotaIngresoEntity();
+        notaIngresoEntity.setDescripcion(notaIngreso.getDescripcion());
+        notaIngresoEntity.setFecha(notaIngreso.getFecha());
+
+        // id de nota de ingreso
+        Integer idNota = notaIngresoRepository.saveAndFlush(notaIngresoEntity).getId();
+        
+        for (IngresoProductoDTO detalle : notaIngreso.getDetalleIngreso()) {
+            IngresoProductoEntity ingresoProducto = new IngresoProductoEntity();
+
+            ingresoProducto.setId_nota_ingreso(notaIngresoEntity);
+            ingresoProducto.setCantidad(detalle.getCantidad());
+            ingresoProducto.setId(null);
+            ProductoEntity producto = getProducto(detalle.getId_producto());
+            TallaEntity talla = tallaRepository.findById(detalle.getId_talla()).orElse(null);
+
+            ingresoProducto.setProducto(producto);
+            ingresoProducto.setTalla(talla);
+            System.out.println(ingresoProducto.toString());
+            ingresoProductoRepository.save(ingresoProducto);
+        }
     }
 }

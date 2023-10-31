@@ -1,8 +1,4 @@
-package com.proyectosi1.apirest.controller;
-
-import com.proyectosi1.apirest.entity.Nota_EgresoEntity;
-
-import com.proyectosi1.apirest.service.Nota_EgresoService;
+package com.proyectosi1.apirest.product.nota_egreso;
 
 import lombok.RequiredArgsConstructor;
 
@@ -14,15 +10,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/nota_egreso")
 @RequiredArgsConstructor
 public class Nota_EgresoController {
-    private final Nota_EgresoService nota_EgresoService;
+    private final NotaEgresoService nota_EgresoService;
     
     @PostMapping
-    public Nota_EgresoEntity createNota_Egreso(@RequestBody Nota_EgresoEntity nota_Egreso) {
+    public NotaEgresoEntity createNota_Egreso(@RequestBody NotaEgresoEntity nota_Egreso) {
         return nota_EgresoService.createNota_Egreso(nota_Egreso);
     }
 
     @PutMapping("/{id}")
-    public Nota_EgresoEntity updateNota_Egreso(@PathVariable Integer id, @RequestBody Nota_EgresoEntity nota_Egreso) {
+    public NotaEgresoEntity updateNota_Egreso(@PathVariable Integer id, @RequestBody NotaEgresoEntity nota_Egreso) {
         nota_Egreso.setId(id);
         return nota_EgresoService.updateNota_Egreso(nota_Egreso);
     }
@@ -33,12 +29,12 @@ public class Nota_EgresoController {
     }
 
     @GetMapping("/{id}")
-    public Nota_EgresoEntity getNota_Egreso(@PathVariable Integer id) {
+    public NotaEgresoEntity getNota_Egreso(@PathVariable Integer id) {
         return nota_EgresoService.getNota_Egreso(id);
     }
 
     @GetMapping
-    public List<Nota_EgresoEntity> getAllNota_Egreso() {
+    public List<NotaEgresoEntity> getAllNota_Egreso() {
         return nota_EgresoService.getAllNota_Egreso();
     }
 }
