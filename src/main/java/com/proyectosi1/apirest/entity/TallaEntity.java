@@ -17,6 +17,7 @@ public class TallaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(length = 3)
     private String talla;
 
 }
