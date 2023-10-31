@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/nota_egreso")
 @RequiredArgsConstructor
-public class Nota_EgresoController {
+public class NotaEgresoController {
     private final NotaEgresoService nota_EgresoService;
     
     @PostMapping

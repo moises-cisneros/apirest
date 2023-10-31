@@ -13,12 +13,12 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "CATEGORIA")
 public class CategoryEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(length = 50)
     private String nombre;
-
+    
     @ManyToOne
     @JoinColumn(name = "id_categoria_padre")
     private CategoryEntity id_categoria_padre;

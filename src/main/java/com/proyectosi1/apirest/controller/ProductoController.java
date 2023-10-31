@@ -1,7 +1,7 @@
 package com.proyectosi1.apirest.controller;
 
 import com.proyectosi1.apirest.dto.EnvioProductoTallaDTO;
-import com.proyectosi1.apirest.dto.NotaIngresoDTO;
+import com.proyectosi1.apirest.dto.RequestProductoDTO;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,8 +55,9 @@ public class ProductoController {
         return productoService.sendProductSize();
     }
 
-    @PostMapping("/nota-ingreso")
-    public void setNotaIngreso (@RequestBody NotaIngresoDTO notaIngreso) {
-        productoService.setNotaIngreso(notaIngreso);
+    @PostMapping("/save-product")
+    public ProductoEntity saveProduct(@RequestBody RequestProductoDTO productoDTO) {
+        return productoService.guardarProducto(productoDTO);
     }
+
 }
