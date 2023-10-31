@@ -1,10 +1,13 @@
 package com.proyectosi1.apirest.service;
 
+import com.proyectosi1.apirest.dto.ColorIdNombreDTO;
+import com.proyectosi1.apirest.dto.EnvioColorDTO;
 import com.proyectosi1.apirest.entity.ColorEntity;
 import com.proyectosi1.apirest.repository.ColorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -32,5 +35,20 @@ public class ColorService {
 
     public List<ColorEntity> getAllColors() {
         return colorRepository.findAll();
+    }
+
+    public EnvioColorDTO sendColor() {
+        List<ColorIdNombreDTO> listColor = new ArrayList<>();
+        EnvioColorDTO envioColor = new EnvioColorDTO();
+
+        for(int i=1;i <= colorRepository.count() ; i++ ) {
+            ColorIdNombreDTO color=new ColorIdNombreDTO();
+            color.setId(colorRepository.findById(i).get().getId());
+            color.setNombre(colorRepository.findById(i).get().getNombre());
+            listColor.add(color);
+        }
+        envioColor.setColor(listColor);
+
+        return envioColor;
     }
 }

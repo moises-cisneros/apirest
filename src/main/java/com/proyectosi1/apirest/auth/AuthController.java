@@ -1,8 +1,7 @@
 package com.proyectosi1.apirest.auth;
 
-import com.proyectosi1.apirest.entity.UserEntity;
-import com.proyectosi1.apirest.service.UserService;
-import com.proyectosi1.apirest.utils.Role;
+import com.proyectosi1.apirest.auth.user.UserEntity;
+import com.proyectosi1.apirest.auth.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,14 +26,14 @@ public class AuthController {
         return ResponseEntity.ok(authService.login(request));
     }
 
-    // Obtener el rol del usuario
-    @PostMapping("/getRole")
-    public Role getRole(@RequestParam String username) {
+    @GetMapping("/get-role")
+    public String getRole(@RequestParam String username) {
         UserEntity user = userService.obtenerUsuarioPorUsername(username);
         if (user != null) {
-            return user.getRole();
+            return user.getRole().getName();
         } else {
-            return Role.ADMIN;
+            return "Usuario no encontrado";
         }
     }
+
 }

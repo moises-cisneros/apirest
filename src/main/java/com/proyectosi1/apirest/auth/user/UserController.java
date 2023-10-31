@@ -1,14 +1,9 @@
-package com.proyectosi1.apirest.controller;
+package com.proyectosi1.apirest.auth.user;
 
-import com.proyectosi1.apirest.entity.UserEntity;
-import com.proyectosi1.apirest.service.UserService;
-
-import com.proyectosi1.apirest.utils.Role;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -43,29 +38,13 @@ public class UserController {
         return userService.obtenerTodosLosUsuarios();
     }
 
-    @GetMapping("/getRole")
-    public String getRole(@RequestBody UserEntity user) {
-        return userService.obtenerRolCliente(user);
-    }
-
-
-    @PostMapping("/getRole")
-    public Role getRole(@RequestParam String username) {
+    @GetMapping("/get-role")
+    public String getRole(@RequestParam String username) {
         UserEntity user = userService.obtenerUsuarioPorUsername(username);
         if (user != null) {
-            return user.getRole();
+            return user.getRole().getName();
         } else {
-            return Role.ADMIN;
-        }
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity<UserEntity> login(@RequestParam String username, @RequestParam String password) {
-        UserEntity user = userService.obtenerUsuarioPorUsername(username);
-        if (user != null && password.equals(user.getPassword())) {
-            return ResponseEntity.ok(user);
-        } else {
-            return ResponseEntity.notFound().build();
+            return "Usuario no encontrado";
         }
     }
 }

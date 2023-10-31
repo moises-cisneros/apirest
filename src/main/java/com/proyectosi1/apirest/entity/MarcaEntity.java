@@ -1,5 +1,7 @@
 package com.proyectosi1.apirest.entity;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,8 +19,9 @@ public class MarcaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
+    @Column(nullable = false,length = 50)
     private String nombre;
+    @Column(length = 50)
     private String pais;
 
 }

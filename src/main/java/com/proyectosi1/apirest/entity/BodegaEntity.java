@@ -13,11 +13,14 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "BODEGA")
 public class BodegaEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
+    @Column(length = 150)
     private String descripcion;
     @Column(nullable = false)
     private Integer capacidad;
+
 }
