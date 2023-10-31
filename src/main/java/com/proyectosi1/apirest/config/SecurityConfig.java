@@ -33,6 +33,7 @@ public class SecurityConfig {
                         .requestMatchers("/talla/**").permitAll()
                         .requestMatchers("/role/**").permitAll()
                         .requestMatchers("/permission/**").permitAll()
+                        .requestMatchers("/usuario/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManagement ->

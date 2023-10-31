@@ -9,6 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetRoleDTO {
-    String role;
+public class RequestProductoDTO {
+    String nombre;
+    String descripcion;
+    Integer id_color;
+    Integer id_categoria;
+    Integer id_marca;
 }

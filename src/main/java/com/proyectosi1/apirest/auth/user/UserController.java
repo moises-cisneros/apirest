@@ -1,11 +1,9 @@
 package com.proyectosi1.apirest.auth.user;
 
-import com.proyectosi1.apirest.dto.GetRoleDTO;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -41,19 +39,12 @@ public class UserController {
     }
 
     @GetMapping("/get-role")
-    public GetRoleDTO getRole(@RequestBody String username) {
-        return userService.getRole(username);
-    }
-
-    /*
-    @PostMapping("/getRole")
-    public Role getRole(@RequestParam String username) {
+    public String getRole(@RequestParam String username) {
         UserEntity user = userService.obtenerUsuarioPorUsername(username);
         if (user != null) {
-            return user.getRole();
+            return user.getRole().getName();
         } else {
-            return Role.ADMIN;
+            return "Usuario no encontrado";
         }
-    }*/
-
+    }
 }

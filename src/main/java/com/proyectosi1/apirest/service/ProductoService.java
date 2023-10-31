@@ -1,11 +1,9 @@
 package com.proyectosi1.apirest.service;
 
 import com.proyectosi1.apirest.dto.*;
-import com.proyectosi1.apirest.entity.TallaEntity;
-import com.proyectosi1.apirest.product.ingreso_producto.IngresoProductoEntity;
-import com.proyectosi1.apirest.product.ingreso_producto.IngresoProductoRepository;
-import com.proyectosi1.apirest.product.nota_ingreso.NotaIngresoEntity;
-import com.proyectosi1.apirest.product.nota_ingreso.NotaIngresoRepository;
+import com.proyectosi1.apirest.entity.CategoryEntity;
+import com.proyectosi1.apirest.entity.ColorEntity;
+import com.proyectosi1.apirest.entity.MarcaEntity;
 import com.proyectosi1.apirest.repository.TallaRepository;
 
 import org.springframework.stereotype.Service;
@@ -23,8 +21,6 @@ import java.util.List;
 public class ProductoService {
     private final ProductoRepository productoRepository;
     private final TallaRepository tallaRepository;
-    private final NotaIngresoRepository notaIngresoRepository;
-    private final IngresoProductoRepository ingresoProductoRepository;
  
     public ProductoEntity crearProducto(ProductoEntity producto) {
         return productoRepository.save(producto);
@@ -49,8 +45,8 @@ public class ProductoService {
     public EnvioProductoTallaDTO sendProductSize() {
         List<ProductoDTO> listProductos = new ArrayList<>();
         EnvioProductoTallaDTO envioProductoTalla = new EnvioProductoTallaDTO();
-        List<TallaDTO> listTalla = new ArrayList<>();
 
+        List<TallaDTO> listTalla = new ArrayList<>();
 
         for (int i = 1; i <= productoRepository.count(); i++) {
             ProductoDTO producto = new ProductoDTO();
@@ -72,28 +68,26 @@ public class ProductoService {
         return envioProductoTalla;
     }
 
-    public void setNotaIngreso(NotaIngresoDTO notaIngreso) {
-        // Guardo la nota de ingreso
-        NotaIngresoEntity notaIngresoEntity = new NotaIngresoEntity();
-        notaIngresoEntity.setDescripcion(notaIngreso.getDescripcion());
-        notaIngresoEntity.setFecha(notaIngreso.getFecha());
+    public ProductoEntity guardarProducto(RequestProductoDTO productoDTO) {
+        ProductoEntity producto = new ProductoEntity();
+        ColorEntity color = new ColorEntity();
+        MarcaEntity marca = new MarcaEntity();
+        CategoryEntity categoria = new CategoryEntity();
 
-        // id de nota de ingreso
-        Integer idNota = notaIngresoRepository.saveAndFlush(notaIngresoEntity).getId();
-        
-        for (IngresoProductoDTO detalle : notaIngreso.getDetalleIngreso()) {
-            IngresoProductoEntity ingresoProducto = new IngresoProductoEntity();
+        producto.setNombre(productoDTO.getNombre());
+        producto.setDescripcion(productoDTO.getDescripcion());
 
-            ingresoProducto.setId_nota_ingreso(notaIngresoEntity);
-            ingresoProducto.setCantidad(detalle.getCantidad());
-            ingresoProducto.setId(null);
-            ProductoEntity producto = getProducto(detalle.getId_producto());
-            TallaEntity talla = tallaRepository.findById(detalle.getId_talla()).orElse(null);
+        marca.setId(productoDTO.getId_marca());
+        color.setId(productoDTO.getId_color());
+        categoria.setId(productoDTO.getId_categoria());
 
-            ingresoProducto.setProducto(producto);
-            ingresoProducto.setTalla(talla);
-            System.out.println(ingresoProducto.toString());
-            ingresoProductoRepository.save(ingresoProducto);
-        }
+        producto.setMarca(marca);
+        producto.setColor(color);
+        producto.setCategoria(categoria);
+
+        productoRepository.save(producto);
+
+        return producto;
     }
+
 }

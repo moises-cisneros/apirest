@@ -29,7 +29,6 @@ public class ProductoEntity {
     private String nombre;
     @Column(length = 150)
     private String descripcion;
-    private boolean disponible;
 
     @ManyToOne
     @JoinColumn(name = "id_color")
