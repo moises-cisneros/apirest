@@ -1,5 +1,7 @@
 package com.proyectosi1.apirest.controller;
 
+import com.proyectosi1.apirest.dto.EnvioColorDTO;
+import com.proyectosi1.apirest.dto.EnvioMarcaDTO;
 import com.proyectosi1.apirest.entity.ColorEntity;
 import com.proyectosi1.apirest.service.ColorService;
 
@@ -46,4 +48,9 @@ public class ColorController {
     public List<ColorEntity> getAllColors() {
         return colorService.getAllColors();
     }
+
+    @GetMapping("/send-category")
+    public EnvioColorDTO sendColor(){
+        return colorService.sendColor();
+    } 
 }

@@ -2,6 +2,7 @@ package com.proyectosi1.apirest.controller;
 
 import org.springframework.web.bind.annotation.*;
 
+import com.proyectosi1.apirest.dto.EnvioMarcaDTO;
 import com.proyectosi1.apirest.entity.MarcaEntity;
 import com.proyectosi1.apirest.service.MarcaService;
 
@@ -40,4 +41,11 @@ public class MarcaController {
     public List<MarcaEntity> getAllMarcas() {
         return marcaService.getAllMarca();
     }
+
+
+    @GetMapping("/send-marca")
+    public EnvioMarcaDTO sendMarca(){
+        return marcaService.sendMarca();
+    } 
+
 }
