@@ -1,5 +1,6 @@
 package com.proyectosi1.apirest.service;
 
+import com.proyectosi1.apirest.dto.CategoryDTO;
 import com.proyectosi1.apirest.dto.CategoryIdNombreDTO;
 import com.proyectosi1.apirest.dto.EnvioCategoryDTO;
 import com.proyectosi1.apirest.dto.EnvioMarcaDTO;
@@ -55,4 +56,21 @@ public class CategoryService {
         return envioCategory;
     }
 
+    public CategoryEntity saveCategory (CategoryDTO categoryDTO) {
+        CategoryEntity categoryEntity = new CategoryEntity();
+        CategoryEntity categoryAux = new CategoryEntity();
+
+        if (!categoryDTO.getId_categoria_padre().isEmpty()){
+           categoryAux.setId(Integer.parseInt(categoryDTO.getId_categoria_padre()));
+           categoryEntity.setId_categoria_padre(categoryAux);
+        }
+        categoryEntity.setNombre(categoryDTO.getNombre());
+
+        categoryRepository.save(categoryEntity);
+
+        return categoryEntity;
+    }
+
+    
+    
 }
