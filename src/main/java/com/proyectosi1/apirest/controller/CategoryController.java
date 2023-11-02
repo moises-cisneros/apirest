@@ -1,5 +1,6 @@
 package com.proyectosi1.apirest.controller;
 
+import com.proyectosi1.apirest.dto.CategoryDTO;
 import com.proyectosi1.apirest.dto.EnvioCategoryDTO;
 import com.proyectosi1.apirest.entity.CategoryEntity;
 
@@ -52,5 +53,10 @@ public class CategoryController {
     @GetMapping("/send-category")
     public EnvioCategoryDTO sendCategory(){
         return categoryService.sendCategory();
+    }
+
+    @GetMapping("/send-all-categories")
+    public List<CategoryDTO> sendAllCategories() {
+        return categoryService.getCategories();
     }
 }

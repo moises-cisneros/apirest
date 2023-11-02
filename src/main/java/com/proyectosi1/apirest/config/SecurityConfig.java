@@ -34,6 +34,7 @@ public class SecurityConfig {
                         .requestMatchers("/role/**").permitAll()
                         .requestMatchers("/permission/**").permitAll()
                         .requestMatchers("/usuario/**").permitAll()
+                        .requestMatchers("/nota_ingreso/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManagement ->

@@ -40,13 +40,13 @@ public class CategoryService {
     public List<CategoryEntity> getAllCategories() {
         return categoryRepository.findAll();
     }
-    
+
     public EnvioCategoryDTO sendCategory() {
         List<CategoryIdNombreDTO> listCategory = new ArrayList<>();
         EnvioCategoryDTO envioCategory = new EnvioCategoryDTO();
 
-        for(int i=1;i <= categoryRepository.count() ; i++ ) {
-            CategoryIdNombreDTO category=new CategoryIdNombreDTO();
+        for (int i = 1; i <= categoryRepository.count(); i++) {
+            CategoryIdNombreDTO category = new CategoryIdNombreDTO();
             category.setId(categoryRepository.findById(i).get().getId());
             category.setNombre(categoryRepository.findById(i).get().getNombre());
             listCategory.add(category);
@@ -56,13 +56,13 @@ public class CategoryService {
         return envioCategory;
     }
 
-    public CategoryEntity saveCategory (CategoryDTO categoryDTO) {
+    public CategoryEntity saveCategory(CategoryDTO categoryDTO) {
         CategoryEntity categoryEntity = new CategoryEntity();
         CategoryEntity categoryAux = new CategoryEntity();
 
-        if (!categoryDTO.getId_categoria_padre().isEmpty()){
-           categoryAux.setId(Integer.parseInt(categoryDTO.getId_categoria_padre()));
-           categoryEntity.setId_categoria_padre(categoryAux);
+        if (!categoryDTO.getId_categoria_padre().isEmpty()) {
+            categoryAux.setId(Integer.parseInt(categoryDTO.getId_categoria_padre()));
+            categoryEntity.setId_categoria_padre(categoryAux);
         }
         categoryEntity.setNombre(categoryDTO.getNombre());
 
@@ -71,6 +71,21 @@ public class CategoryService {
         return categoryEntity;
     }
 
-    
-    
+    public List<CategoryDTO> getCategories() {
+        List<CategoryDTO> categoryDTOList = new ArrayList<>();
+        List<CategoryEntity> categoryEntities = categoryRepository.findAll();
+
+        for (CategoryEntity categoryEntity : categoryEntities) {
+
+            CategoryDTO category = new CategoryDTO();
+            category.setId(categoryEntity.getId());
+            category.setNombre(categoryEntity.getNombre());
+
+            category.setId_categoria_padre(categoryEntity.getId_categoria_padre() != null ? String.valueOf(categoryEntity.getId_categoria_padre().getId()) : "");
+
+            categoryDTOList.add(category);
+        }
+
+        return categoryDTOList;
+    }
 }

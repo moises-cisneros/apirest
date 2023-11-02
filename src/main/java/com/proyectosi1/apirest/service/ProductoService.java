@@ -1,14 +1,11 @@
 package com.proyectosi1.apirest.service;
 
 import com.proyectosi1.apirest.dto.*;
-import com.proyectosi1.apirest.entity.CategoryEntity;
-import com.proyectosi1.apirest.entity.ColorEntity;
-import com.proyectosi1.apirest.entity.MarcaEntity;
+import com.proyectosi1.apirest.entity.*;
 import com.proyectosi1.apirest.repository.TallaRepository;
 
 import org.springframework.stereotype.Service;
 
-import com.proyectosi1.apirest.entity.ProductoEntity;
 import com.proyectosi1.apirest.repository.ProductoRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -48,17 +45,17 @@ public class ProductoService {
 
         List<TallaDTO> listTalla = new ArrayList<>();
 
-        for (int i = 1; i <= productoRepository.count(); i++) {
+        for (ProductoEntity productoEntity: productoRepository.findAll()) {
             ProductoDTO producto = new ProductoDTO();
-            producto.setId(productoRepository.findById(i).get().getId());
-            producto.setNombre(productoRepository.findById(i).get().getNombre());
+            producto.setId(productoEntity.getId());
+            producto.setNombre(productoEntity.getNombre());
             listProductos.add(producto);
         }
 
-        for (int i = 1; i <= tallaRepository.count(); i++) {
+        for (TallaEntity tallaEntity: tallaRepository.findAll()) {
             TallaDTO talla = new TallaDTO();
-            talla.setId(tallaRepository.findById(i).get().getId());
-            talla.setNombre(tallaRepository.findById(i).get().getTalla());
+            talla.setId(tallaEntity.getId());
+            talla.setNombre(tallaEntity.getTalla());
             listTalla.add(talla);
         }
 

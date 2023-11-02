@@ -17,7 +17,7 @@ public class ColorService {
     private final ColorRepository colorRepository;
 
     public ColorEntity createColor(ColorEntity color) {
-        return (ColorEntity) colorRepository.save(color);
+        return colorRepository.save(color);
     }
 
     // Actualiza un registro de color en la base de datos
