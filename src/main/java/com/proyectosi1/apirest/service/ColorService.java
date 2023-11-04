@@ -1,54 +1,49 @@
 package com.proyectosi1.apirest.service;
 
-import com.proyectosi1.apirest.model.dto.ColorIdNombreDTO;
-import com.proyectosi1.apirest.model.dto.EnvioColorDTO;
+import com.proyectosi1.apirest.model.dto.ColorDTO;
 import com.proyectosi1.apirest.model.entity.ColorEntity;
+import com.proyectosi1.apirest.model.mapper.ColorMapper;
 import com.proyectosi1.apirest.model.repository.ColorRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
 @Service
 public class ColorService {
     // Crea un nuevo registro de color en la base de datos
+    @Autowired
     private final ColorRepository colorRepository;
+    @Autowired
+    private final ColorMapper colorMapper;
 
-    public ColorEntity createColor(ColorEntity color) {
-        return colorRepository.save(color);
+    public ColorDTO createColor(ColorDTO colorDTO) {
+        ColorEntity colorEntity = colorMapper.colorDTOToColor(colorDTO);
+        colorRepository.save(colorEntity);
+        return colorMapper.colorToColorDTO(colorEntity);
     }
 
     // Actualiza un registro de color en la base de datos
-    public ColorEntity updateColor(ColorEntity color) {
-        return colorRepository.save((color));
+    public ColorDTO updateColor(ColorDTO colorDTO) {
+        ColorEntity colorEntity = colorMapper.colorDTOToColor(colorDTO);
+        colorRepository.save(colorEntity);
+        return colorMapper.colorToColorDTO(colorEntity);
     }
 
     public void deleteColor(Integer id) {
         colorRepository.deleteById(id);
     }
 
-    public ColorEntity getColor(Integer id) {
-        return colorRepository.findById(id).orElse(null);
+    public ColorDTO getColor(Integer id) {
+        ColorEntity colorEntity = colorRepository.findById(id).orElse(null);
+        return colorMapper.colorToColorDTO(colorEntity);
     }
 
-    public List<ColorEntity> getAllColors() {
-        return colorRepository.findAll();
+    public List<ColorDTO> getAllColors() {
+        List<ColorEntity> colorEntityList = colorRepository.findAll();
+        return colorMapper.listColorDTO(colorEntityList);
     }
 
-    public EnvioColorDTO sendColor() {
-        List<ColorIdNombreDTO> listColor = new ArrayList<>();
-        EnvioColorDTO envioColor = new EnvioColorDTO();
-
-        for(int i=1;i <= colorRepository.count() ; i++ ) {
-            ColorIdNombreDTO color=new ColorIdNombreDTO();
-            color.setId(colorRepository.findById(i).get().getId());
-            color.setNombre(colorRepository.findById(i).get().getNombre());
-            listColor.add(color);
-        }
-        envioColor.setColor(listColor);
-
-        return envioColor;
-    }
 }

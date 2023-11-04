@@ -3,7 +3,6 @@ package com.proyectosi1.apirest.controller;
 import com.proyectosi1.apirest.model.dto.BodegaDTO;
 import org.springframework.web.bind.annotation.*;
 
-import com.proyectosi1.apirest.model.entity.BodegaEntity;
 import com.proyectosi1.apirest.service.BodegaService;
 
 import lombok.RequiredArgsConstructor;

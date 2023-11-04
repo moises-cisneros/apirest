@@ -1,7 +1,6 @@
 package com.proyectosi1.apirest.controller;
 
-import com.proyectosi1.apirest.model.dto.EnvioColorDTO;
-import com.proyectosi1.apirest.model.entity.ColorEntity;
+import com.proyectosi1.apirest.model.dto.ColorDTO;
 import com.proyectosi1.apirest.service.ColorService;
 
 import lombok.RequiredArgsConstructor;
@@ -23,12 +22,12 @@ public class ColorController {
     private final ColorService colorService;
 
     @PostMapping
-    public ColorEntity createColor(@RequestBody ColorEntity color) {
+    public ColorDTO createColor(@RequestBody ColorDTO color) {
         return colorService.createColor(color);
     }
 
     @PutMapping("/{id}")
-    public ColorEntity updateColor(@PathVariable Integer id, @RequestBody ColorEntity color) {
+    public ColorDTO updateColor(@PathVariable Integer id, @RequestBody ColorDTO color) {
         color.setId(id);
         return colorService.updateColor(color);
     }
@@ -39,17 +38,13 @@ public class ColorController {
     }
 
     @GetMapping("/{id}")
-    public ColorEntity getColor(@PathVariable Integer id) {
+    public ColorDTO getColor(@PathVariable Integer id) {
         return colorService.getColor(id);
     }
 
     @GetMapping
-    public List<ColorEntity> getAllColors() {
+    public List<ColorDTO> getAllColors() {
         return colorService.getAllColors();
     }
 
-    @GetMapping("/send-category")
-    public EnvioColorDTO sendColor(){
-        return colorService.sendColor();
-    } 
 }

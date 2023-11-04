@@ -1,7 +1,6 @@
 package com.proyectosi1.apirest.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.proyectosi1.apirest.model.entity.PermissionEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
