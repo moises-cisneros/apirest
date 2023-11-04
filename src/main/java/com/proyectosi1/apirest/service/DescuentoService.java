@@ -2,8 +2,8 @@ package com.proyectosi1.apirest.service;
 
 import org.springframework.stereotype.Service;
 
-import com.proyectosi1.apirest.entity.DescuentoEntity;
-import com.proyectosi1.apirest.repository.DescuentoRepository;
+import com.proyectosi1.apirest.model.entity.DescuentoEntity;
+import com.proyectosi1.apirest.model.repository.DescuentoRepository;
 
 import lombok.RequiredArgsConstructor;
 import java.util.List;

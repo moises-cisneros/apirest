@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.proyectosi1.apirest.entity.TipoPagoEntity;
-import com.proyectosi1.apirest.repository.TipoPagoRepository;
+import com.proyectosi1.apirest.model.entity.TipoPagoEntity;
+import com.proyectosi1.apirest.model.repository.TipoPagoRepository;
 
 import lombok.RequiredArgsConstructor;
 

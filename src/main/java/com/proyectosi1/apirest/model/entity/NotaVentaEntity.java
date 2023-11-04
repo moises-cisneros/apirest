@@ -1,9 +1,8 @@
-package com.proyectosi1.apirest.entity;
+package com.proyectosi1.apirest.model.entity;
 
 import java.sql.Date;
 import java.util.List;
 
-import com.proyectosi1.apirest.auth.user.UserEntity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

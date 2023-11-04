@@ -1,9 +1,9 @@
-package com.proyectosi1.apirest.repository;
+package com.proyectosi1.apirest.model.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.proyectosi1.apirest.entity.NotaVentaEntity;
+import com.proyectosi1.apirest.model.entity.NotaVentaEntity;
 
 @Repository
 public interface NotaVentaRepository extends JpaRepository<NotaVentaEntity, Integer> {

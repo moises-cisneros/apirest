@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.proyectosi1.apirest.entity.NotaVentaEntity;
-import com.proyectosi1.apirest.repository.NotaVentaRepository;
+import com.proyectosi1.apirest.model.entity.NotaVentaEntity;
+import com.proyectosi1.apirest.model.repository.NotaVentaRepository;
 
 import lombok.RequiredArgsConstructor;
 
