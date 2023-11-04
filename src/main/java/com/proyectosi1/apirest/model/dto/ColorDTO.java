@@ -1,7 +1,5 @@
 package com.proyectosi1.apirest.model.dto;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,6 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class EnvioColorDTO {
-    List<ColorIdNombreDTO> color;
+public class ColorDTO {
+    private Integer id;
+    private String nombre;
+    private String descripcion;
 }

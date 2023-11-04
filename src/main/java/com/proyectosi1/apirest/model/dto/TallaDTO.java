@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TallaDTO {
-    String nombre;
-    Integer id;
+    private Integer id;
+    private String talla;
 }

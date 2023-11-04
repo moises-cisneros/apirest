@@ -1,9 +1,8 @@
 package com.proyectosi1.apirest.controller;
 
+import com.proyectosi1.apirest.model.dto.MarcaDTO;
 import org.springframework.web.bind.annotation.*;
 
-import com.proyectosi1.apirest.model.dto.EnvioMarcaDTO;
-import com.proyectosi1.apirest.model.entity.MarcaEntity;
 import com.proyectosi1.apirest.service.MarcaService;
 
 import lombok.RequiredArgsConstructor;
@@ -17,12 +16,12 @@ public class MarcaController {
     private final MarcaService marcaService;
 
     @PostMapping
-    public MarcaEntity createMarca(@RequestBody MarcaEntity marca){
+    public MarcaDTO createMarca(@RequestBody MarcaDTO marca){
         return marcaService.createMarca(marca);
     }
 
     @PutMapping("/{id}")
-    public MarcaEntity updateMarca(@PathVariable Integer id, @RequestBody MarcaEntity color) {
+    public MarcaDTO updateMarca(@PathVariable Integer id, @RequestBody MarcaDTO color) {
         color.setId(id);
         return marcaService.updateMarca(color);
     }
@@ -33,19 +32,13 @@ public class MarcaController {
     }
 
     @GetMapping("/{id}")
-    public MarcaEntity getMarca(@PathVariable Integer id) {
+    public MarcaDTO getMarca(@PathVariable Integer id) {
         return marcaService.getMarca(id);
     }
 
     @GetMapping
-    public List<MarcaEntity> getAllMarcas() {
+    public List<MarcaDTO> getAllMarca() {
         return marcaService.getAllMarca();
     }
-
-
-    @GetMapping("/send-marca")
-    public EnvioMarcaDTO sendMarca(){
-        return marcaService.sendMarca();
-    } 
 
 }

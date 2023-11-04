@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
-@Mapper(componentModel = "SPRING")
+@Mapper(componentModel = "spring")
 public interface BodegaMapper {
 
     BodegaEntity bodegaDTOToBodega(BodegaDTO bodegaDTO);

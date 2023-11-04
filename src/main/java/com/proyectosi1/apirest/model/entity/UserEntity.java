@@ -1,6 +1,5 @@
 package com.proyectosi1.apirest.model.entity;
 
-import com.proyectosi1.apirest.model.entity.RoleEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

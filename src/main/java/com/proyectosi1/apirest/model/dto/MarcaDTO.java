@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MarcaIdDTO {
-    Integer id;
-    String nombre;
+public class MarcaDTO {
+    private Integer id;
+    private String nombre;
+    private String pais;
 }

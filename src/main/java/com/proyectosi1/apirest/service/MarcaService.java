@@ -1,56 +1,50 @@
 package com.proyectosi1.apirest.service;
 
+import com.proyectosi1.apirest.model.dto.MarcaDTO;
+import com.proyectosi1.apirest.model.mapper.MarcaMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.proyectosi1.apirest.model.dto.EnvioMarcaDTO;
-import com.proyectosi1.apirest.model.dto.MarcaIdNombreDTO;
 import com.proyectosi1.apirest.model.entity.MarcaEntity;
 import com.proyectosi1.apirest.model.repository.MarcaRepository;
 
 import lombok.RequiredArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
 @Service
 public class MarcaService {
+    @Autowired
     private final MarcaRepository marcaRepository;
+    @Autowired
+    private final MarcaMapper marcaMapper;
 
-    public MarcaEntity createMarca(MarcaEntity marca) {
-        return marcaRepository.save(marca);
+    public MarcaDTO createMarca(MarcaDTO marcaDTO) {
+        MarcaEntity marcaEntity = marcaMapper.marcaDTOToMarca(marcaDTO);
+        marcaRepository.save(marcaEntity);
+        return marcaMapper.marcaToMarcaDTO(marcaEntity);
     }
 
     // Actualiza un registro de color en la base de datos
-    public MarcaEntity updateMarca(MarcaEntity marca) {
-        return marcaRepository.save((marca));
+    public MarcaDTO updateMarca(MarcaDTO marcaDTO) {
+        MarcaEntity marcaEntity = marcaMapper.marcaDTOToMarca(marcaDTO);
+        marcaRepository.save(marcaEntity);
+        return marcaMapper.marcaToMarcaDTO(marcaEntity);
     }
 
     public void deleteMarca(Integer id) {
         marcaRepository.deleteById(id);
     }
 
-    public MarcaEntity getMarca(Integer id) {
-        return marcaRepository.findById(id).orElse(null);
+    public MarcaDTO getMarca(Integer id) {
+        MarcaEntity marcaEntity = marcaRepository.findById(id).orElse(null);
+        return marcaMapper.marcaToMarcaDTO(marcaEntity);
     }
 
-    public List<MarcaEntity> getAllMarca() {
-        return marcaRepository.findAll();
-    }
-
-    public EnvioMarcaDTO sendMarca() {
-        List<MarcaIdNombreDTO> listMarca = new ArrayList<>();
-        EnvioMarcaDTO envioMarca = new EnvioMarcaDTO();
-
-        for(int i=1;i <= marcaRepository.count() ; i++ ) {
-            MarcaIdNombreDTO marca=new MarcaIdNombreDTO();
-            marca.setId(marcaRepository.findById(i).get().getId());
-            marca.setNombre(marcaRepository.findById(i).get().getNombre());
-            listMarca.add(marca);
-        }
-        envioMarca.setMarca(listMarca);
-
-        return envioMarca;
+    public List<MarcaDTO> getAllMarca() {
+        List<MarcaEntity> marcaEntityList = marcaRepository.findAll();
+        return marcaMapper.listMarcaDTO(marcaEntityList);
     }
 
 }

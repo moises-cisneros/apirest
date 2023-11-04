@@ -10,6 +10,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductoDTO {
-    String nombre;
-    Integer id;
+    private Integer id;
+    private String nombre;
+    private String descripcion;
+    private ColorDTO color;
+    private CategoryDTO categoria;
+    private MarcaDTO marca;
 }

@@ -1,6 +1,7 @@
 package com.proyectosi1.apirest.controller;
 
 import com.proyectosi1.apirest.model.dto.EnvioProductoTallaDTO;
+import com.proyectosi1.apirest.model.dto.ProductoDTO;
 import com.proyectosi1.apirest.model.dto.RequestProductoDTO;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +26,8 @@ public class ProductoController {
     private final ProductoService productoService;
 
     @PostMapping
-    public ProductoEntity crearProducto(@RequestBody ProductoEntity producto) {
-        return productoService.crearProducto(producto);
+    public ProductoDTO crearProducto(@RequestBody ProductoDTO productoDTO) {
+        return productoService.createProducto(productoDTO);
     }
 
     @PutMapping("/{id}") 
