@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.proyectosi1.apirest.entity.TallaEntity;
+import com.proyectosi1.apirest.model.entity.TallaEntity;
 import com.proyectosi1.apirest.service.TallaService;
 
 import lombok.RequiredArgsConstructor;

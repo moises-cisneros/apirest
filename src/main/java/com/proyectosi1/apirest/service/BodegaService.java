@@ -1,9 +1,12 @@
 package com.proyectosi1.apirest.service;
 
+import com.proyectosi1.apirest.model.dto.BodegaDTO;
+import com.proyectosi1.apirest.model.mapper.BodegaMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.proyectosi1.apirest.entity.BodegaEntity;
-import com.proyectosi1.apirest.repository.BodegaRepository;
+import com.proyectosi1.apirest.model.entity.BodegaEntity;
+import com.proyectosi1.apirest.model.repository.BodegaRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -12,27 +15,36 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class BodegaService {
-    private final BodegaRepository bodegaRepository;
 
-    public BodegaEntity createBodega(BodegaEntity bodega) {
-        return bodegaRepository.save(bodega); 
+    @Autowired
+    private final BodegaRepository bodegaRepository;
+    @Autowired
+    private final BodegaMapper bodegaMapper;
+
+    public BodegaDTO createBodega(BodegaDTO bodegaDTO) {
+        BodegaEntity bodega = bodegaMapper.bodegaDTOToBodega(bodegaDTO);
+        bodegaRepository.save(bodega);
+        return bodegaMapper.bodegaToBodegaDTO(bodega);
     }
 
-    // Actualiza un registro de color en la base de datos
-    public BodegaEntity updateBodega(BodegaEntity bodega) {
-        return bodegaRepository.save((bodega));
+    public BodegaDTO updateBodega(BodegaDTO bodegaDTO) {
+        BodegaEntity bodega = bodegaMapper.bodegaDTOToBodega(bodegaDTO);
+        bodegaRepository.save(bodega);
+        return bodegaMapper.bodegaToBodegaDTO(bodega);
     }
 
     public void deleteBodega(Integer id) {
         bodegaRepository.deleteById(id);
     }
 
-    public BodegaEntity getBodega(Integer id) {
-        return bodegaRepository.findById(id).orElse(null);
+    public BodegaDTO getBodega(Integer id) {
+        BodegaEntity bodega = bodegaRepository.findById(id).orElse(null);
+        return bodegaMapper.bodegaToBodegaDTO(bodega);
     }
 
-    public List<BodegaEntity> getAllBodegas() {
-        return bodegaRepository.findAll();
+    public List<BodegaDTO> getAllBodegas() {
+        List<BodegaEntity> bodegaEntities = bodegaRepository.findAll();
+        return bodegaMapper.listBodegaDTO(bodegaEntities);
     }
 
 }

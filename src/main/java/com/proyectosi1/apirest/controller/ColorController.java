@@ -1,8 +1,7 @@
 package com.proyectosi1.apirest.controller;
 
-import com.proyectosi1.apirest.dto.EnvioColorDTO;
-import com.proyectosi1.apirest.dto.EnvioMarcaDTO;
-import com.proyectosi1.apirest.entity.ColorEntity;
+import com.proyectosi1.apirest.model.dto.EnvioColorDTO;
+import com.proyectosi1.apirest.model.entity.ColorEntity;
 import com.proyectosi1.apirest.service.ColorService;
 
 import lombok.RequiredArgsConstructor;

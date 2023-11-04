@@ -1,8 +1,9 @@
 package com.proyectosi1.apirest.controller;
 
+import com.proyectosi1.apirest.model.dto.BodegaDTO;
 import org.springframework.web.bind.annotation.*;
 
-import com.proyectosi1.apirest.entity.BodegaEntity;
+import com.proyectosi1.apirest.model.entity.BodegaEntity;
 import com.proyectosi1.apirest.service.BodegaService;
 
 import lombok.RequiredArgsConstructor;
@@ -16,12 +17,12 @@ public class BodegaController {
     private final BodegaService bodegaService;
 
     @PostMapping
-    public BodegaEntity createBodega(@RequestBody BodegaEntity  bodega) {
+    public BodegaDTO createBodega(@RequestBody BodegaDTO  bodega) {
         return bodegaService.createBodega(bodega);
     }
 
     @PutMapping("/{id}")
-    public BodegaEntity updateBodega(@PathVariable Integer id, @RequestBody BodegaEntity bodega) {
+    public BodegaDTO updateBodega(@PathVariable Integer id, @RequestBody BodegaDTO bodega) {
         bodega.setId(id);
         return bodegaService.updateBodega(bodega);
     }
@@ -32,12 +33,12 @@ public class BodegaController {
     }
 
     @GetMapping("/{id}")
-    public BodegaEntity getBodega(@PathVariable Integer id) {
+    public BodegaDTO getBodega(@PathVariable Integer id) {
         return bodegaService.getBodega(id);
     }
 
     @GetMapping
-    public List<BodegaEntity> getAllBodegas() {
+    public List<BodegaDTO> getAllBodegas() {
         return bodegaService.getAllBodegas();
     }
 }

@@ -1,9 +1,9 @@
 package com.proyectosi1.apirest.service;
 
-import com.proyectosi1.apirest.dto.ColorIdNombreDTO;
-import com.proyectosi1.apirest.dto.EnvioColorDTO;
-import com.proyectosi1.apirest.entity.ColorEntity;
-import com.proyectosi1.apirest.repository.ColorRepository;
+import com.proyectosi1.apirest.model.dto.ColorIdNombreDTO;
+import com.proyectosi1.apirest.model.dto.EnvioColorDTO;
+import com.proyectosi1.apirest.model.entity.ColorEntity;
+import com.proyectosi1.apirest.model.repository.ColorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
