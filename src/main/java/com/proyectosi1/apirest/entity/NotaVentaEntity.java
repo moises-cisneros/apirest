@@ -14,11 +14,15 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+
 
 @Data
 @Entity
@@ -26,11 +30,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @EqualsAndHashCode
+@Table(name = "nota_venta")
 public class NotaVentaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Integer id;
 
+   @Temporal(TemporalType.DATE)
    private Date fecha;
    private float monto;
 

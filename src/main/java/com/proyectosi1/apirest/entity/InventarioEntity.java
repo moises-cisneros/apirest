@@ -39,5 +39,5 @@ public class InventarioEntity {
     
     @ManyToMany( mappedBy = "inventario",fetch = FetchType.LAZY)
     List<NotaVentaEntity> nota;
-
+ 
 }

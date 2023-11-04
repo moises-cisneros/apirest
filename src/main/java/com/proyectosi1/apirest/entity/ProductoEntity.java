@@ -41,5 +41,9 @@ public class ProductoEntity {
     @ManyToOne
     @JoinColumn(name = "id_marca")
     private MarcaEntity marca;
+
+    @ManyToOne
+    @JoinColumn(name = "id_descuento")
+    private DescuentoEntity descuento;
     
 }
