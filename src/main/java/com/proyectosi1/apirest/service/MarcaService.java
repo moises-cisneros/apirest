@@ -2,14 +2,10 @@ package com.proyectosi1.apirest.service;
 
 import org.springframework.stereotype.Service;
 
-import com.proyectosi1.apirest.dto.EnvioMarcaDTO;
-import com.proyectosi1.apirest.dto.EnvioProductoTallaDTO;
-import com.proyectosi1.apirest.dto.ListaMarcaIdDTO;
-import com.proyectosi1.apirest.dto.MarcaIdNombreDTO;
-import com.proyectosi1.apirest.dto.ProductoDTO;
-import com.proyectosi1.apirest.dto.TallaDTO;
-import com.proyectosi1.apirest.entity.MarcaEntity;
-import com.proyectosi1.apirest.repository.MarcaRepository;
+import com.proyectosi1.apirest.model.dto.EnvioMarcaDTO;
+import com.proyectosi1.apirest.model.dto.MarcaIdNombreDTO;
+import com.proyectosi1.apirest.model.entity.MarcaEntity;
+import com.proyectosi1.apirest.model.repository.MarcaRepository;
 
 import lombok.RequiredArgsConstructor;
 

@@ -2,8 +2,8 @@ package com.proyectosi1.apirest.service;
 
 import org.springframework.stereotype.Service;
 
-import com.proyectosi1.apirest.entity.InventarioEntity;
-import com.proyectosi1.apirest.repository.InventarioRepository;
+import com.proyectosi1.apirest.model.entity.InventarioEntity;
+import com.proyectosi1.apirest.model.repository.InventarioRepository;
 
 import lombok.RequiredArgsConstructor;
 

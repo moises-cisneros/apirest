@@ -2,8 +2,8 @@ package com.proyectosi1.apirest.controller;
 
 import org.springframework.web.bind.annotation.*;
 
-import com.proyectosi1.apirest.dto.EnvioMarcaDTO;
-import com.proyectosi1.apirest.entity.MarcaEntity;
+import com.proyectosi1.apirest.model.dto.EnvioMarcaDTO;
+import com.proyectosi1.apirest.model.entity.MarcaEntity;
 import com.proyectosi1.apirest.service.MarcaService;
 
 import lombok.RequiredArgsConstructor;
