@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@IdClass(IngresoProductoId.class)
 @Entity
 @Table (name = "INGRESO_PRODUCTO")
-@IdClass(IngresoProductoId.class)
 public class IngresoProductoEntity {
 
     @Id

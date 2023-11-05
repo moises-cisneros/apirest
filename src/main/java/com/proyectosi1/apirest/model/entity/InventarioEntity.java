@@ -1,9 +1,12 @@
 package com.proyectosi1.apirest.model.entity;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -12,6 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Table(name = "INVENTARIO")
+@EqualsAndHashCode
 public class InventarioEntity {
 
     @Id
@@ -32,4 +36,8 @@ public class InventarioEntity {
     @JoinColumn(name = "id_bodega")
     private BodegaEntity bodega;
 
+    
+    @ManyToMany( mappedBy = "inventario",fetch = FetchType.LAZY)
+    List<NotaVentaEntity> nota;
+ 
 }
