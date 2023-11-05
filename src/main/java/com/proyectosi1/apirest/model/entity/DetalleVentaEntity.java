@@ -6,18 +6,25 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @Entity
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "tipo_pago")
-public class TipoPagoEntity {
-
+@Table(name = "detalle_venta")
+public class DetalleVentaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String nombre;
-    private String descripcion;
+    private Integer cantidad;
+
+    @ManyToOne
+    @JoinColumn(name = "id_nota")
+    private NotaVentaEntity notaVenta;
+
+    @ManyToOne
+    @JoinColumn(name = "id_inventario")
+    private InventarioEntity inventario;
+
 }

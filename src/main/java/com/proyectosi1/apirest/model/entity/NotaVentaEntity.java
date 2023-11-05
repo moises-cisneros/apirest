@@ -43,12 +43,6 @@ public class NotaVentaEntity {
    @JoinColumn(name = "id_usuario")
    private UserEntity user;
 
-    @ManyToMany( fetch = FetchType.LAZY)
-    @JoinTable(
-        name = "detalle_venta",
-        joinColumns = @JoinColumn(name = "id_nota"),
-        inverseJoinColumns = @JoinColumn(name = "id_inventario")
-    )
-    List<InventarioEntity> inventario;
+
 
 }
