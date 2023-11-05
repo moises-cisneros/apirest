@@ -36,8 +36,5 @@ public class InventarioEntity {
     @JoinColumn(name = "id_bodega")
     private BodegaEntity bodega;
 
-    
-    @ManyToMany( mappedBy = "inventario",fetch = FetchType.LAZY)
-    List<NotaVentaEntity> nota;
  
 }
