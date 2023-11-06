@@ -1,17 +1,17 @@
 package com.proyectosi1.apirest.model.dto;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class EnvioMarcaDTO {
-    List<MarcaIdNombreDTO> marca;
+public class PermissionNameDTO {
+    String nombre;
+    List<String> roles;
 }

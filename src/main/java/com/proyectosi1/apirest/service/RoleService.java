@@ -3,7 +3,6 @@ package com.proyectosi1.apirest.service;
 import com.proyectosi1.apirest.model.dto.RolPermisoDTO;
 import com.proyectosi1.apirest.model.entity.RoleEntity;
 import com.proyectosi1.apirest.model.mapper.RoleMapper;
-import com.proyectosi1.apirest.model.repository.PermissionRepository;
 import com.proyectosi1.apirest.model.dto.RolePermissionDTO;
 import com.proyectosi1.apirest.model.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;

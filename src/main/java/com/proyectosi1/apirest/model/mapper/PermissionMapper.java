@@ -1,6 +1,5 @@
 package com.proyectosi1.apirest.model.mapper;
 
-import com.proyectosi1.apirest.model.dto.PermissionDTO;
 import com.proyectosi1.apirest.model.dto.PermissionNameDTO;
 import com.proyectosi1.apirest.model.entity.PermissionEntity;
 import com.proyectosi1.apirest.model.entity.RoleEntity;
