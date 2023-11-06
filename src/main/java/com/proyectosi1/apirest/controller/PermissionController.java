@@ -1,6 +1,6 @@
 package com.proyectosi1.apirest.controller;
 
-import com.proyectosi1.apirest.model.dto.PermissionDTO;
+import com.proyectosi1.apirest.model.dto.PermissionNameDTO;
 import com.proyectosi1.apirest.model.entity.PermissionEntity;
 import com.proyectosi1.apirest.service.PermissionService;
 import lombok.RequiredArgsConstructor;
@@ -36,13 +36,13 @@ public class PermissionController {
         return permissionService.getPermission(id);
     }
 
-    /*@GetMapping
+    @GetMapping
     public List<PermissionEntity> getAllPermission() {
         return permissionService.getAllPermission();
-    }*/
+    }
 
-    @GetMapping()
-    public List<PermissionDTO> getAllPermissions() {
+    @GetMapping("/list-roles")
+    public List<PermissionNameDTO> getRoleList() {
         return permissionService.getAllPermissions();
     }
 }

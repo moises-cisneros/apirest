@@ -22,11 +22,11 @@ public class UserService {
         return userRepository.save(usuario);
     }
 
-    public void eliminarUsuario(long id) {
+    public void eliminarUsuario(Integer id) {
         userRepository.deleteById(id);
     }
 
-    public UserEntity obtenerUsuarioPorId(long id) {
+    public UserEntity obtenerUsuarioPorId(Integer id) {
         return userRepository.findById(id).orElse(null);
     }
 

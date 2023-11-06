@@ -9,9 +9,11 @@ import java.util.List;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface DescuentoMapper {
-    DescuentoEntity toEntity(DescuentoDTO descuentoDTO);
-    DescuentoDTO toDto(DescuentoEntity descuentoEntity);
+    DescuentoEntity descuentoDTOtoDescuento(DescuentoDTO descuentoDTO);
 
-    List<DescuentoEntity> toEntityList(List<DescuentoDTO> descuentoDTOS);
-    List<DescuentoDTO> toDTOList(List<DescuentoEntity> descuentoEntities);
+    DescuentoDTO descuentoToDescuentoDTO(DescuentoEntity descuentoEntity);
+
+    List<DescuentoEntity> toDescuentoList(List<DescuentoDTO> descuentoDTOS);
+
+    List<DescuentoDTO> toDescuentoDTOList(List<DescuentoEntity> descuentoEntities);
 }

@@ -23,7 +23,7 @@ public class UserEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Integer id;
 
     @Column(nullable = false)
     private String name;
@@ -31,11 +31,6 @@ public class UserEntity implements UserDetails {
     private String email;
     private String username;
     private String password;
-
-    /*
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Role role;*/
 
     @ManyToOne
     @JoinColumn(name = "id_rol")

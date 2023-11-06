@@ -11,9 +11,8 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class EnvioProductoTallaDTO {
-
-    List<ProductoDTO> productos;
-    List<TallaDTO> tallas;
-
+public class RoleDTO {
+    private  Integer id;
+    private String name;
+    private List<PermissionDTO> permisos;
 }

@@ -1,13 +1,12 @@
 package com.proyectosi1.apirest.service;
 
 import com.proyectosi1.apirest.model.entity.PermissionEntity;
+import com.proyectosi1.apirest.model.mapper.PermissionMapper;
 import com.proyectosi1.apirest.model.repository.PermissionRepository;
-import com.proyectosi1.apirest.model.entity.RoleEntity;
-import com.proyectosi1.apirest.model.dto.PermissionDTO;
+import com.proyectosi1.apirest.model.dto.PermissionNameDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -15,6 +14,7 @@ import java.util.List;
 public class PermissionService {
 
     private final PermissionRepository permissionRepository;
+    private final PermissionMapper permissionMapper;
 
     public PermissionEntity createPermission(PermissionEntity permission) {
         return permissionRepository.save(permission);
@@ -37,22 +37,7 @@ public class PermissionService {
     }
 
     // Obtener una lista de: permisos y lista de roles
-    public List<PermissionDTO> getAllPermissions() {
-        List<PermissionDTO> listPermission = new ArrayList<>();
-
-        for (PermissionEntity permissionEntity : permissionRepository.findAll()) {
-            PermissionDTO permission = new PermissionDTO();
-            permission.setNombre(permissionEntity.getNombre());
-
-            List<String> listRoles = new ArrayList<>();
-            for (RoleEntity role : permissionEntity.getRoles()) {
-                listRoles.add(role.getName());
-            }
-
-            permission.setRoles(listRoles);
-            listPermission.add(permission);
-        }
-
-        return listPermission;
+    public List<PermissionNameDTO> getAllPermissions() {
+        return permissionMapper.getAllPermissions();
     }
 }

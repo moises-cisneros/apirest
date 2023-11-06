@@ -35,6 +35,10 @@ public class SecurityConfig {
                         .requestMatchers("/permission/**").permitAll()
                         .requestMatchers("/usuario/**").permitAll()
                         .requestMatchers("/nota_ingreso/**").permitAll()
+                        .requestMatchers("/notaventa/**").permitAll()
+                        .requestMatchers("/tipopago/**").permitAll()
+                        .requestMatchers("/detalle_venta/**").permitAll()
+                        .requestMatchers("/descuento/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManagement ->

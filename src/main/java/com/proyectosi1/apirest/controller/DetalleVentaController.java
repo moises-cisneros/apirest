@@ -28,6 +28,7 @@ public class DetalleVentaController {
         return detalleVentaService.getDetalleVenta(id);
     }
 
+    @GetMapping
     public List<DetalleVentaEntity> getAllDetalleVenta() {
         return detalleVentaService.getAllDetalleVenta();
     }

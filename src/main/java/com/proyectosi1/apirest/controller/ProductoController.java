@@ -1,8 +1,6 @@
 package com.proyectosi1.apirest.controller;
 
-import com.proyectosi1.apirest.model.dto.EnvioProductoTallaDTO;
 import com.proyectosi1.apirest.model.dto.ProductoDTO;
-import com.proyectosi1.apirest.model.dto.RequestProductoDTO;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,16 +47,6 @@ public class ProductoController {
     @GetMapping
     public List<ProductoEntity> getAllProducto() {
         return productoService.getAllProducto();
-    }
-
-    @GetMapping("/send-product-talla")
-    public EnvioProductoTallaDTO sendProductSize() {
-        return productoService.sendProductSize();
-    }
-
-    @PostMapping("/save-product")
-    public ProductoEntity saveProduct(@RequestBody RequestProductoDTO productoDTO) {
-        return productoService.guardarProducto(productoDTO);
     }
 
 }
