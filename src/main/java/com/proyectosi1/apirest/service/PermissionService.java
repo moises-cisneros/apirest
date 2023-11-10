@@ -37,7 +37,8 @@ public class PermissionService {
     }
 
     // Obtener una lista de: permisos y lista de roles
+    /*
     public List<PermissionNameDTO> getAllPermissions() {
         return permissionMapper.getAllPermissions();
-    }
+    }*/
 }

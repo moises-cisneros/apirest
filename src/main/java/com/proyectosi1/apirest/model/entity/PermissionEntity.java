@@ -21,8 +21,4 @@ public class PermissionEntity {
     private Integer id;
     @Column(length = 50)
     private String nombre;
-
-    //@JsonIgnore
-    @ManyToMany(mappedBy = "permisos")
-    private List<RoleEntity> roles;
 }

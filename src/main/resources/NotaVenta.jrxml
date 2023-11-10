@@ -41,7 +41,7 @@
 	<parameter name="name_cliente" class="java.lang.String"/>
 	<parameter name="email_cliente" class="java.lang.String"/>
 	<parameter name="phone_cliente" class="java.lang.String"/>
-	<parameter name="sale_detail" class="net.sf.jasperreports.engine.data.JRBeanArrayDataSource"/>
+	<parameter name="sale_detail" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
 	<parameter name="amount" class="java.lang.Float"/>
 	<parameter name="imgLogo" class="java.io.FileInputStream"/>
 	<parameter name="imgCheck" class="java.io.FileInputStream"/>
@@ -156,8 +156,8 @@
 					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="Empty Dataset1" uuid="76bf863e-7edc-495c-a32b-c70ccd2343ef">
-						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<datasetRun subDataset="Empty Dataset1" uuid="e3d01b3d-5119-45ff-96b8-bfb39beb9378">
+						<dataSourceExpression><![CDATA[$P{sale_detail}]]></dataSourceExpression>
 					</datasetRun>
 					<jr:column width="200" uuid="6b3adc6b-5702-400e-bb15-d58f8bdbbef9">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>

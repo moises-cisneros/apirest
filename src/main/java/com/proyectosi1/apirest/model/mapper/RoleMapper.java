@@ -20,6 +20,7 @@ public abstract class RoleMapper {
     private PermissionRepository permissionRepository;
 
     // Dado un rol, le agrega todos los permisos asignados
+    /*
     public RoleEntity addListPermissions(RolePermissionDTO rolePermissionDTO) {
         RoleEntity roleEntity = roleRepository.findByName(rolePermissionDTO.getNameRole());
 
@@ -61,5 +62,5 @@ public abstract class RoleMapper {
         }
 
         return rolPermisoDTOList;
-    }
+    }*/
 }

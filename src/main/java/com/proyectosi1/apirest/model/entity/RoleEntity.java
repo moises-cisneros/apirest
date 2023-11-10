@@ -23,12 +23,4 @@ public class RoleEntity {
     @Column(length = 50)
     private String name;
 
-    @JsonIgnoreProperties("roles")
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "Rol_Permiso", joinColumns = @JoinColumn(name = "id_rol", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "id_permiso", referencedColumnName = "id")
-    )
-    private List<PermissionEntity> permisos;
-
 }

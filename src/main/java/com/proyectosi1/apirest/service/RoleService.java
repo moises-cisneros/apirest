@@ -38,6 +38,7 @@ public class RoleService {
     }
 
     // Dado un rol, le agrega todos los permisos asignados
+    /*
     public RoleEntity addListPermissions(RolePermissionDTO rolePermissionDTO) {
         return roleMapper.addListPermissions(rolePermissionDTO);
     }
@@ -45,5 +46,5 @@ public class RoleService {
     // Devuelve una lista de las IDs del rol y permiso
     public List<RolPermisoDTO> getRolPermiso() {
         return roleMapper.getRolPermiso();
-    }
+    }*/
 }

@@ -41,8 +41,9 @@ public class PermissionController {
         return permissionService.getAllPermission();
     }
 
+    /*
     @GetMapping("/list-roles")
     public List<PermissionNameDTO> getRoleList() {
         return permissionService.getAllPermissions();
-    }
+    }*/
 }

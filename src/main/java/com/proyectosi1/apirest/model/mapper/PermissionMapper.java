@@ -17,6 +17,7 @@ public abstract class PermissionMapper {
     private PermissionRepository permissionRepository;
 
     // Obtener una lista de: permisos y lista de roles
+    /*
     public List<PermissionNameDTO> getAllPermissions() {
         List<PermissionNameDTO> listPermission = new ArrayList<>();
 
@@ -34,6 +35,6 @@ public abstract class PermissionMapper {
         }
 
         return listPermission;
-    }
+    }*/
 
 }

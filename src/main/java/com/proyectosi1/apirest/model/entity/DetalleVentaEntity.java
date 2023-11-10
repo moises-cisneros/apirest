@@ -28,7 +28,7 @@ public class DetalleVentaEntity {
     private InventarioEntity inventario;
 
     // Obtener los datos para el reporte de la nota de venta
-    /*
+/*
     public String getNombre() {
         return inventario.getProducto().getNombre();
     }
@@ -47,6 +47,5 @@ public class DetalleVentaEntity {
 
     public String getDescuento() {
         return inventario.getProducto().getDescuento().getDescripcion();
-    }
-*/
+    }*/
 }

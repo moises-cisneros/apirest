@@ -68,7 +68,6 @@ public class NotaVentaService {
         Optional<NotaVentaEntity> notaVenta = notaVentaRepository.findById(idNotaVenta);
         UserEntity cliente = userRepository.findById(notaVenta.get().getUser().getId()).orElse(null);
         Iterable<ReporteDTO> reporteDTOS = parametersDTO(idNotaVenta);
-        System.out.println(reporteDTOS);
 
         // Verificar si la nota de venta existe
         try {
@@ -76,6 +75,7 @@ public class NotaVentaService {
             final File imgLogo = ResourceUtils.getFile("classpath:images/logo.png");
             final File imgCheck = ResourceUtils.getFile("classpath:images/check.png");
             final JasperReport report = (JasperReport) JRLoader.loadObject(file);
+
 
             // Agregando los parametros del reporte
             final HashMap<String, Object> parameters = new HashMap<>();
@@ -114,7 +114,7 @@ public class NotaVentaService {
     }
 
     // Solucionar el error del bucle infinito de rol y permisos
-    public Iterable<ReporteDTO> parametersDTO(Integer idNotaVenta) {
+    public List<ReporteDTO> parametersDTO(Integer idNotaVenta) {
         List<ReporteDTO> reporteDTOS = new ArrayList<>();
         Iterable<DetalleVentaEntity> detalleVentaEntities = detalleVentaRepository.findByVenta(idNotaVenta);
 
