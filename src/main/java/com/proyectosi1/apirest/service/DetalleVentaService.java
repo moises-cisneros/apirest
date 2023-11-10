@@ -33,4 +33,9 @@ public class DetalleVentaService {
         detalleVentaRepository.deleteById(id);
     }
 
+    // Metodo de prueba
+    public Iterable<DetalleVentaEntity> prueba(Integer idNotaVenta) {
+        return detalleVentaRepository.findByVenta(idNotaVenta);
+    }
+
 }

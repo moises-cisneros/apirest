@@ -38,4 +38,10 @@ public class DetalleVentaController {
         detalleVentaService.deleteDetalleVenta(id);
     }
 
+    // Metodo de prueba
+    @GetMapping("/prueba")
+    public Iterable<DetalleVentaEntity> prueba(@RequestParam Integer idNotaVenta) {
+        return detalleVentaService.prueba(idNotaVenta);
+    }
+
 }
