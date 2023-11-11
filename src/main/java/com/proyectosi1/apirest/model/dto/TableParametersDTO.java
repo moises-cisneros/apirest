@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReporteDTO {
+public class TableParametersDTO {
     String nombre;
     String talla;
     Integer cantidad;

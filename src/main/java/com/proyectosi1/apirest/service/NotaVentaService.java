@@ -3,7 +3,7 @@ package com.proyectosi1.apirest.service;
 import java.io.File;
 import java.io.FileInputStream;
 
-import com.proyectosi1.apirest.model.dto.ReporteDTO;
+import com.proyectosi1.apirest.model.dto.TableParametersDTO;
 import com.proyectosi1.apirest.model.entity.DetalleVentaEntity;
 import lombok.NonNull;
 import org.springframework.http.ContentDisposition;
@@ -65,9 +65,11 @@ public class NotaVentaService {
 
     @NonNull
     public ResponseEntity<Resource> exportSalesNoteReport(Integer idNotaVenta) {
+
+        // Obtener la nota de venta, el cliente y los parametros de la tabla sale_detail
         Optional<NotaVentaEntity> notaVenta = notaVentaRepository.findById(idNotaVenta);
         UserEntity cliente = userRepository.findById(notaVenta.get().getUser().getId()).orElse(null);
-        Iterable<ReporteDTO> reporteDTOS = parametersDTO(idNotaVenta);
+        Iterable<TableParametersDTO> tableParametersDTOS = tableParameters(idNotaVenta);
 
         // Verificar si la nota de venta existe
         try {
@@ -76,23 +78,27 @@ public class NotaVentaService {
             final File imgCheck = ResourceUtils.getFile("classpath:images/check.png");
             final JasperReport report = (JasperReport) JRLoader.loadObject(file);
 
-
             // Agregando los parametros del reporte
             final HashMap<String, Object> parameters = new HashMap<>();
             parameters.put("nro_nota_venta", idNotaVenta);
             parameters.put("current_date", LocalDate.now());
             parameters.put("name_cliente", cliente != null ? cliente.getName() : "-----");
             parameters.put("email_cliente", cliente != null ? cliente.getEmail() : "-----");
-            parameters.put("phone_cliente", cliente != null ? cliente.getPhone() : null);
+            parameters.put("phone_cliente", cliente != null ? cliente.getPhone() : "-----");
             parameters.put("amount", notaVenta.get().getMonto());
             parameters.put("imgLogo", new FileInputStream(imgLogo));
             parameters.put("imgCheck", new FileInputStream(imgCheck));
-            parameters.put("sale_detail", new JRBeanCollectionDataSource((Collection<?>) reporteDTOS));
+            parameters.put("sale_detail", new JRBeanCollectionDataSource((Collection<?>) tableParametersDTOS));
 
+            // Llenar el informe Jasper con los datos proporcionados y exportarlo a un arreglo de bytes en formato PDF
             JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameters, new JREmptyDataSource());
             byte[] reporte = JasperExportManager.exportReportToPdf(jasperPrint);
+
+            // Construir un nombre del archivo que incluya el número de la Nota de Venta y la fecha
             String sdf = (new SimpleDateFormat("dd/MM/yyyy")).format(new Date());
             StringBuilder stringBuilder = new StringBuilder().append("NotaVenta:");
+
+            // Configurar el encabezado para indicar la disposición del contenido como un archivo adjunto
             ContentDisposition contentDisposition = ContentDisposition.builder("attachment")
                     .filename(stringBuilder
                             .append("Nro:")
@@ -102,53 +108,50 @@ public class NotaVentaService {
                             .append(".pdf")
                             .toString())
                     .build();
+
+            // Configurar los encabezados HTTP, incluyendo la disposición del contenido y agregar el nombre del archivo
             HttpHeaders headers = new HttpHeaders();
             headers.setContentDisposition(contentDisposition);
-            return ResponseEntity.ok().contentLength((long) reporte.length)
+
+            // Construir y devolver una respuesta HTTP con el informe PDF adjunto
+            return ResponseEntity.ok()
+                    .contentLength((long) reporte.length)
                     .contentType(MediaType.APPLICATION_PDF)
-                    .headers(headers).body(new ByteArrayResource(reporte));
+                    .headers(headers)
+                    .body(new ByteArrayResource(reporte));
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    // Solucionar el error del bucle infinito de rol y permisos
-    public List<ReporteDTO> parametersDTO(Integer idNotaVenta) {
-        List<ReporteDTO> reporteDTOS = new ArrayList<>();
+    // Obtener la cantidad, precio, nombre del producto, subtotal, descuento y la talla para rellenar la tabla
+    public List<TableParametersDTO> tableParameters(Integer idNotaVenta) {
+        List<TableParametersDTO> tableParametersDTOS = new ArrayList<>();
         Iterable<DetalleVentaEntity> detalleVentaEntities = detalleVentaRepository.findByVenta(idNotaVenta);
 
         detalleVentaEntities.forEach(detalleVentaEntity -> {
-            ReporteDTO reporteDTO = new ReporteDTO();
-            reporteDTO.setCantidad(detalleVentaEntity.getCantidad());
-            reporteDTO.setNombre(detalleVentaEntity.getInventario().getProducto().getNombre());
-            reporteDTO.setDescuento(
+            TableParametersDTO tableParametersDTO = new TableParametersDTO();
+            tableParametersDTO.setCantidad(detalleVentaEntity.getCantidad());
+            tableParametersDTO.setNombre(detalleVentaEntity.getInventario().getProducto().getNombre());
+            tableParametersDTO.setDescuento(
                     detalleVentaEntity.getInventario().getProducto().getDescuento() != null
                             ? detalleVentaEntity.getInventario().getProducto().getDescuento().getDescripcion()
                             : "Sin descuento"
             );
-            reporteDTO.setPrecio(detalleVentaEntity.getInventario().getPrecio());
-            reporteDTO.setTalla(detalleVentaEntity.getInventario().getTalla().getTalla());
-            reporteDTO.setSubtotal(detalleVentaEntity.getCantidad() * detalleVentaEntity.getInventario().getPrecio());
+            tableParametersDTO.setPrecio(detalleVentaEntity.getInventario().getPrecio());
+            tableParametersDTO.setTalla(detalleVentaEntity.getInventario().getTalla().getTalla());
+            tableParametersDTO.setSubtotal(detalleVentaEntity.getCantidad() * detalleVentaEntity.getInventario().getPrecio());
 
-            reporteDTOS.add(reporteDTO);
+            tableParametersDTOS.add(tableParametersDTO);
         });
 
-        return reporteDTOS;
+        return tableParametersDTOS;
     }
 
-    // Metodo de prueba
-    public NotaVentaClienteDTO prueba(Integer idNotaVenta) {
-        NotaVentaClienteDTO listNVClienteDTO = new NotaVentaClienteDTO();
-
-        NotaVentaEntity notaVenta = notaVentaRepository.findById(idNotaVenta).orElse(null);
-        UserEntity cliente = userRepository.findById(notaVenta.getUser().getId()).orElse(null);
-
-        listNVClienteDTO.setNotaVenta(notaVenta);
-        listNVClienteDTO.setCliente(cliente);
-
-        return listNVClienteDTO;
-
+    // Obtener el total de notas de ventas que hay
+    public Integer totalQuantityItemsSalesNote() {
+        return notaVentaRepository.countAll();
     }
 
 }

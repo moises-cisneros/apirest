@@ -141,10 +141,10 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="49" splitType="Stretch"/>
+		<band height="11" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="47" splitType="Stretch"/>
+		<band height="13" splitType="Stretch"/>
 	</columnHeader>
 	<detail>
 		<band height="108" splitType="Stretch">

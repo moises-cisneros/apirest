@@ -3,7 +3,6 @@ package com.proyectosi1.apirest.service;
 import com.proyectosi1.apirest.model.entity.PermissionEntity;
 import com.proyectosi1.apirest.model.mapper.PermissionMapper;
 import com.proyectosi1.apirest.model.repository.PermissionRepository;
-import com.proyectosi1.apirest.model.dto.PermissionNameDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -36,9 +35,4 @@ public class PermissionService {
         return permissionRepository.findAll();
     }
 
-    // Obtener una lista de: permisos y lista de roles
-    /*
-    public List<PermissionNameDTO> getAllPermissions() {
-        return permissionMapper.getAllPermissions();
-    }*/
 }

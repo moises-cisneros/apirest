@@ -27,25 +27,4 @@ public class DetalleVentaEntity {
     @JoinColumn(name = "id_inventario")
     private InventarioEntity inventario;
 
-    // Obtener los datos para el reporte de la nota de venta
-/*
-    public String getNombre() {
-        return inventario.getProducto().getNombre();
-    }
-
-    public String getTalla() {
-        return inventario.getTalla().getTalla();
-    }
-
-    public float getPrecio() {
-        return inventario.getPrecio();
-    }
-
-    public float getSubtotal() {
-        return cantidad * inventario.getPrecio();
-    }
-
-    public String getDescuento() {
-        return inventario.getProducto().getDescuento().getDescripcion();
-    }*/
 }
