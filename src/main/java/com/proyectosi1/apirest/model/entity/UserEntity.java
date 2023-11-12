@@ -35,7 +35,7 @@ public class UserEntity implements UserDetails {
     /*
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private Role role;*/
+    private Role role;*/    
 
     @ManyToOne
     @JoinColumn(name = "id_rol")
