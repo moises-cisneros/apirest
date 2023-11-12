@@ -2,14 +2,12 @@ package com.proyectosi1.apirest.controller;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.proyectosi1.apirest.model.dto.EstadoVentaDTO;
+import com.proyectosi1.apirest.model.dto.UpdateEstadoDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.proyectosi1.apirest.model.entity.NotaVentaEntity;
 import com.proyectosi1.apirest.service.NotaVentaService;
@@ -20,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/notaventa")
 public class NotaVentaController {
+    @Autowired
     private final NotaVentaService notaVentaService;
 
     @PostMapping
@@ -45,6 +44,26 @@ public class NotaVentaController {
     @GetMapping
     public List<NotaVentaEntity> getAllNotaVenta() {
         return notaVentaService.getAllNotaVenta();
+    }
+
+    @GetMapping("/report-sales-note")
+    public ResponseEntity<Resource> exportSalesNoteReport(@RequestParam Integer idNotaVenta) {
+        return notaVentaService.exportSalesNoteReport(idNotaVenta);
+    }
+
+    @GetMapping("/total-quantity")
+    public Integer totalQuantityItemsSalesNote() {
+        return notaVentaService.totalQuantityItemsSalesNote();
+    }
+
+    @GetMapping("/estado-venta")
+    public List<EstadoVentaDTO> estadoVenta(){
+        return notaVentaService.estadoVenta();
+    }
+
+    @PostMapping("/update-estado")
+    public void updateEstado(@RequestBody UpdateEstadoDTO nuevoEstado) {
+        notaVentaService.updateEstado(nuevoEstado);
     }
 
 }

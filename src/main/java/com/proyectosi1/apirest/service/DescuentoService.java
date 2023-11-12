@@ -1,5 +1,8 @@
 package com.proyectosi1.apirest.service;
 
+import com.proyectosi1.apirest.model.dto.DescuentoDTO;
+import com.proyectosi1.apirest.model.mapper.DescuentoMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.proyectosi1.apirest.model.entity.DescuentoEntity;
@@ -11,28 +14,36 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class DescuentoService {
+    @Autowired
     private final DescuentoRepository descuentoRepository;
+    @Autowired
+    private final DescuentoMapper descuentoMapper;
 
-    public DescuentoEntity saveDescuento(DescuentoEntity descuento) {
-        return descuentoRepository.save(descuento);
+    public DescuentoDTO saveDescuento(DescuentoDTO descuentoDTO) {
+        DescuentoEntity descuentoEntity = descuentoMapper.descuentoDTOtoDescuento(descuentoDTO);
+        descuentoRepository.save(descuentoEntity);
+        return descuentoMapper.descuentoToDescuentoDTO(descuentoEntity);
     }
 
-    public DescuentoEntity updateDescuento(Integer id, DescuentoEntity descuento){
-        descuento.setId(id);
-        return descuentoRepository.save(descuento);
+    public DescuentoDTO updateDescuento(Integer id, DescuentoDTO descuentoDTO){
+        descuentoDTO.setId(id);
+        DescuentoEntity descuentoEntity = descuentoMapper.descuentoDTOtoDescuento(descuentoDTO);
+        descuentoRepository.save(descuentoEntity);
+        return descuentoMapper.descuentoToDescuentoDTO(descuentoEntity);
     }
      
-    public DescuentoEntity getDescuento(Integer id) {
-        return descuentoRepository.findById(id).orElse(null);
+    public DescuentoDTO getDescuento(Integer id) {
+        DescuentoEntity descuentoEntity = descuentoRepository.findById(id).orElse(null);
+        return descuentoMapper.descuentoToDescuentoDTO(descuentoEntity);
     }
 
-    public List<DescuentoEntity> getDescuentos() {
-        return descuentoRepository.findAll();
+    public List<DescuentoDTO> getDescuentos() {
+        List<DescuentoEntity> descuentoEntityList = descuentoRepository.findAll();
+        return descuentoMapper.toDescuentoDTOList(descuentoEntityList);
     }
 
     public void deleteDescuento(Integer id) {
         descuentoRepository.deleteById(id);
     }
-
 
 }

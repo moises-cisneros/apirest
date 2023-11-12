@@ -20,18 +20,18 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public UserEntity actualizarUsuario(@PathVariable long id, @RequestBody UserEntity usuario) {
+    public UserEntity actualizarUsuario(@PathVariable Integer id, @RequestBody UserEntity usuario) {
         usuario.setId(id);
         return userService.actualizarUsuario(usuario);
     }
 
     @DeleteMapping("/{id}")
-    public void eliminarUsuario(@PathVariable long id) {
+    public void eliminarUsuario(@PathVariable Integer id) {
         userService.eliminarUsuario(id);
     }
 
     @GetMapping("/{id}")
-    public UserEntity obtenerUsuarioPorId(@PathVariable long id) {
+    public UserEntity obtenerUsuarioPorId(@PathVariable Integer id) {
         return userService.obtenerUsuarioPorId(id);
     }
 

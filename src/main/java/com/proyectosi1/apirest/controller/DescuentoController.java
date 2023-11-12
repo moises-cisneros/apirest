@@ -1,5 +1,6 @@
 package com.proyectosi1.apirest.controller;
 
+import com.proyectosi1.apirest.model.dto.DescuentoDTO;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,22 +23,22 @@ public class DescuentoController {
     public final DescuentoService descuentoService;
 
     @PostMapping
-    public DescuentoEntity saveDescuento(@RequestBody DescuentoEntity descuentoEntity){
-        return descuentoService.saveDescuento(descuentoEntity);
+    public DescuentoDTO saveDescuento(@RequestBody DescuentoDTO descuentoDTO){
+        return descuentoService.saveDescuento(descuentoDTO);
     }
 
     @PutMapping("/{id}")
-    public DescuentoEntity updateDescuento(@PathVariable Integer id, @RequestBody DescuentoEntity descuentoEntity){
-        return descuentoService.updateDescuento(id,descuentoEntity);
+    public DescuentoDTO updateDescuento(@PathVariable Integer id, @RequestBody DescuentoDTO descuentoDTO){
+        return descuentoService.updateDescuento(id,descuentoDTO);
     }
 
     @GetMapping("/{id}")
-    public DescuentoEntity getDescuento(@PathVariable Integer id) {   
+    public DescuentoDTO getDescuento(@PathVariable Integer id) {
         return descuentoService.getDescuento(id);
     }
 
     @GetMapping
-    public List<DescuentoEntity> getDescuentos() {
+    public List<DescuentoDTO> getDescuentos() {
         return descuentoService.getDescuentos();
     }
 

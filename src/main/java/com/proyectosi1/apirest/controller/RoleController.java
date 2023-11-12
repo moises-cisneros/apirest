@@ -1,5 +1,6 @@
 package com.proyectosi1.apirest.controller;
 
+import com.proyectosi1.apirest.model.dto.RolPermisoDTO;
 import com.proyectosi1.apirest.model.dto.RolePermissionDTO;
 import com.proyectosi1.apirest.model.entity.RoleEntity;
 import com.proyectosi1.apirest.service.RoleService;
@@ -42,7 +43,12 @@ public class RoleController {
     }
 
     @PostMapping("/add-permission")
-    public RoleEntity addListPermissions (@RequestBody RolePermissionDTO rolePermissionDTO) {
-        return roleService.addListPermissions(rolePermissionDTO);
+    public void addListPermissions (@RequestBody RolePermissionDTO rolePermissionDTO) {
+        roleService.addListPermissions(rolePermissionDTO);
+    }
+
+    @GetMapping("/permission")
+    public List<RolPermisoDTO> getRolPermiso() {
+        return roleService.getRolPermiso();
     }
 }

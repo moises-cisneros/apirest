@@ -28,6 +28,7 @@ public class DetalleVentaController {
         return detalleVentaService.getDetalleVenta(id);
     }
 
+    @GetMapping
     public List<DetalleVentaEntity> getAllDetalleVenta() {
         return detalleVentaService.getAllDetalleVenta();
     }
@@ -35,6 +36,12 @@ public class DetalleVentaController {
     @DeleteMapping("/{id}")
     public void deleteDetalleVenta(@PathVariable Integer id) {
         detalleVentaService.deleteDetalleVenta(id);
+    }
+
+    // Metodo de prueba
+    @GetMapping("/prueba")
+    public Iterable<DetalleVentaEntity> prueba(@RequestParam Integer idNotaVenta) {
+        return detalleVentaService.prueba(idNotaVenta);
     }
 
 }

@@ -12,6 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RolePermissionDTO {
-    String nameRole;
-    List<String> permissions;
+    private String nameRole;
+    private List<String> permissions;
 }

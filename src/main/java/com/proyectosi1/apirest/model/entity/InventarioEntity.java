@@ -1,7 +1,5 @@
 package com.proyectosi1.apirest.model.entity;
 
-import java.util.List;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,5 +34,4 @@ public class InventarioEntity {
     @JoinColumn(name = "id_bodega")
     private BodegaEntity bodega;
 
- 
 }

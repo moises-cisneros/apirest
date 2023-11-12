@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MarcaIdNombreDTO {
-    Integer id;
-    String nombre;
+public class EstadoVentaDTO {
+    private Integer nroNotaVenta;
+    private String nombreCliente;
+    private String estadoVenta;
 }

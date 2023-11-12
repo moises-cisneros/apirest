@@ -5,15 +5,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class EnvioProductoTallaDTO {
-
-    List<ProductoDTO> productos;
-    List<TallaDTO> tallas;
-
+public class TableParametersDTO {
+    private String nombre;
+    private String talla;
+    private Integer cantidad;
+    private float precio;
+    private float subtotal;
+    private String descuento;
 }

@@ -5,14 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RequestProductoDTO {
-    String nombre;
-    String descripcion;
-    Integer id_color;
-    Integer id_categoria;
-    Integer id_marca;
+public class RoleDTO {
+    private  Integer id;
+    private String name;
+    private List<PermissionDTO> permisos;
 }

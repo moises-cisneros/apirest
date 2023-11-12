@@ -10,8 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class IngresoProductoDTO {
-    //Integer id_nota;
-    Integer cantidad;
-    Integer id_producto;
-    Integer id_talla;
+    private Integer cantidad;
+    private Integer id_producto;
+    private Integer id_talla;
 }
