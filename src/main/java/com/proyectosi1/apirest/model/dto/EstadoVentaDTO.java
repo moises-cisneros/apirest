@@ -9,11 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TableParametersDTO {
-    private String nombre;
-    private String talla;
-    private Integer cantidad;
-    private float precio;
-    private float subtotal;
-    private String descuento;
+public class EstadoVentaDTO {
+    private Integer nroNotaVenta;
+    private String nombreCliente;
+    private String estadoVenta;
 }

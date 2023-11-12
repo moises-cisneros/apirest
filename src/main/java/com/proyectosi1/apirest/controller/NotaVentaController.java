@@ -2,6 +2,8 @@ package com.proyectosi1.apirest.controller;
 
 import java.util.List;
 
+import com.proyectosi1.apirest.model.dto.EstadoVentaDTO;
+import com.proyectosi1.apirest.model.dto.UpdateEstadoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
@@ -53,4 +55,15 @@ public class NotaVentaController {
     public Integer totalQuantityItemsSalesNote() {
         return notaVentaService.totalQuantityItemsSalesNote();
     }
+
+    @GetMapping("/estado-venta")
+    public List<EstadoVentaDTO> estadoVenta(){
+        return notaVentaService.estadoVenta();
+    }
+
+    @PostMapping("/update-estado")
+    public void updateEstado(@RequestBody UpdateEstadoDTO nuevoEstado) {
+        notaVentaService.updateEstado(nuevoEstado);
+    }
+
 }

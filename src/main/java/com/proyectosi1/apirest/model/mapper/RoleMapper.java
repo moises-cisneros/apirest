@@ -41,8 +41,8 @@ public abstract class RoleMapper {
         rolePermissionDTO.getPermissions().stream()
                 .map(permissionRepository::findByNombre)
                 .filter(Objects::nonNull)
-                .filter(permission -> !rolePermissionEntityList.stream()
-                        .anyMatch(rolePermissionEntity -> rolePermissionEntity.getPermiso().equals(permission)))
+                .filter(permission -> rolePermissionEntityList.stream()
+                        .noneMatch(rolePermissionEntity -> rolePermissionEntity.getPermiso().equals(permission)))
                 .forEach(permission -> rolePermissionRepository.save(new RolePermissionEntity(roleEntity, permission)));
 
     }

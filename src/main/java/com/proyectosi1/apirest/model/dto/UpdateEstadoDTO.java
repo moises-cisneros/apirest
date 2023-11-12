@@ -5,13 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PermissionNameDTO {
-    String nombre;
-    List<String> roles;
+public class UpdateEstadoDTO {
+    private Integer nroNotaVenta;
+    private String nuevoEstado;
 }

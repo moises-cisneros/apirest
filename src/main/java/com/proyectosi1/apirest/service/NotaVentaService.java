@@ -3,7 +3,9 @@ package com.proyectosi1.apirest.service;
 import java.io.File;
 import java.io.FileInputStream;
 
+import com.proyectosi1.apirest.model.dto.EstadoVentaDTO;
 import com.proyectosi1.apirest.model.dto.TableParametersDTO;
+import com.proyectosi1.apirest.model.dto.UpdateEstadoDTO;
 import com.proyectosi1.apirest.model.entity.DetalleVentaEntity;
 import lombok.NonNull;
 import org.springframework.http.ContentDisposition;
@@ -14,7 +16,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
 
-import com.proyectosi1.apirest.model.dto.NotaVentaClienteDTO;
 import com.proyectosi1.apirest.model.entity.UserEntity;
 import com.proyectosi1.apirest.model.repository.DetalleVentaRepository;
 import com.proyectosi1.apirest.model.repository.UserRepository;
@@ -115,7 +116,7 @@ public class NotaVentaService {
 
             // Construir y devolver una respuesta HTTP con el informe PDF adjunto
             return ResponseEntity.ok()
-                    .contentLength((long) reporte.length)
+                    .contentLength(reporte.length)
                     .contentType(MediaType.APPLICATION_PDF)
                     .headers(headers)
                     .body(new ByteArrayResource(reporte));
@@ -154,4 +155,25 @@ public class NotaVentaService {
         return notaVentaRepository.countAll();
     }
 
+    public List<EstadoVentaDTO> estadoVenta() {
+        List<NotaVentaEntity> notaVentaList = notaVentaRepository.findAll();
+        List<EstadoVentaDTO> estadoVentaList = new ArrayList<>();
+
+        for (NotaVentaEntity notaVenta: notaVentaList
+             ) {
+            EstadoVentaDTO auxEstadoVenta = new EstadoVentaDTO();
+            auxEstadoVenta.setEstadoVenta(notaVenta.getEstado());
+            auxEstadoVenta.setNroNotaVenta(notaVenta.getId());
+            auxEstadoVenta.setNombreCliente(notaVenta.getUser().getName());
+            estadoVentaList.add(auxEstadoVenta);
+        }
+
+        return estadoVentaList;
+    }
+
+    public void updateEstado(UpdateEstadoDTO nuevoEstado) {
+        NotaVentaEntity notaVenta = notaVentaRepository.findById(nuevoEstado.getNroNotaVenta()).orElse(null);
+        notaVenta.setEstado(nuevoEstado.getNuevoEstado());
+        notaVentaRepository.save(notaVenta);
+    }
 }

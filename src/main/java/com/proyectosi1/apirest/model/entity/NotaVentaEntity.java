@@ -24,6 +24,8 @@ public class NotaVentaEntity {
    @Temporal(TemporalType.DATE)
    private Date fecha;
    private float monto;
+   @Column(length = 10)
+   private String estado;
 
    @ManyToOne
    @JoinColumn(name = "id_usuario")

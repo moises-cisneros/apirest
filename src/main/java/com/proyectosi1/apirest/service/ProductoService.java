@@ -12,7 +12,6 @@ import com.proyectosi1.apirest.model.repository.ProductoRepository;
 
 import lombok.RequiredArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor

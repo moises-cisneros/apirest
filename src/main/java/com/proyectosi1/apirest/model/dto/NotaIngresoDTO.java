@@ -15,8 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NotaIngresoDTO {
-    String descripcion;
+    private String descripcion;
     @Temporal(TemporalType.DATE)
-    Date fecha;
-    List<IngresoProductoDTO> detalleIngreso;
+    private Date fecha;
+    private List<IngresoProductoDTO> detalleIngreso;
 }
