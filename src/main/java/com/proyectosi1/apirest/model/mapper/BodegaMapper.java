@@ -4,7 +4,7 @@ import com.proyectosi1.apirest.model.dto.BodegaDTO;
 import com.proyectosi1.apirest.model.entity.BodegaEntity;
 import org.mapstruct.Mapper;
 
-import java.util.List;
+import java.util.*;
 
 @Mapper(componentModel = "spring")
 public interface BodegaMapper {

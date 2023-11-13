@@ -5,6 +5,7 @@ import com.proyectosi1.apirest.service.RoleService;
 import com.proyectosi1.apirest.model.entity.UserEntity;
 import com.proyectosi1.apirest.model.repository.UserRepository;
 import com.proyectosi1.apirest.config.jwt.JwtService;
+import com.proyectosi1.apirest.model.dto.NamePermisosDTO;
 import com.proyectosi1.apirest.model.entity.PermissionEntity;
 import com.proyectosi1.apirest.model.repository.PermissionRepository;
 import com.proyectosi1.apirest.utils.Role;
@@ -14,6 +15,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
