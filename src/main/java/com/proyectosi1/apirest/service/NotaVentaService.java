@@ -65,7 +65,44 @@ public class NotaVentaService {
     }
 
     @NonNull
-    public ResponseEntity<Resource> exportSalesNoteReport(Integer idNotaVenta) {
+    public ResponseEntity<Resource> exportReportNoteSale(Integer idNotaVenta) {
+        // Verificar si la nota de venta existe
+        try {
+            byte[] report = reportNoteSale(idNotaVenta);
+
+            // Construir un nombre del archivo que incluya el número de la Nota de Venta y la fecha
+            String sdf = (new SimpleDateFormat("dd/MM/yyyy")).format(new Date());
+            StringBuilder stringBuilder = new StringBuilder().append("NotaVenta:");
+
+            // Configurar el encabezado para indicar la disposición del contenido como un archivo adjunto
+            ContentDisposition contentDisposition = ContentDisposition.builder("attachment")
+                    .filename(stringBuilder
+                            .append("Nro:")
+                            .append(idNotaVenta)
+                            .append(":")
+                            .append(sdf)
+                            .append(".pdf")
+                            .toString())
+                    .build();
+
+            // Configurar los encabezados HTTP, incluyendo la disposición del contenido y agregar el nombre del archivo
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentDisposition(contentDisposition);
+
+            // Construir y devolver una respuesta HTTP con el informe PDF adjunto
+            return ResponseEntity.ok()
+                    .contentLength(report.length)
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .headers(headers)
+                    .body(new ByteArrayResource(report));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @NonNull
+    public byte[] reportNoteSale(Integer idNotaVenta) {
 
         // Obtener la nota de venta, el cliente y los parametros de la tabla sale_detail
         Optional<NotaVentaEntity> notaVenta = notaVentaRepository.findById(idNotaVenta);
@@ -93,33 +130,8 @@ public class NotaVentaService {
 
             // Llenar el informe Jasper con los datos proporcionados y exportarlo a un arreglo de bytes en formato PDF
             JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameters, new JREmptyDataSource());
-            byte[] reporte = JasperExportManager.exportReportToPdf(jasperPrint);
 
-            // Construir un nombre del archivo que incluya el número de la Nota de Venta y la fecha
-            String sdf = (new SimpleDateFormat("dd/MM/yyyy")).format(new Date());
-            StringBuilder stringBuilder = new StringBuilder().append("NotaVenta:");
-
-            // Configurar el encabezado para indicar la disposición del contenido como un archivo adjunto
-            ContentDisposition contentDisposition = ContentDisposition.builder("attachment")
-                    .filename(stringBuilder
-                            .append("Nro:")
-                            .append(notaVenta.get().getId())
-                            .append(":")
-                            .append(sdf)
-                            .append(".pdf")
-                            .toString())
-                    .build();
-
-            // Configurar los encabezados HTTP, incluyendo la disposición del contenido y agregar el nombre del archivo
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentDisposition(contentDisposition);
-
-            // Construir y devolver una respuesta HTTP con el informe PDF adjunto
-            return ResponseEntity.ok()
-                    .contentLength(reporte.length)
-                    .contentType(MediaType.APPLICATION_PDF)
-                    .headers(headers)
-                    .body(new ByteArrayResource(reporte));
+            return JasperExportManager.exportReportToPdf(jasperPrint);
         } catch (Exception e) {
             e.printStackTrace();
         }

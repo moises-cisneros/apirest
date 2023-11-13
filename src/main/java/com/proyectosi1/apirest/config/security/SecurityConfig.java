@@ -39,6 +39,7 @@ public class SecurityConfig {
                         .requestMatchers("/tipopago/**").permitAll()
                         .requestMatchers("/detalle_venta/**").permitAll()
                         .requestMatchers("/descuento/**").permitAll()
+                        .requestMatchers("/send-email/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManagement ->

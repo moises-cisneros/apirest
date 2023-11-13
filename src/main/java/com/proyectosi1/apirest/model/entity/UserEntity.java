@@ -10,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Data
@@ -38,9 +39,16 @@ public class UserEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Devuelve una colección de autoridades (roles) asociados a este usuario
-        return List.of(new SimpleGrantedAuthority(role.getName()));
+        // Verifica si role no es null antes de intentar acceder a sus propiedades
+        if (role != null) {
+            // Devuelve una colección de autoridades (roles) asociados a este usuario
+            return List.of(new SimpleGrantedAuthority(role.getName()));
+        } else {
+            // Si role es null, puedes manejarlo de alguna manera adecuada
+            return Collections.emptyList();
+        }
     }
+
 
     @Override
     public boolean isAccountNonExpired() {

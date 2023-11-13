@@ -48,7 +48,7 @@ public class NotaVentaController {
 
     @GetMapping("/report-sales-note")
     public ResponseEntity<Resource> exportSalesNoteReport(@RequestParam Integer idNotaVenta) {
-        return notaVentaService.exportSalesNoteReport(idNotaVenta);
+        return notaVentaService.exportReportNoteSale(idNotaVenta);
     }
 
     @GetMapping("/total-quantity")
