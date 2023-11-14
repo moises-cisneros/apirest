@@ -2,13 +2,13 @@ package com.proyectosi1.apirest.config.auth;
 
 import com.proyectosi1.apirest.model.entity.UserEntity;
 import com.proyectosi1.apirest.service.UserService;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class AuthController {
 
     private final AuthService authService;

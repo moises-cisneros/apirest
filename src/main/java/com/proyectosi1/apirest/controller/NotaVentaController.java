@@ -3,6 +3,7 @@ package com.proyectosi1.apirest.controller;
 import java.util.List;
 
 import com.proyectosi1.apirest.model.dto.EstadoVentaDTO;
+import com.proyectosi1.apirest.model.dto.NotaVentaDTO;
 import com.proyectosi1.apirest.model.dto.UpdateEstadoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -46,9 +47,14 @@ public class NotaVentaController {
         return notaVentaService.getAllNotaVenta();
     }
 
+    @GetMapping("/all-sales-note")
+    public List<NotaVentaDTO> getAllSalesNote() {
+        return notaVentaService.getAllSalesNote();
+    }
+
     @GetMapping("/report-sales-note")
     public ResponseEntity<Resource> exportSalesNoteReport(@RequestParam Integer idNotaVenta) {
-        return notaVentaService.exportSalesNoteReport(idNotaVenta);
+        return notaVentaService.exportReportNoteSale(idNotaVenta);
     }
 
     @GetMapping("/total-quantity")
