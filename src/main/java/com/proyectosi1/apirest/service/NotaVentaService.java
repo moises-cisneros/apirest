@@ -4,9 +4,11 @@ import java.io.File;
 import java.io.FileInputStream;
 
 import com.proyectosi1.apirest.model.dto.EstadoVentaDTO;
+import com.proyectosi1.apirest.model.dto.NotaVentaDTO;
 import com.proyectosi1.apirest.model.dto.TableParametersDTO;
 import com.proyectosi1.apirest.model.dto.UpdateEstadoDTO;
 import com.proyectosi1.apirest.model.entity.DetalleVentaEntity;
+import com.proyectosi1.apirest.model.mapper.NotaVentaMapper;
 import lombok.NonNull;
 import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
@@ -43,6 +45,8 @@ public class NotaVentaService {
     private final UserRepository userRepository;
     @Autowired
     private final DetalleVentaRepository detalleVentaRepository;
+    @Autowired
+    private final NotaVentaMapper notaVentaMapper;
 
     public NotaVentaEntity crearNotaVenta(NotaVentaEntity notaVentaEntity) {
         return notaVentaRepository.save(notaVentaEntity);
@@ -58,6 +62,10 @@ public class NotaVentaService {
 
     public List<NotaVentaEntity> getAllNotaVenta() {
         return notaVentaRepository.findAll();
+    }
+
+    public List<NotaVentaDTO> getAllSalesNote() {
+        return notaVentaMapper.getAllSalesNote();
     }
 
     public void deleteNotaVenta(Integer Id) {
