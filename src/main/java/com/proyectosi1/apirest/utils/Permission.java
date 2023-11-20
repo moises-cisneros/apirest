@@ -1,0 +1,21 @@
+package com.proyectosi1.apirest.utils;
+
+public enum Permission {
+    VER_MARCA,
+    VER_COLOR,
+    VER_CATEGORIA,
+    VER_DESCUENTO,
+    VER_BODEGA,
+    VER_TALLA,
+    VER_INVENTARIO,
+    VER_NOTA_INGRESO,
+    VER_PRODUCTO,
+    VER_ROLES,
+    VER_PERMISOS,
+    VER_NOTA_VENTA,
+    VER_TIPO_PAGO,
+    VER_USUARIOS,
+    VER_ADMINISTRAR_VENTA,
+    VER_CATALOGO_PRODUCTO,
+    VER_HOME,
+}
