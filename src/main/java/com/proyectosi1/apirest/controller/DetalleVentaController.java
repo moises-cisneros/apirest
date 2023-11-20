@@ -18,6 +18,11 @@ public class DetalleVentaController {
         return detalleVentaService.createDetalleVenta(detalleVentaEntity);
     }
 
+    @PostMapping("/list")
+    public void createDetalleVentaList(@RequestBody List<DetalleVentaEntity> detalleVenta) {
+        detalleVentaService.createDetalleVentaList(detalleVenta);
+    }
+
     @PutMapping("/{id}")
     public DetalleVentaEntity updateDetalleVenta(@PathVariable Integer id, @RequestBody DetalleVentaEntity detalleVentaEntity) {
         return detalleVentaService.updateDetalleVenta(id, detalleVentaEntity);
