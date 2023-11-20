@@ -1,6 +1,8 @@
 package com.proyectosi1.apirest.config.auth;
 
 import com.proyectosi1.apirest.model.entity.RoleEntity;
+import com.proyectosi1.apirest.model.entity.RolePermissionEntity;
+import com.proyectosi1.apirest.model.repository.RolePermissionRepository;
 import com.proyectosi1.apirest.service.RoleService;
 import com.proyectosi1.apirest.model.entity.UserEntity;
 import com.proyectosi1.apirest.model.repository.UserRepository;
@@ -26,14 +28,15 @@ public class AuthService {
     private static RoleEntity userRegister;
     private final RoleService roleService;
     private final PermissionRepository permissionRepository;
+    private final RolePermissionRepository rolePermissionRepository;
 
     public AuthResponse register(RegisterRequest request) {
 
-        // Asignar el rol automaticamente
-        autoAssignRole();
-
         // Agregar permisos
         addPermissions();
+
+        // Asignar el rol automaticamente
+        autoAssignRole();
 
         // Crear un nuevo objeto de usuario utilizando los datos proporcionados en el registro.
         UserEntity user = UserEntity.builder()
@@ -60,6 +63,22 @@ public class AuthService {
             permissionRepository.save(PermissionEntity.builder().nombre("MODIFICAR_PERFIL").build());
             permissionRepository.save(PermissionEntity.builder().nombre("LEER_NOTAVENTA").build());
             permissionRepository.save(PermissionEntity.builder().nombre("AGREGAR_PRODUCTO").build());
+            permissionRepository.save(PermissionEntity.builder().nombre("VER_MARCA").build());
+            permissionRepository.save(PermissionEntity.builder().nombre("VER_COLOR").build());
+            permissionRepository.save(PermissionEntity.builder().nombre("VER_CATEGORIA").build());
+            permissionRepository.save(PermissionEntity.builder().nombre("VER_DESCUENTO").build());
+            permissionRepository.save(PermissionEntity.builder().nombre("VER_BODEGA").build());
+            permissionRepository.save(PermissionEntity.builder().nombre("VER_TALLA").build());
+            permissionRepository.save(PermissionEntity.builder().nombre("VER_INVENTARIO").build());
+            permissionRepository.save(PermissionEntity.builder().nombre("VER_NOTA_INGRESO").build());
+            permissionRepository.save(PermissionEntity.builder().nombre("VER_PRODUCTO").build());
+            permissionRepository.save(PermissionEntity.builder().nombre("VER_ROLES").build());
+            permissionRepository.save(PermissionEntity.builder().nombre("VER_PERMISOS").build());
+            permissionRepository.save(PermissionEntity.builder().nombre("VER_NOTA_VENTA").build());
+            permissionRepository.save(PermissionEntity.builder().nombre("VER_TIPO_PAGO").build());
+            permissionRepository.save(PermissionEntity.builder().nombre("VER_USUARIOS").build());
+            permissionRepository.save(PermissionEntity.builder().nombre("VER_ADMINISTRAR_VENTA").build());
+            permissionRepository.save(PermissionEntity.builder().nombre("VER_CATALOGO_PRODUCTO").build());
         }
     }
 
@@ -68,6 +87,17 @@ public class AuthService {
             userRegister = RoleEntity.builder().id(1).name(Role.ADMIN.name()).build();
             roleService.createRole(RoleEntity.builder().id(1).name(Role.ADMIN.name()).build());
             roleService.createRole(RoleEntity.builder().id(2).name(Role.CLIENTE.name()).build());
+
+            RoleEntity role = new RoleEntity();
+            PermissionEntity permission1 = new PermissionEntity();
+            PermissionEntity permission2 = new PermissionEntity();
+
+            role.setId(1);
+            permission1.setId(14);
+            permission2.setId(15);
+
+            rolePermissionRepository.save(new RolePermissionEntity(role,permission1));
+            rolePermissionRepository.save(new RolePermissionEntity(role,permission2));
 
         } else {
             userRegister = RoleEntity.builder().id(2).name(Role.CLIENTE.name()).build();
