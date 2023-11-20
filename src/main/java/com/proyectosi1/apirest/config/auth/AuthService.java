@@ -9,6 +9,7 @@ import com.proyectosi1.apirest.model.repository.UserRepository;
 import com.proyectosi1.apirest.config.jwt.JwtService;
 import com.proyectosi1.apirest.model.entity.PermissionEntity;
 import com.proyectosi1.apirest.model.repository.PermissionRepository;
+import com.proyectosi1.apirest.utils.Permission;
 import com.proyectosi1.apirest.utils.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -57,59 +58,49 @@ public class AuthService {
                 .build();
     }
 
+    public AuthResponse login(LoginRequest request) {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+        UserDetails user = userRepository.findByUsername(request.getUsername()).orElseThrow();
+        String token = jwtService.getToken(user);
+        return AuthResponse.builder()
+                .token(token)
+                .build();
+    }
+
+    // Iterar sobre la lista de nombres de permisos y guardarlos en el repositorio
     private void addPermissions() {
         if (permissionRepository.count() == 0) {
-            permissionRepository.save(PermissionEntity.builder().nombre("LEER_PRODUCTO").build());
-            permissionRepository.save(PermissionEntity.builder().nombre("MODIFICAR_PERFIL").build());
-            permissionRepository.save(PermissionEntity.builder().nombre("LEER_NOTAVENTA").build());
-            permissionRepository.save(PermissionEntity.builder().nombre("AGREGAR_PRODUCTO").build());
-            permissionRepository.save(PermissionEntity.builder().nombre("VER_MARCA").build());
-            permissionRepository.save(PermissionEntity.builder().nombre("VER_COLOR").build());
-            permissionRepository.save(PermissionEntity.builder().nombre("VER_CATEGORIA").build());
-            permissionRepository.save(PermissionEntity.builder().nombre("VER_DESCUENTO").build());
-            permissionRepository.save(PermissionEntity.builder().nombre("VER_BODEGA").build());
-            permissionRepository.save(PermissionEntity.builder().nombre("VER_TALLA").build());
-            permissionRepository.save(PermissionEntity.builder().nombre("VER_INVENTARIO").build());
-            permissionRepository.save(PermissionEntity.builder().nombre("VER_NOTA_INGRESO").build());
-            permissionRepository.save(PermissionEntity.builder().nombre("VER_PRODUCTO").build());
-            permissionRepository.save(PermissionEntity.builder().nombre("VER_ROLES").build());
-            permissionRepository.save(PermissionEntity.builder().nombre("VER_PERMISOS").build());
-            permissionRepository.save(PermissionEntity.builder().nombre("VER_NOTA_VENTA").build());
-            permissionRepository.save(PermissionEntity.builder().nombre("VER_TIPO_PAGO").build());
-            permissionRepository.save(PermissionEntity.builder().nombre("VER_USUARIOS").build());
-            permissionRepository.save(PermissionEntity.builder().nombre("VER_ADMINISTRAR_VENTA").build());
-            permissionRepository.save(PermissionEntity.builder().nombre("VER_CATALOGO_PRODUCTO").build());
+            for (String namePermissions : Permission.getAllPermissionNames()) {
+                permissionRepository.save(PermissionEntity.builder().nombre(namePermissions).build());
+            }
         }
     }
 
     private void autoAssignRole() {
         if (userRepository.count() == 0) {
             userRegister = RoleEntity.builder().id(1).name(Role.ADMIN.name()).build();
-            roleService.createRole(RoleEntity.builder().id(1).name(Role.ADMIN.name()).build());
-            roleService.createRole(RoleEntity.builder().id(2).name(Role.CLIENTE.name()).build());
 
-            RoleEntity role = new RoleEntity();
-            PermissionEntity permission1 = new PermissionEntity();
-            PermissionEntity permission2 = new PermissionEntity();
-
-            role.setId(1);
-            permission1.setId(14);
-            permission2.setId(15);
-
-            rolePermissionRepository.save(new RolePermissionEntity(role,permission1));
-            rolePermissionRepository.save(new RolePermissionEntity(role,permission2));
+            loadRoles();
+            autoAssignPermissions();
 
         } else {
             userRegister = RoleEntity.builder().id(2).name(Role.CLIENTE.name()).build();
         }
     }
 
-    public AuthResponse login(LoginRequest request) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-        UserDetails user=userRepository.findByUsername(request.getUsername()).orElseThrow();
-        String token=jwtService.getToken(user);
-        return AuthResponse.builder()
-                .token(token)
-                .build();
+    private void loadRoles() {
+        roleService.createRole(RoleEntity.builder().id(1).name(Role.ADMIN.name()).build());
+        roleService.createRole(RoleEntity.builder().id(2).name(Role.CLIENTE.name()).build());
     }
+
+    private void autoAssignPermissions() {
+        for (PermissionEntity permission : permissionRepository.findAll()) {
+            rolePermissionRepository.save(RolePermissionEntity
+                    .builder()
+                    .rol(RoleEntity.builder().id(1).build())
+                    .permiso(permission)
+                    .build());
+        }
+    }
+
 }
