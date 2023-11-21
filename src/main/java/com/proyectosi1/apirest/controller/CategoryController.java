@@ -1,6 +1,5 @@
 package com.proyectosi1.apirest.controller;
 
-import com.proyectosi1.apirest.dto.CategoryDTO;
 import com.proyectosi1.apirest.dto.EnvioCategoryDTO;
 import com.proyectosi1.apirest.entity.CategoryEntity;
 
@@ -25,12 +24,12 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @PostMapping
-    public CategoryEntity createCategory(@RequestBody CategoryEntity category) {
-        return categoryService.createCategory(category);
+    public CategoryDTO createCategory(@RequestBody CategoryDTO categoryDTO) {
+        return categoryService.createCategory(categoryDTO);
     }
 
     @PutMapping("/{id}")
-    public CategoryEntity updateCategory(@PathVariable Integer id, @RequestBody CategoryEntity category) {
+    public CategoryDTO updateCategory(@PathVariable Integer id, @RequestBody CategoryDTO category) {
         category.setId(id);
         return categoryService.updateCategory(category);
     }
@@ -41,22 +40,17 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public CategoryEntity getCategory(@PathVariable Integer id) {
-        return categoryService.getCategoria(id);
+    public CategoryDTO getCategory(@PathVariable Integer id) {
+        return categoryService.getCategory(id);
     }
 
     @GetMapping
-    public List<CategoryEntity> getAllCategory() {
+    public List<CategoryDTO> getAllCategories() {
         return categoryService.getAllCategories();
     }
 
     @GetMapping("/send-category")
     public EnvioCategoryDTO sendCategory(){
         return categoryService.sendCategory();
-    }
-
-    @PostMapping("/save-category")
-    public CategoryEntity saveCategory (@RequestBody CategoryDTO categoryDTO) {
-        return categoryService.saveCategory(categoryDTO);
     }
 }

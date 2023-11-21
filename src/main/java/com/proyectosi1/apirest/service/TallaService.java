@@ -2,8 +2,8 @@ package com.proyectosi1.apirest.service;
 
 import org.springframework.stereotype.Service;
 
-import com.proyectosi1.apirest.entity.TallaEntity;
-import com.proyectosi1.apirest.repository.TallaRepository;
+import com.proyectosi1.apirest.model.entity.TallaEntity;
+import com.proyectosi1.apirest.model.repository.TallaRepository;
 
 import lombok.RequiredArgsConstructor;
 

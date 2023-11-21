@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.proyectosi1.apirest.entity.InventarioEntity;
+import com.proyectosi1.apirest.model.entity.InventarioEntity;
 import com.proyectosi1.apirest.service.InventarioService;
 
 import java.util.List;
