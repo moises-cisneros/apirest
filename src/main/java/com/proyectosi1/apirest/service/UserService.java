@@ -45,7 +45,6 @@ public class UserService {
         return optionalUser.orElse(null);
     }
 
-
     public List<UserViuwDTO> getUserViuw(){
         List<UserViuwDTO> a=new ArrayList<>();
 
@@ -61,11 +60,7 @@ public class UserService {
             a.add(c);
         }
 
-
-
         return a;
     }
-
-
 
 }

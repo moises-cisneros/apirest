@@ -1,5 +1,6 @@
 package com.proyectosi1.apirest.controller;
 
+import com.proyectosi1.apirest.model.dto.CatalogoDTO;
 import com.proyectosi1.apirest.model.dto.ImagenDTO;
 import com.proyectosi1.apirest.model.entity.ImagenEntity;
 import com.proyectosi1.apirest.service.ImagenService;
@@ -44,6 +45,11 @@ public class ImagenController {
     @GetMapping("/edit")
     public ImagenDTO editImageUrl(@RequestParam Integer idInventario) {
         return imagenService.editImageUrl(idInventario);
+    }
+
+    @GetMapping("/catalogo")
+    public List<CatalogoDTO> getCatalogo() {
+        return imagenService.getCatalogo();
     }
 
 }
