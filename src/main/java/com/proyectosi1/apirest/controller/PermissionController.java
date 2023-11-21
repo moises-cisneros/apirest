@@ -2,6 +2,7 @@ package com.proyectosi1.apirest.controller;
 
 import com.proyectosi1.apirest.model.entity.PermissionEntity;
 import com.proyectosi1.apirest.service.PermissionService;
+import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,6 +39,11 @@ public class PermissionController {
     @GetMapping
     public List<PermissionEntity> getAllPermission() {
         return permissionService.getAllPermission();
+    }
+
+    @GetMapping("/list-permissions")
+    public List<String> userPermissionList(@RequestParam String username) {
+        return permissionService.userPermissionList(username);
     }
 
 }

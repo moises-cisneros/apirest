@@ -1,6 +1,8 @@
 package com.proyectosi1.apirest.config.auth;
 
 import com.proyectosi1.apirest.model.entity.RoleEntity;
+import com.proyectosi1.apirest.model.entity.RolePermissionEntity;
+import com.proyectosi1.apirest.model.repository.RolePermissionRepository;
 import com.proyectosi1.apirest.service.RoleService;
 import com.proyectosi1.apirest.model.entity.UserEntity;
 import com.proyectosi1.apirest.model.repository.UserRepository;
@@ -8,6 +10,7 @@ import com.proyectosi1.apirest.config.jwt.JwtService;
 import com.proyectosi1.apirest.model.dto.NamePermisosDTO;
 import com.proyectosi1.apirest.model.entity.PermissionEntity;
 import com.proyectosi1.apirest.model.repository.PermissionRepository;
+import com.proyectosi1.apirest.utils.Permission;
 import com.proyectosi1.apirest.utils.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,14 +31,15 @@ public class AuthService {
     private static RoleEntity userRegister;
     private final RoleService roleService;
     private final PermissionRepository permissionRepository;
+    private final RolePermissionRepository rolePermissionRepository;
 
     public AuthResponse register(RegisterRequest request) {
 
-        // Asignar el rol automaticamente
-        autoAssignRole();
-
         // Agregar permisos
         addPermissions();
+
+        // Asignar el rol automaticamente
+        autoAssignRole();
 
         // Crear un nuevo objeto de usuario utilizando los datos proporcionados en el registro.
         UserEntity user = UserEntity.builder()
@@ -56,32 +60,49 @@ public class AuthService {
                 .build();
     }
 
+    public AuthResponse login(LoginRequest request) {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+        UserDetails user = userRepository.findByUsername(request.getUsername()).orElseThrow();
+        String token = jwtService.getToken(user);
+        return AuthResponse.builder()
+                .token(token)
+                .build();
+    }
+
+    // Iterar sobre la lista de nombres de permisos y guardarlos en el repositorio
     private void addPermissions() {
         if (permissionRepository.count() == 0) {
-            permissionRepository.save(PermissionEntity.builder().nombre("LEER_PRODUCTO").build());
-            permissionRepository.save(PermissionEntity.builder().nombre("MODIFICAR_PERFIL").build());
-            permissionRepository.save(PermissionEntity.builder().nombre("LEER_NOTAVENTA").build());
-            permissionRepository.save(PermissionEntity.builder().nombre("AGREGAR_PRODUCTO").build());
+            for (String namePermissions : Permission.getAllPermissionNames()) {
+                permissionRepository.save(PermissionEntity.builder().nombre(namePermissions).build());
+            }
         }
     }
 
     private void autoAssignRole() {
         if (userRepository.count() == 0) {
             userRegister = RoleEntity.builder().id(1).name(Role.ADMIN.name()).build();
-            roleService.createRole(RoleEntity.builder().id(1).name(Role.ADMIN.name()).build());
-            roleService.createRole(RoleEntity.builder().id(2).name(Role.CLIENTE.name()).build());
+
+            loadRoles();
+            autoAssignPermissions();
 
         } else {
             userRegister = RoleEntity.builder().id(2).name(Role.CLIENTE.name()).build();
         }
     }
 
-    public AuthResponse login(LoginRequest request) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-        UserDetails user=userRepository.findByUsername(request.getUsername()).orElseThrow();
-        String token=jwtService.getToken(user);
-        return AuthResponse.builder()
-                .token(token)
-                .build();
+    private void loadRoles() {
+        roleService.createRole(RoleEntity.builder().id(1).name(Role.ADMIN.name()).build());
+        roleService.createRole(RoleEntity.builder().id(2).name(Role.CLIENTE.name()).build());
     }
+
+    private void autoAssignPermissions() {
+        for (PermissionEntity permission : permissionRepository.findAll()) {
+            rolePermissionRepository.save(RolePermissionEntity
+                    .builder()
+                    .rol(RoleEntity.builder().id(1).build())
+                    .permiso(permission)
+                    .build());
+        }
+    }
+
 }
