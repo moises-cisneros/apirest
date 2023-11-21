@@ -1,5 +1,6 @@
 package com.proyectosi1.apirest.controller;
 
+import com.proyectosi1.apirest.model.dto.UserViuwDTO;
 import com.proyectosi1.apirest.model.entity.UserEntity;
 import com.proyectosi1.apirest.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -49,4 +50,10 @@ public class UserController {
             return "Usuario no encontrado";
         }
     }
+
+    @GetMapping("/Mostrar")
+    public List<UserViuwDTO> mostrar(){
+        return userService.getUserViuw();
+    }
+    
 }
