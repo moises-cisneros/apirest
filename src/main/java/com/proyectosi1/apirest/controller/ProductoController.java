@@ -1,7 +1,6 @@
 package com.proyectosi1.apirest.controller;
 
-import com.proyectosi1.apirest.dto.EnvioProductoTallaDTO;
-import com.proyectosi1.apirest.dto.RequestProductoDTO;
+import com.proyectosi1.apirest.model.dto.ProductoDTO;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.proyectosi1.apirest.entity.ProductoEntity;
+import com.proyectosi1.apirest.model.entity.ProductoEntity;
 import com.proyectosi1.apirest.service.ProductoService;
 
 import lombok.RequiredArgsConstructor;
@@ -25,8 +24,8 @@ public class ProductoController {
     private final ProductoService productoService;
 
     @PostMapping
-    public ProductoEntity crearProducto(@RequestBody ProductoEntity producto) {
-        return productoService.crearProducto(producto);
+    public ProductoDTO crearProducto(@RequestBody ProductoDTO productoDTO) {
+        return productoService.createProducto(productoDTO);
     }
 
     @PutMapping("/{id}") 
@@ -48,16 +47,6 @@ public class ProductoController {
     @GetMapping
     public List<ProductoEntity> getAllProducto() {
         return productoService.getAllProducto();
-    }
-
-    @GetMapping("/send-product-talla")
-    public EnvioProductoTallaDTO sendProductSize() {
-        return productoService.sendProductSize();
-    }
-
-    @PostMapping("/save-product")
-    public ProductoEntity saveProduct(@RequestBody RequestProductoDTO productoDTO) {
-        return productoService.guardarProducto(productoDTO);
     }
 
 }
