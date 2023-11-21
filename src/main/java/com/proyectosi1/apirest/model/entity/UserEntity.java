@@ -33,6 +33,11 @@ public class UserEntity implements UserDetails {
     private String username;
     private String password;
 
+    /*
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role;*/    
+
     @ManyToOne
     @JoinColumn(name = "id_rol")
     private RoleEntity role;
