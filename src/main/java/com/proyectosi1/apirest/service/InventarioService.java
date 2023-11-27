@@ -34,4 +34,8 @@ public class InventarioService {
         return inventarioRepository.findAll();
     }
 
+    public List<InventarioEntity> getPrueba(Integer idProducto) {
+        return (List<InventarioEntity>) inventarioRepository.findByProducto(idProducto);
+    }
+
 }
