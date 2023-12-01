@@ -10,17 +10,20 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@IdClass(EgresoProductoId.class)
 @Entity 
 @Table (name = "EGRESO_PRODUCTO")
 public class EgresoProductoEntity {
 
-    @EmbeddedId
-    private EgresoProductoId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ingreso_producto_gen")
+    @SequenceGenerator(name = "ingreso_producto_gen")
+    private Integer id;
 
-    @MapsId("id_nota_egreso")
+    @Id
     @ManyToOne
     @JoinColumn(name = "id_nota_egreso")
-    private NotaIngresoEntity id_nota_egreso;
+    private NotaEgresoEntity id_nota_egreso;
 
     private Integer cantidad;
 
