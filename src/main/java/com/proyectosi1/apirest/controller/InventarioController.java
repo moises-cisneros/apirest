@@ -41,9 +41,4 @@ public class InventarioController {
         return inventarioService.getAllInventario();
     }
 
-    @GetMapping("/prueba")
-    public List<InventarioEntity> getPrueba(@RequestParam Integer idProducto) {
-        return inventarioService.getPrueba(idProducto);
-    }
-
 }

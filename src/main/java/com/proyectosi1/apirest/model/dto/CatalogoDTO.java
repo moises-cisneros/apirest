@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,9 +14,12 @@ import lombok.Setter;
 public class CatalogoDTO {
 
     private Integer id;
-    private String nombreProducto;
+    private String nombre;
+    private DescuentoDTO descuento;
+    private ColorDTO color;
+    private MarcaDTO marca;
+    private CategoryDTO categoria;
     private String url;
-    private Float precio;
-    private Integer stock;
+    private List<DetalleTallaDTO> detalleTalla;
 
 }

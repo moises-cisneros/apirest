@@ -2,10 +2,12 @@ package com.proyectosi1.apirest.service;
 
 import com.proyectosi1.apirest.model.dto.*;
 import com.proyectosi1.apirest.model.entity.*;
-import com.proyectosi1.apirest.model.repository.ImagenRepository;
+import com.proyectosi1.apirest.model.mapper.CategoryMapper;
+import com.proyectosi1.apirest.model.mapper.ColorMapper;
+import com.proyectosi1.apirest.model.mapper.DescuentoMapper;
+import com.proyectosi1.apirest.model.mapper.MarcaMapper;
 import com.proyectosi1.apirest.model.repository.InventarioRepository;
 import com.proyectosi1.apirest.model.repository.ProductoRepository;
-import com.proyectosi1.apirest.model.repository.TallaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,34 +16,16 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class ImagenService {
+public class CatalogoService {
 
-    private final ImagenRepository imagenRepository;
     private final InventarioRepository inventarioRepository;
     private final ProductoRepository productoRepository;
-    private final TallaRepository tallaRepository;
+    private final DescuentoMapper descuentoMapper;
+    private final MarcaMapper marcaMapper;
+    private final CategoryMapper categoryMapper;
+    private final ColorMapper colorMapper;
 
-    public ImagenEntity createImagen(ImagenEntity imagen) {
-        return imagenRepository.save(imagen);
-    }
-
-    public ImagenEntity updateImagen(ImagenEntity imagen) {
-        return imagenRepository.save(imagen);
-    }
-
-    public void deleteImagen(Integer id) {
-        imagenRepository.deleteById(id);
-    }
-
-    public ImagenEntity getImagen(Integer id) {
-        return imagenRepository.findById(id).orElse(null);
-    }
-
-    public List<ImagenEntity> getAllImages() {
-        return imagenRepository.findAll();
-    }
-
-    public ImagenDTO editImageUrl(Integer idInventario) {
+    /*public ImagenDTO editImageUrl(Integer idInventario) {
         ImagenDTO imagenDTO = new ImagenDTO();
         List<ImagenEntity> imagenes = imagenRepository.findByInventarioId(idInventario);
 
@@ -53,33 +37,46 @@ public class ImagenService {
         }
 
         return imagenDTO;
-    }
-
+    }*/
 
     public List<CatalogoDTO> getCatalogo() {
         List<CatalogoDTO> catalogoDTOList = new ArrayList<>();
-        List<InventarioEntity> inventarioEntityList = inventarioRepository.findAll();
+        List<ProductoEntity> productoEntityList = new ArrayList<>();
 
-        for (InventarioEntity inventario : inventarioEntityList) {
-            CatalogoDTO catalogoDTO = new CatalogoDTO();
-
-            // Obteniendo la imagen para el inventario actual
-            ImagenDTO imagenDTO = editImageUrl(inventario.getId());
-
-            // Verificando si la imagen es válida antes de agregar el producto al catálogo
-            if (imagenDTO != null && imagenDTO.getId() != null && imagenDTO.getUrl() != null) {
-                catalogoDTO.setId(imagenDTO.getId());
-                catalogoDTO.setUrl(imagenDTO.getUrl());
-
-                // Obteniendo el nombre del producto del inventario actual
-                String nombreProducto = inventario.getProducto().getNombre();
-                catalogoDTO.setNombreProducto(nombreProducto);
-
-                catalogoDTO.setPrecio(inventario.getPrecio());
-                catalogoDTO.setStock(inventario.getCantidad());
-
-                catalogoDTOList.add(catalogoDTO);
+        // Filtramos solo los productos disponibles
+        for (ProductoEntity producto : productoRepository.findAll()) {
+            if (producto.isDisponible()) {
+                productoEntityList.add(producto);
             }
+        }
+
+        // Obtenemos los atributos para el CatalogoDTO
+        for (ProductoEntity producto : productoEntityList) {
+            // Uso de los mappers
+            MarcaDTO marcaDTO = marcaMapper.marcaToMarcaDTO(producto.getMarca());
+            DescuentoDTO descuentoDTO = descuentoMapper.descuentoToDescuentoDTO(producto.getDescuento());
+            ColorDTO colorDTO = colorMapper.colorToColorDTO(producto.getColor());
+            CategoryDTO categoryDTO = categoryMapper.categoryToCategoryDTO(producto.getCategoria());
+
+            // Obtener una lista de los registros del inventario pertenecientes a un producto
+            List<InventarioEntity> inventarioEntityList = (List<InventarioEntity>) inventarioRepository.findByProducto(producto.getId());
+
+            // Obtenemos una lista de las tallas con su cantidad y precio
+            List<DetalleTallaDTO> detalleTallaDTOList = getDetalleTallaDTOS(inventarioEntityList);
+
+            // Construimos el CatalogoDTO
+            CatalogoDTO catalogoDTO = new CatalogoDTO(
+                    producto.getId(),
+                    producto.getNombre(),
+                    descuentoDTO,
+                    colorDTO,
+                    marcaDTO,
+                    categoryDTO,
+                    producto.getUrl(),
+                    detalleTallaDTOList
+            );
+
+            catalogoDTOList.add(catalogoDTO);
         }
 
         return catalogoDTOList;
@@ -162,11 +159,31 @@ public class ImagenService {
         return false;
     }
 
-    public List<TallaEntity> prueba1(Integer idProducto) {
-        return (List<TallaEntity>) inventarioRepository.findByProductIdAllTallas(idProducto);
+    public void productAvailability(Integer id, boolean disponible) {
+        ProductoEntity producto = productoRepository.findById(id).orElse(null);
+
+        if (producto == null) {
+            return;
+        }
+
+        producto.setDisponible(disponible);
+        productoRepository.save(producto);
     }
-    public List<ColorEntity> prueba2(String name) {
-        return (List<ColorEntity>) productoRepository.findByNameProductAllColors(name);
+
+    private static List<DetalleTallaDTO> getDetalleTallaDTOS(List<InventarioEntity> inventarioEntityList) {
+        List<DetalleTallaDTO> detalleTallaDTOList = new ArrayList<>();
+
+        for (InventarioEntity inventario : inventarioEntityList) {
+            DetalleTallaDTO detalleTallaDTO = new DetalleTallaDTO(
+                    inventario.getTalla().getId(),
+                    inventario.getTalla().getTalla(),
+                    inventario.getPrecio(),
+                    inventario.getCantidad()
+            );
+
+            detalleTallaDTOList.add(detalleTallaDTO);
+        }
+        return detalleTallaDTOList;
     }
 
 }
