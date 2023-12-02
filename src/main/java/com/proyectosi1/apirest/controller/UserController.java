@@ -1,6 +1,5 @@
 package com.proyectosi1.apirest.controller;
 
-import com.proyectosi1.apirest.model.dto.UserViuwDTO;
 import com.proyectosi1.apirest.model.entity.UserEntity;
 import com.proyectosi1.apirest.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -51,9 +50,9 @@ public class UserController {
         }
     }
 
-    @GetMapping("/Mostrar")
-    public List<UserViuwDTO> mostrar(){
-        return userService.getUserViuw();
+    @PutMapping("/new-password")
+    public void changePassword(@RequestParam Integer id, @RequestParam String newPassword) {
+        userService.changePassword(id, newPassword);
     }
     
     @GetMapping("/perfilUser")

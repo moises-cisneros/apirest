@@ -7,19 +7,15 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 @Setter
-public class CatalogoDTO {
-
-    private Integer id;
+public class ColoresDTO {
+    private int id;
     private String nombre;
-    private DescuentoDTO descuento;
-    private ColorDTO color;
-    private MarcaDTO marca;
-    private CategoryDTO categoria;
     private String url;
-    private List<DetalleTallaDTO> detalleTalla;
-
+    private boolean disponible;
+    private Integer idProducto;
+    private List<TallaDTO> tallas;
 }

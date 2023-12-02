@@ -42,7 +42,8 @@ public class SecurityConfig {
                         .requestMatchers("/descuento/**").permitAll()
                         .requestMatchers("/bitacora/**").permitAll()
                         .requestMatchers("/send-email/**").permitAll()
-                        .requestMatchers("/imagen/**").permitAll()
+                        .requestMatchers("/catalogo/**").permitAll()
+                        .requestMatchers("/report/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManagement ->

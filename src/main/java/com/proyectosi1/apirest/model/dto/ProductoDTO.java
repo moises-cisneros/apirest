@@ -13,6 +13,7 @@ public class ProductoDTO {
     private Integer id;
     private String nombre;
     private String descripcion;
+    private boolean disponible;
     private ColorDTO color;
     private CategoryDTO categoria;
     private MarcaDTO marca;

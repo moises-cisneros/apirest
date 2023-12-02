@@ -23,6 +23,7 @@ public enum Permission {
     VER_USUARIOS,
     VER_ADMINISTRAR_VENTA,
     VER_CATALOGO_PRODUCTO,
+    VER_ADMINISTRAR_CATALOGO,
     VER_HOME;
 
     static {
