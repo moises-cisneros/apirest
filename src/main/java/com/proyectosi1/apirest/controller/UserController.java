@@ -56,4 +56,9 @@ public class UserController {
         return userService.getUserViuw();
     }
     
+    @GetMapping("/perfilUser")
+    public UserEntity obtenerPorUserName(@RequestParam String username){
+        return userService.obtenerUsuarioPorUsername(username);
+    }
+
 }
