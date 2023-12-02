@@ -55,4 +55,9 @@ public class UserController {
         userService.changePassword(id, newPassword);
     }
     
+    @GetMapping("/perfilUser")
+    public UserEntity obtenerPorUserName(@RequestParam String username){
+        return userService.obtenerUsuarioPorUsername(username);
+    }
+
 }

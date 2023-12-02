@@ -22,14 +22,6 @@ public class EgresoProductoService {
         return egreso_ProductoRepository.save((egreso_Producto));
     }
 
-    public void deleteEgreso_Producto(Integer id) {
-        egreso_ProductoRepository.deleteById(id);
-    }
-
-    public EgresoProductoEntity getEgreso_Producto(Integer id) {
-        return egreso_ProductoRepository.findById(id).orElse(null);
-    }
-
     public List<EgresoProductoEntity> getAllEgreso_Productos() {
         return egreso_ProductoRepository.findAll();
     }

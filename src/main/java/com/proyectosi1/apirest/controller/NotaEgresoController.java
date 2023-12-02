@@ -1,5 +1,6 @@
 package com.proyectosi1.apirest.controller;
 
+import com.proyectosi1.apirest.model.dto.NotaEgresoDTO;
 import com.proyectosi1.apirest.model.entity.NotaEgresoEntity;
 import com.proyectosi1.apirest.service.NotaEgresoService;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +16,8 @@ public class NotaEgresoController {
     private final NotaEgresoService nota_EgresoService;
     
     @PostMapping
-    public NotaEgresoEntity createNota_Egreso(@RequestBody NotaEgresoEntity nota_Egreso) {
-        return nota_EgresoService.createNota_Egreso(nota_Egreso);
+    public void createNota_Egreso(@RequestBody NotaEgresoDTO nota_Egreso) {
+        nota_EgresoService.createNota_Egreso(nota_Egreso);
     }
 
     @PutMapping("/{id}")
