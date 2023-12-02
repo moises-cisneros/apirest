@@ -2,6 +2,7 @@ package com.proyectosi1.apirest.controller;
 
 import com.proyectosi1.apirest.model.entity.UserEntity;
 import com.proyectosi1.apirest.service.UserService;
+
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
