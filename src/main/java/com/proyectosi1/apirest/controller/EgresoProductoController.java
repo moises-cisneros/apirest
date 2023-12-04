@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/egreso_producto")
 @RequiredArgsConstructor
-public class Egreso_ProductoController {
+public class EgresoProductoController {
     private final EgresoProductoService egreso_ProductoService;
 
     /*

@@ -15,11 +15,10 @@ public class CatalogoController {
 
     private final CatalogoService catalogoService;
 
-
-    /*@GetMapping("/edit")
-    public ImagenDTO editImageUrl(@RequestParam Integer idInventario) {
-        return imagenService.editImageUrl(idInventario);
-    }*/
+    @PutMapping("/edit-url/{id}")
+    public void saveProductUrl(@PathVariable Integer id, @RequestParam String url) {
+        catalogoService.saveProductUrl(id, url);
+    }
 
     @GetMapping
     public List<CatalogoDTO> getCatalogo() {

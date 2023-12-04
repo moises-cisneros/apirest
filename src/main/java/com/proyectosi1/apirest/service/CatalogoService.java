@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -25,19 +24,15 @@ public class CatalogoService {
     private final CategoryMapper categoryMapper;
     private final ColorMapper colorMapper;
 
-    /*public ImagenDTO editImageUrl(Integer idInventario) {
-        ImagenDTO imagenDTO = new ImagenDTO();
-        List<ImagenEntity> imagenes = imagenRepository.findByInventarioId(idInventario);
+    public void saveProductUrl(Integer id, String url) {
+        ProductoEntity producto = productoRepository.findById(id).orElse(null);
 
-        if (!imagenes.isEmpty()) {
-            ImagenEntity imagen = imagenes.get(0); // Puedes obtener la primera imagen de la lista
-            imagenDTO.setId(imagen.getId());
-            imagenDTO.setUrl(imagen.getUrl());
-            imagenDTO.setIdInventario(imagen.getInventario().getId());
-        }
+        if (producto == null)
+            return;
 
-        return imagenDTO;
-    }*/
+        producto.setUrl(url);
+        productoRepository.save(producto);
+    }
 
     public List<CatalogoDTO> getCatalogo() {
         List<CatalogoDTO> catalogoDTOList = new ArrayList<>();
@@ -82,12 +77,6 @@ public class CatalogoService {
         return catalogoDTOList;
     }
 
-    public Set<String> getProductNames() {
-        return productoRepository.findAll().stream()
-                .map(ProductoEntity::getNombre)
-                .collect(Collectors.toSet());
-    }
-
     // Obtener una lista de productos que tiene una lista de colores que este tiene una lista de tallas
     public List<ProductImageDTO> getAllProductImages() {
         List<ProductImageDTO> productImageDTOList = new ArrayList<>();
@@ -101,23 +90,7 @@ public class CatalogoService {
             // Cargar la lista de colores al DTO
             for (ProductoEntity auxProduct : auxProductList) {
                 List<TallaEntity> tallaEntityList = (List<TallaEntity>) inventarioRepository.findByProductIdAllTallas(auxProduct.getId());
-                List<TallaDTO> tallaDTOList = new ArrayList<>();
-
-                // Cargar la lista de tallas al DTO
-                for (TallaEntity talla : tallaEntityList) {
-                    TallaDTO tallaDTO = new TallaDTO(
-                            talla.getId(), talla.getTalla()
-                    );
-                    tallaDTOList.add(tallaDTO);
-                }
-
-                ColoresDTO coloresDTO = new ColoresDTO();
-                coloresDTO.setId(auxProduct.getColor().getId());
-                coloresDTO.setNombre(auxProduct.getColor().getNombre());
-                coloresDTO.setIdProducto(auxProduct.getId());
-                coloresDTO.setUrl(auxProduct.getUrl());
-                coloresDTO.setDisponible(auxProduct.isDisponible());
-                coloresDTO.setTallas(tallaDTOList);
+                ColoresDTO coloresDTO = getColoresDTO(auxProduct, tallaEntityList);
                 coloresDTOList.add(coloresDTO);
             }
 
@@ -131,6 +104,27 @@ public class CatalogoService {
         }
 
         return productImageDTOList;
+    }
+
+    private static ColoresDTO getColoresDTO(ProductoEntity auxProduct, List<TallaEntity> tallaEntityList) {
+        List<TallaDTO> tallaDTOList = new ArrayList<>();
+
+        // Cargar la lista de tallas al DTO
+        for (TallaEntity talla : tallaEntityList) {
+            TallaDTO tallaDTO = new TallaDTO(
+                    talla.getId(), talla.getTalla()
+            );
+            tallaDTOList.add(tallaDTO);
+        }
+
+        ColoresDTO coloresDTO = new ColoresDTO();
+        coloresDTO.setId(auxProduct.getColor().getId());
+        coloresDTO.setNombre(auxProduct.getColor().getNombre());
+        coloresDTO.setIdProducto(auxProduct.getId());
+        coloresDTO.setUrl(auxProduct.getUrl());
+        coloresDTO.setDisponible(auxProduct.isDisponible());
+        coloresDTO.setTallas(tallaDTOList);
+        return coloresDTO;
     }
 
     public List<ProductoEntity> productList() {
