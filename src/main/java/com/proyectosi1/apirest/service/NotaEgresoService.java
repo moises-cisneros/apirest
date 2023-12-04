@@ -44,6 +44,7 @@ public class NotaEgresoService {
     public void createNota_Egreso(NotaEgresoDTO notaEgreso){
         NotaEgresoEntity notaEgresoEntity = new NotaEgresoEntity();
         notaEgresoEntity.setDescripcion(notaEgreso.getDescripcion());
+        notaEgresoEntity.setFecha(notaEgreso.getFecha());
 
         Integer idNota = notaEgresoRepository.saveAndFlush(notaEgresoEntity).getId();
 

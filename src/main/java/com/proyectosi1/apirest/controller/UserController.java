@@ -56,7 +56,7 @@ public class UserController {
     }
     
     @GetMapping("/perfilUser")
-    public UserEntity obtenerPorUserName(@RequestParam String username){
+    public UserEntity getUserData(@RequestParam String username){
         return userService.obtenerUsuarioPorUsername(username);
     }
 
