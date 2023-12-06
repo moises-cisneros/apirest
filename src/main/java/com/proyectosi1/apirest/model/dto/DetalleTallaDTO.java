@@ -5,16 +5,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserViuwDTO {
-    private Integer id;
-    private String name;
-    private String phone;
-    private String email;
-    private String username;
+public class DetalleTallaDTO {
 
-    private String rol;
+    private Integer id;
+    private String talla;
+    private float precio;
+    private Integer cantidad;
+
 }

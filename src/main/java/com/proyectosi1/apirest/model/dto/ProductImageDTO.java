@@ -5,12 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
+import java.util.List;
+
 @AllArgsConstructor
+@Getter
 @NoArgsConstructor
-public class ImagenDTO {
+@Setter
+public class ProductImageDTO {
     private Integer id;
-    private String url;
-    private Integer idInventario;
+    private String nombre;
+    private List<ColoresDTO> colores;
 }

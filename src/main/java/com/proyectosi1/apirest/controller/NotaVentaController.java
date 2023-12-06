@@ -6,8 +6,6 @@ import com.proyectosi1.apirest.model.dto.EstadoVentaDTO;
 import com.proyectosi1.apirest.model.dto.NotaVentaDTO;
 import com.proyectosi1.apirest.model.dto.UpdateEstadoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.proyectosi1.apirest.model.entity.NotaVentaEntity;
@@ -23,7 +21,7 @@ public class NotaVentaController {
     private final NotaVentaService notaVentaService;
 
     @PostMapping
-    public NotaVentaEntity crearNotaVenta(@RequestBody NotaVentaEntity notaVentaEntity) {
+    public NotaVentaEntity createNotaVenta(@RequestBody NotaVentaEntity notaVentaEntity) {
         return notaVentaService.crearNotaVenta(notaVentaEntity);
     }
 
@@ -52,18 +50,13 @@ public class NotaVentaController {
         return notaVentaService.getAllSalesNote();
     }
 
-    @GetMapping("/report-sales-note")
-    public ResponseEntity<Resource> exportSalesNoteReport(@RequestParam Integer idNotaVenta) {
-        return notaVentaService.exportReportNoteSale(idNotaVenta);
-    }
-
     @GetMapping("/total-quantity")
     public Integer totalQuantityItemsSalesNote() {
         return notaVentaService.totalQuantityItemsSalesNote();
     }
 
     @GetMapping("/estado-venta")
-    public List<EstadoVentaDTO> estadoVenta(){
+    public List<EstadoVentaDTO> estadoVenta() {
         return notaVentaService.estadoVenta();
     }
 

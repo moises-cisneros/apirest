@@ -11,27 +11,19 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Service
 public class IngresoProductoService {
-    private final IngresoProductoRepository ingreso_ProductoRepository;
+    private final IngresoProductoRepository ingresoProductoRepository;
 
-    public IngresoProductoEntity createIngreso_Producto(IngresoProductoEntity ingreso_Producto){
-        return ingreso_ProductoRepository.save(ingreso_Producto);
+    public IngresoProductoEntity createIngresoProducto(IngresoProductoEntity ingreso_Producto) {
+        return ingresoProductoRepository.save(ingreso_Producto);
     }
 
-    // Actualiza un registro de Ingreso_Producto en la base de datos
-    public IngresoProductoEntity updateIngreso_Producto(IngresoProductoEntity ingreso_Producto) {
-        return ingreso_ProductoRepository.save((ingreso_Producto));
+    // Actualiza un registro de IngresoProducto en la base de datos
+    public IngresoProductoEntity updateIngresoProducto(IngresoProductoEntity ingreso_Producto) {
+        return ingresoProductoRepository.save((ingreso_Producto));
     }
 
-/*    public void deleteIngreso_Producto(Integer id) {
-        ingreso_ProductoRepository.deleteById(id);
-    }
-
-    public IngresoProductoEntity getIngreso_Producto(Integer id) {
-        return ingreso_ProductoRepository.findById(id).orElse(null);
-    }
- */
-    public List<IngresoProductoEntity> getAllIngreso_Productos() {
-        return ingreso_ProductoRepository.findAll();
+    public List<IngresoProductoEntity> getAllIngresoProductos() {
+        return ingresoProductoRepository.findAll();
     }
 
 }
