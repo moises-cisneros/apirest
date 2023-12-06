@@ -3,7 +3,6 @@ package com.proyectosi1.apirest.service;
 import com.proyectosi1.apirest.model.dto.ProductoDTO;
 import com.proyectosi1.apirest.model.entity.*;
 import com.proyectosi1.apirest.model.mapper.ProductoMapper;
-import com.proyectosi1.apirest.model.repository.TallaRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +21,6 @@ public class ProductoService {
     private final ProductoRepository productoRepository;
     @Autowired
     private final ProductoMapper productoMapper;
-    private final TallaRepository tallaRepository;
  
     public ProductoDTO createProducto(ProductoDTO productoDTO) {
         ProductoEntity productoEntity = productoMapper.productoDTOToProducto(productoDTO);

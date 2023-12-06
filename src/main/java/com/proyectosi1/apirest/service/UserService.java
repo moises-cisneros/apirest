@@ -1,9 +1,9 @@
 package com.proyectosi1.apirest.service;
 
-import com.proyectosi1.apirest.model.dto.UserViuwDTO;
 import com.proyectosi1.apirest.model.entity.UserEntity;
 import com.proyectosi1.apirest.model.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,6 +15,7 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public UserEntity crearUsuario(UserEntity usuario) {
         return userRepository.save(usuario);
@@ -45,22 +46,15 @@ public class UserService {
         return optionalUser.orElse(null);
     }
 
-    public List<UserViuwDTO> getUserViuw(){
-        List<UserViuwDTO> a=new ArrayList<>();
+    public void changePassword(Integer id, String newPassword) {
+        UserEntity user = userRepository.findById(id).orElse(null);
 
-        List<UserEntity> b=userRepository.findAll();
-        for (UserEntity userEntity : b) {
-            UserViuwDTO c=new UserViuwDTO();
-            c.setEmail(userEntity.getEmail());
-            c.setId(userEntity.getId());
-            c.setName(userEntity.getName());
-            c.setPhone(userEntity.getPhone());
-            c.setUsername(userEntity.getUsername());
-            c.setRol(userEntity.getRole().getName());
-            a.add(c);
+        if (user == null) {
+            return;
         }
 
-        return a;
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
     }
 
 }

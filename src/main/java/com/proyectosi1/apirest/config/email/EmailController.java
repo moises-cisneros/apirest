@@ -23,7 +23,6 @@ public class EmailController {
 
     @PostMapping("/message")
     public ResponseEntity<?> receiveRequestEmail(@RequestBody EmailMessageDTO emailDTO) {
-
         emailService.sendEmailWithMessage(emailDTO.getToUser(), emailDTO.getSubject(), emailDTO.getMessage());
 
         Map<String, String> response = new HashMap<>();
@@ -34,10 +33,8 @@ public class EmailController {
 
     @PostMapping("/message-file")
     public ResponseEntity<?> receiveRequestEmailWithFile(@ModelAttribute EmailFileDTO emailFileDTO) {
-
         try {
             String fileName = emailFileDTO.getFile().getOriginalFilename();
-
             Path path = Paths.get("src/main/resources/files/" + fileName);
 
             Files.createDirectories(path.getParent());
@@ -52,7 +49,6 @@ public class EmailController {
             response.put("archivo", fileName);
 
             return ResponseEntity.ok(response);
-
         } catch (Exception e) {
             throw new RuntimeException("Error al enviar el Email con el archivo. " + e.getMessage());
         }
@@ -61,14 +57,12 @@ public class EmailController {
     @PostMapping("/reporte-nota-venta")
     public ResponseEntity<?> receiveRequestEmailWithFile(@RequestParam Integer idNotaVenta) {
         try {
-
             emailService.sendEmailWithReport(idNotaVenta);
 
             Map<String, String> response = new HashMap<>();
             response.put("estado", "Enviado");
 
             return ResponseEntity.ok(response);
-
         } catch (Exception e) {
             throw new RuntimeException("Error al enviar el Email con el archivo. " + e.getMessage());
         }
