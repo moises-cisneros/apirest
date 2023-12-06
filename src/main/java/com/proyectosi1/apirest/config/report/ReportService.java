@@ -1,9 +1,13 @@
 package com.proyectosi1.apirest.config.report;
 
+import com.proyectosi1.apirest.model.dto.BitacoraQueryDTO;
+import com.proyectosi1.apirest.model.dto.TableBitacoraDTO;
 import com.proyectosi1.apirest.model.dto.TableParametersDTO;
+import com.proyectosi1.apirest.model.entity.BitacoraEntity;
 import com.proyectosi1.apirest.model.entity.DetalleVentaEntity;
 import com.proyectosi1.apirest.model.entity.NotaVentaEntity;
 import com.proyectosi1.apirest.model.entity.UserEntity;
+import com.proyectosi1.apirest.model.repository.BitacoraRepository;
 import com.proyectosi1.apirest.model.repository.DetalleVentaRepository;
 import com.proyectosi1.apirest.model.repository.NotaVentaRepository;
 import com.proyectosi1.apirest.model.repository.UserRepository;
@@ -38,6 +42,8 @@ public class ReportService {
     private final UserRepository userRepository;
     @Autowired
     private final DetalleVentaRepository detalleVentaRepository;
+    @Autowired
+    private final BitacoraRepository bitacoraRepository;
 
     @NonNull
     public ResponseEntity<Resource> exportReportNoteSale(Integer idNotaVenta) {
@@ -135,6 +141,80 @@ public class ReportService {
         });
 
         return tableParametersDTOS;
+    }
+
+
+    @NonNull
+    public ResponseEntity<Resource> exportReportBitacora(BitacoraQueryDTO bitacoraQueryDTO){
+        try {
+            byte [] report = reportBitacora(bitacoraQueryDTO);
+            String sdf = (new SimpleDateFormat("dd/MM/yyyy")).format(new Date());
+            StringBuilder stringBuilder = new StringBuilder();
+            ContentDisposition contentDisposition = ContentDisposition.builder("attachment")
+                .filename(stringBuilder
+                        .append("Bitacora: ")
+                        .append(sdf)
+                        .append("pdf")
+                        .toString())
+                .build();
+            
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentDisposition(contentDisposition);
+
+            return ResponseEntity.ok()
+                    .contentLength(report.length)
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .headers(headers)
+                    .body(new ByteArrayResource(report));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return null;
+    }
+
+    public byte[] reportBitacora(BitacoraQueryDTO bitacoraQueryDTO) {
+        String usuario = bitacoraQueryDTO.getUsuario();
+        Iterable<TableBitacoraDTO> tableBitacora = tableBitacora(bitacoraQueryDTO);
+
+        try {
+            File file = ResourceUtils.getFile("classpath:Bitacora.jasper");
+            File imgLogo = ResourceUtils.getFile("classpath:images/logo.png");
+            final JasperReport report = (JasperReport) JRLoader.loadObject(file);
+
+            final HashMap<String, Object> parameters = new HashMap<>();
+            parameters.put("alterImage", new FileInputStream(imgLogo));
+            parameters.put("ds", new JRBeanCollectionDataSource((Collection<?>) tableBitacora));
+            parameters.put("nombreEncargado", usuario);
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameters, new JREmptyDataSource());
+
+            return JasperExportManager.exportReportToPdf(jasperPrint);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
+        
+        
+        return null;
+    }
+
+    public List<TableBitacoraDTO> tableBitacora(BitacoraQueryDTO bitacoraQueryDTO) {
+        List<TableBitacoraDTO> tableBitacoraDTOs = new ArrayList<>();
+        Date fechaInicio = bitacoraQueryDTO.getFechaInicio();
+        Date fechaFin = bitacoraQueryDTO.getFechaFin();
+        Iterable<BitacoraEntity> bitacoraEntities = bitacoraRepository.findByFechaBetween(fechaInicio, fechaFin);
+
+        bitacoraEntities.forEach(bitacoraEntity -> {
+            TableBitacoraDTO tableBitacoraDTO = new TableBitacoraDTO();
+            tableBitacoraDTO.setId(bitacoraEntity.getId());
+            tableBitacoraDTO.setUser(bitacoraEntity.getUser().getName()); 
+            tableBitacoraDTO.setAccion(bitacoraEntity.getAccion());
+            tableBitacoraDTO.setFecha(bitacoraEntity.getFecha());
+            tableBitacoraDTO.setHora(bitacoraEntity.getFecha());
+
+            tableBitacoraDTOs.add(tableBitacoraDTO);
+        });
+        return tableBitacoraDTOs;
     }
 
 }
