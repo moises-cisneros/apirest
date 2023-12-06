@@ -45,6 +45,7 @@ public class SecurityConfig {
                         .requestMatchers("/catalogo/**").permitAll()
                         .requestMatchers("/report/**").permitAll()
                         .requestMatchers("/nota_egreso/**").permitAll()
+                        .requestMatchers("/egreso_producto/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManagement ->

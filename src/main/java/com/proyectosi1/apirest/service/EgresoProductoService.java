@@ -17,11 +17,6 @@ public class EgresoProductoService {
         return egreso_ProductoRepository.save(egreso_Producto);
     }
 
-    // Actualiza un registro de Egreso_Producto en la base de datos
-    public EgresoProductoEntity updateEgreso_Producto(EgresoProductoEntity egreso_Producto) {
-        return egreso_ProductoRepository.save((egreso_Producto));
-    }
-
     public List<EgresoProductoEntity> getAllEgreso_Productos() {
         return egreso_ProductoRepository.findAll();
     }
