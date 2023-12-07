@@ -17,5 +17,6 @@ public class DetalleTallaDTO {
     private String talla;
     private float precio;
     private Integer cantidad;
+    private Integer idInventario;
 
 }
