@@ -34,10 +34,10 @@
 			<![CDATA[]]>
 		</queryString>
 		<field name="id" class="java.lang.Integer"/>
-		<field name="fecha" class="java.util.Date"/>
+		<field name="fecha" class="java.lang.String"/>
 		<field name="user" class="java.lang.String"/>
 		<field name="accion" class="java.lang.String"/>
-		<field name="hora" class="java.util.Date"/>
+		<field name="hora" class="java.lang.String"/>
 	</subDataset>
 	<parameter name="alterImage" class="java.io.FileInputStream"/>
 	<parameter name="ds" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
@@ -207,7 +207,7 @@
 							<textField>
 								<reportElement x="0" y="0" width="100" height="30" uuid="e6908b12-901d-46d0-b518-042b0847a263"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{fecha}.getDate()]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -226,7 +226,7 @@
 							<textField>
 								<reportElement x="0" y="0" width="60" height="30" uuid="2e5d6cb1-6a14-43be-9da7-a75702571bf9"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{hora}.getTime()]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{hora}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>

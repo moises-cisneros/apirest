@@ -15,6 +15,6 @@ public class TableBitacoraDTO {
     private Integer id;
     private String user;
     private String accion;
-    private Date fecha;
-    private Date hora;
+    private String fecha;
+    private String hora;
 }

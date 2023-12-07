@@ -30,6 +30,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 
 @Service
@@ -154,7 +155,7 @@ public class ReportService {
                 .filename(stringBuilder
                         .append("Bitacora: ")
                         .append(sdf)
-                        .append("pdf")
+                        .append(".pdf")
                         .toString())
                 .build();
             
@@ -185,7 +186,7 @@ public class ReportService {
             final HashMap<String, Object> parameters = new HashMap<>();
             parameters.put("alterImage", new FileInputStream(imgLogo));
             parameters.put("ds", new JRBeanCollectionDataSource((Collection<?>) tableBitacora));
-            parameters.put("nombreEncargado", usuario);
+            parameters.put("nombreEncargado", usuario != null ? usuario: "------");
 
             JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameters, new JREmptyDataSource());
 
@@ -203,17 +204,25 @@ public class ReportService {
         Date fechaInicio = bitacoraQueryDTO.getFechaInicio();
         Date fechaFin = bitacoraQueryDTO.getFechaFin();
         Iterable<BitacoraEntity> bitacoraEntities = bitacoraRepository.findByFechaBetween(fechaInicio, fechaFin);
-
+        
         bitacoraEntities.forEach(bitacoraEntity -> {
             TableBitacoraDTO tableBitacoraDTO = new TableBitacoraDTO();
             tableBitacoraDTO.setId(bitacoraEntity.getId());
             tableBitacoraDTO.setUser(bitacoraEntity.getUser().getName()); 
             tableBitacoraDTO.setAccion(bitacoraEntity.getAccion());
-            tableBitacoraDTO.setFecha(bitacoraEntity.getFecha());
-            tableBitacoraDTO.setHora(bitacoraEntity.getFecha());
+            
+            Date fecha = bitacoraEntity.getFecha();
+
+            // Crea un formato para la fecha que incluya horas, minutos y segundos
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdfH = new SimpleDateFormat("HH:mm:ss");
+
+            tableBitacoraDTO.setFecha(sdf.format(fecha));
+            tableBitacoraDTO.setHora(sdfH.format(fecha));
 
             tableBitacoraDTOs.add(tableBitacoraDTO);
         });
+        System.out.println(tableBitacoraDTOs);
         return tableBitacoraDTOs;
     }
 
