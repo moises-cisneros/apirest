@@ -10,7 +10,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EstadoVentaDTO {
+
     private Integer nroNotaVenta;
     private String nombreCliente;
+    private String tipoPago;
     private String estadoVenta;
+
 }

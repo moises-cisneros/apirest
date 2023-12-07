@@ -61,6 +61,7 @@ public class NotaVentaService {
             auxEstadoVenta.setEstadoVenta(notaVenta.getEstado());
             auxEstadoVenta.setNroNotaVenta(notaVenta.getId());
             auxEstadoVenta.setNombreCliente(notaVenta.getUser().getName());
+            auxEstadoVenta.setTipoPago(notaVenta.getTipoPago().getNombre());
             estadoVentaList.add(auxEstadoVenta);
         }
 

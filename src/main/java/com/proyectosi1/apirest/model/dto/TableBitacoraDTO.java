@@ -1,22 +1,20 @@
 package com.proyectosi1.apirest.model.dto;
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class DetalleTallaDTO {
-
+public class TableBitacoraDTO {
     private Integer id;
-    private String talla;
-    private float precio;
-    private Integer cantidad;
-    private Integer idInventario;
-
+    private String user;
+    private String accion;
+    private String fecha;
+    private String hora;
 }

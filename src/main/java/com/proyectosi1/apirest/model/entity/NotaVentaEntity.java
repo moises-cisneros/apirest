@@ -31,4 +31,8 @@ public class NotaVentaEntity {
    @JoinColumn(name = "id_usuario")
    private UserEntity user;
 
+   @ManyToOne
+   @JoinColumn(name = "id_tipo_pago")
+   private TipoPagoEntity tipoPago;
+
 }

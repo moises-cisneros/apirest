@@ -15,6 +15,7 @@ public class CatalogoDTO {
 
     private Integer id;
     private String nombre;
+    private String descripcion;
     private DescuentoDTO descuento;
     private ColorDTO color;
     private MarcaDTO marca;
