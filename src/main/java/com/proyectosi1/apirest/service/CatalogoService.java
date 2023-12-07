@@ -63,6 +63,7 @@ public class CatalogoService {
             CatalogoDTO catalogoDTO = new CatalogoDTO(
                     producto.getId(),
                     producto.getNombre(),
+                    producto.getDescripcion(),
                     descuentoDTO,
                     colorDTO,
                     marcaDTO,
@@ -168,14 +169,17 @@ public class CatalogoService {
         List<DetalleTallaDTO> detalleTallaDTOList = new ArrayList<>();
 
         for (InventarioEntity inventario : inventarioEntityList) {
-            DetalleTallaDTO detalleTallaDTO = new DetalleTallaDTO(
-                    inventario.getTalla().getId(),
-                    inventario.getTalla().getTalla(),
-                    inventario.getPrecio(),
-                    inventario.getCantidad()
-            );
+            if (inventario.getCantidad() > 0) {
+                DetalleTallaDTO detalleTallaDTO = new DetalleTallaDTO(
+                        inventario.getTalla().getId(),
+                        inventario.getTalla().getTalla(),
+                        inventario.getPrecio(),
+                        inventario.getCantidad(),
+                        inventario.getId()
+                );
 
-            detalleTallaDTOList.add(detalleTallaDTO);
+                detalleTallaDTOList.add(detalleTallaDTO);
+            }
         }
         return detalleTallaDTOList;
     }
