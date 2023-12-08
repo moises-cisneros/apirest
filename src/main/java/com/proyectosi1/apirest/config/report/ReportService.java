@@ -19,6 +19,7 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -45,6 +46,8 @@ public class ReportService {
     private final DetalleVentaRepository detalleVentaRepository;
     @Autowired
     private final BitacoraRepository bitacoraRepository;
+    @Autowired
+    private ResourceLoader resourceLoader;
 
     @NonNull
     public ResponseEntity<Resource> exportReportNoteSale(Integer idNotaVenta) {
@@ -90,10 +93,11 @@ public class ReportService {
         Optional<NotaVentaEntity> notaVenta = notaVentaRepository.findById(idNotaVenta);
         UserEntity cliente = userRepository.findById(notaVenta.get().getUser().getId()).orElse(null);
         Iterable<TableParametersDTO> tableParametersDTOS = tableParameters(idNotaVenta);
+        Resource resource = resourceLoader.getResource("classpath:NotaVenta.jasper");
 
         // Verificar si la nota de venta existe
         try {
-            File file = ResourceUtils.getFile("classpath:NotaVenta.jasper");
+            File file = resource.getFile();
             final File imgLogo = ResourceUtils.getFile("classpath:images/logo.png");
             final File imgCheck = ResourceUtils.getFile("classpath:images/check.png");
             final JasperReport report = (JasperReport) JRLoader.loadObject(file);
@@ -158,7 +162,7 @@ public class ReportService {
                         .append(".pdf")
                         .toString())
                 .build();
-            
+
             HttpHeaders headers = new HttpHeaders();
             headers.setContentDisposition(contentDisposition);
 
@@ -170,16 +174,17 @@ public class ReportService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         return null;
     }
 
     public byte[] reportBitacora(BitacoraQueryDTO bitacoraQueryDTO) {
         String usuario = bitacoraQueryDTO.getUsuario();
         Iterable<TableBitacoraDTO> tableBitacora = tableBitacora(bitacoraQueryDTO);
+        Resource resource = resourceLoader.getResource("classpath:Bitacora.jasper");
 
         try {
-            File file = ResourceUtils.getFile("classpath:Bitacora.jasper");
+            File file = resource.getFile();
             File imgLogo = ResourceUtils.getFile("classpath:images/logo.png");
             final JasperReport report = (JasperReport) JRLoader.loadObject(file);
 
@@ -193,9 +198,9 @@ public class ReportService {
             return JasperExportManager.exportReportToPdf(jasperPrint);
         } catch (Exception e) {
             e.printStackTrace();
-        } 
-        
-        
+        }
+
+
         return null;
     }
 
@@ -204,13 +209,13 @@ public class ReportService {
         Date fechaInicio = bitacoraQueryDTO.getFechaInicio();
         Date fechaFin = bitacoraQueryDTO.getFechaFin();
         Iterable<BitacoraEntity> bitacoraEntities = bitacoraRepository.findByFechaBetween(fechaInicio, fechaFin);
-        
+
         bitacoraEntities.forEach(bitacoraEntity -> {
             TableBitacoraDTO tableBitacoraDTO = new TableBitacoraDTO();
             tableBitacoraDTO.setId(bitacoraEntity.getId());
-            tableBitacoraDTO.setUser(bitacoraEntity.getUser().getName()); 
+            tableBitacoraDTO.setUser(bitacoraEntity.getUser().getName());
             tableBitacoraDTO.setAccion(bitacoraEntity.getAccion());
-            
+
             Date fecha = bitacoraEntity.getFecha();
 
             // Crea un formato para la fecha que incluya horas, minutos y segundos
