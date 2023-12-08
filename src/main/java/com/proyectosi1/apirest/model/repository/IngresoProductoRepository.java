@@ -12,18 +12,18 @@ import org.springframework.stereotype.Repository;
 public interface IngresoProductoRepository extends JpaRepository<IngresoProductoEntity, IngresoProductoId>{
     @Modifying
     @Query(value = "CREATE TRIGGER IF NOT EXISTS tr_actualizar_o_crear_inventario " +
-            "AFTER INSERT ON INGRESO_PRODUCTO " +
+            "AFTER INSERT ON ingreso_producto " +
             "FOR EACH ROW " +
             "BEGIN " +
             "   DECLARE producto_existente INT; " +
             "   SELECT 1 INTO producto_existente " +
-            "   FROM INVENTARIO " +
+            "   FROM inventario " +
             "   WHERE id_producto = NEW.id_producto and id_talla = NEW.id_talla; " +
             "   IF producto_existente IS NULL THEN " +
-            "       INSERT INTO INVENTARIO (precio, cantidad, id_producto, id_talla, id_bodega) " +
+            "       INSERT INTO inventario (precio, cantidad, id_producto, id_talla, id_bodega) " +
             "       VALUES (1, NEW.cantidad, NEW.id_producto, NEW.id_talla, null); " +
             "   ELSE " +
-            "       UPDATE INVENTARIO " +
+            "       UPDATE inventario " +
             "       SET cantidad = cantidad + NEW.cantidad " +
             "       WHERE id_producto = NEW.id_producto and id_talla = NEW.id_talla; " +
             "   END IF; " +
