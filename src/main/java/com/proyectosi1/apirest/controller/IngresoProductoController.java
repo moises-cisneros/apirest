@@ -1,8 +1,10 @@
 package com.proyectosi1.apirest.controller;
 
+import com.proyectosi1.apirest.config.component.Inicializacion;
 import com.proyectosi1.apirest.model.entity.IngresoProductoEntity;
 import com.proyectosi1.apirest.service.IngresoProductoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class IngresoProductoController {
     private final IngresoProductoService ingresoProductoService;
+    private final Inicializacion inicializacion;
 
     @PostMapping
     public IngresoProductoEntity createIngresoProducto(@RequestBody IngresoProductoEntity ingreso_Producto) {
@@ -28,5 +31,12 @@ public class IngresoProductoController {
     public List<IngresoProductoEntity> getAllIngresoProducto() {
         return ingresoProductoService.getAllIngresoProductos();
     }
+
+    @PostMapping("/crearTrigger")
+    public ResponseEntity<String> crearTrigger() {
+        inicializacion.inicializar();
+        return ResponseEntity.ok("ElTi-gre funca");
+    }
+
 }
 

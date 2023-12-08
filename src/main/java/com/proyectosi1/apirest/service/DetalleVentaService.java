@@ -4,6 +4,7 @@ import com.proyectosi1.apirest.model.entity.DetalleVentaEntity;
 import com.proyectosi1.apirest.model.entity.InventarioEntity;
 import com.proyectosi1.apirest.model.entity.NotaVentaEntity;
 import com.proyectosi1.apirest.model.repository.DetalleVentaRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -49,6 +50,11 @@ public class DetalleVentaService {
     // Metodo de prueba
     public Iterable<DetalleVentaEntity> prueba(Integer idNotaVenta) {
         return detalleVentaRepository.findByVenta(idNotaVenta);
+    }
+
+    @Transactional
+    public void crearTriggerEnDetalleVenta() {
+        detalleVentaRepository.crearTrigger();
     }
 
 }

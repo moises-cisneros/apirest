@@ -20,6 +20,8 @@ public class InventarioEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;    
     private float precio;
+
+    @Column(columnDefinition = "INTEGER UNSIGNED")
     private Integer cantidad;
 
     @ManyToOne

@@ -7,6 +7,7 @@ import com.proyectosi1.apirest.model.mapper.NotaVentaMapper;
 
 import java.util.*;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -73,4 +74,10 @@ public class NotaVentaService {
         notaVenta.setEstado(nuevoEstado.getNuevoEstado());
         notaVentaRepository.save(notaVenta);
     }
+
+    @Transactional
+    public void crearTriggerNotaVenta() {
+        notaVentaRepository.crearTrigger();
+    }
+
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.proyectosi1.apirest.model.entity.IngresoProductoEntity;
 import com.proyectosi1.apirest.model.repository.IngresoProductoRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,11 @@ public class IngresoProductoService {
 
     public List<IngresoProductoEntity> getAllIngresoProductos() {
         return ingresoProductoRepository.findAll();
+    }
+
+    @Transactional
+    public void crearTriggerEnProducto() {
+        ingresoProductoRepository.crearTrigger();
     }
 
 }
