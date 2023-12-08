@@ -17,6 +17,7 @@ public class Inicializacion {
     private final NotaVentaService notaVentaService;
     private final EgresoProductoService egresoProductoService;
 
+    // Iniciacializacion de los triggers
     @PostConstruct
     public void inicializar() {
         ingresoProductoService.crearTriggerEnProducto();
