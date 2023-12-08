@@ -55,7 +55,12 @@ public class UserController {
     public void changePassword(@RequestParam Integer id, @RequestParam String newPassword) {
         userService.changePassword(id, newPassword);
     }
-    
+
+    @PutMapping("/new-role")
+    public void changeRole(@RequestParam Integer id, @RequestParam Integer idRole) {
+        userService.changeRole(id, idRole);
+    }
+
     @GetMapping("/perfilUser")
     public UserEntity getUserData(@RequestParam String username){
         return userService.obtenerUsuarioPorUsername(username);

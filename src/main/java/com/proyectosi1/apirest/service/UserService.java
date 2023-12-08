@@ -1,6 +1,8 @@
 package com.proyectosi1.apirest.service;
 
+import com.proyectosi1.apirest.model.entity.RoleEntity;
 import com.proyectosi1.apirest.model.entity.UserEntity;
+import com.proyectosi1.apirest.model.repository.RoleRepository;
 import com.proyectosi1.apirest.model.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,6 +17,7 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
     public UserEntity crearUsuario(UserEntity usuario) {
@@ -54,6 +57,22 @@ public class UserService {
         }
 
         user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+    }
+
+    public void changeRole(Integer id, Integer idRole) {
+        UserEntity user = userRepository.findById(id).orElse(null);
+
+        if (user == null) {
+            return;
+        }
+
+        RoleEntity role = roleRepository.findById(idRole).orElse(null);
+        if (role == null) {
+            return;
+        }
+
+        user.setRole(role);
         userRepository.save(user);
     }
 
