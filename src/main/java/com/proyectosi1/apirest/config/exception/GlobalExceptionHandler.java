@@ -1,4 +1,4 @@
-package com.proyectosi1.apirest.exception;
+package com.proyectosi1.apirest.config.exception;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;

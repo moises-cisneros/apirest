@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class Inicializacion {
+
     private final IngresoProductoService ingresoProductoService;
     private final DetalleVentaService detalleVentaService;
     private final NotaVentaService notaVentaService;
@@ -23,6 +24,5 @@ public class Inicializacion {
         notaVentaService.crearTriggerNotaVenta();
         egresoProductoService.triggerEgresoProducto();
     }
-
 
 }
