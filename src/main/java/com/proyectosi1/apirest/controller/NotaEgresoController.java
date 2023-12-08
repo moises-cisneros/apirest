@@ -7,6 +7,9 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+import org.hibernate.query.sqm.sql.ConversionException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,8 +19,13 @@ public class NotaEgresoController {
     private final NotaEgresoService nota_EgresoService;
     
     @PostMapping
-    public void createNota_Egreso(@RequestBody NotaEgresoDTO nota_Egreso) {
-        nota_EgresoService.createNota_Egreso(nota_Egreso);
+    public ResponseEntity<String> createNota_Egreso(@RequestBody NotaEgresoDTO nota_Egreso) {
+        try {
+            nota_EgresoService.createNota_Egreso(nota_Egreso);
+            return new ResponseEntity<>("Nota de egreso creada correctamente", HttpStatus.OK);
+        } catch (ConversionException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping("/{id}")

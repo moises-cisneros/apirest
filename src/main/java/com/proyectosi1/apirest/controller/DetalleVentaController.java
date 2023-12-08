@@ -1,6 +1,7 @@
 package com.proyectosi1.apirest.controller;
 
 import com.proyectosi1.apirest.model.entity.DetalleVentaEntity;
+import com.proyectosi1.apirest.model.entity.NotaVentaEntity;
 import com.proyectosi1.apirest.service.DetalleVentaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +20,8 @@ public class DetalleVentaController {
     }
 
     @PostMapping("/list")
-    public void createDetalleVentaList(@RequestBody List<DetalleVentaEntity> detalleVenta) {
-        detalleVentaService.createDetalleVentaList(detalleVenta);
+    public NotaVentaEntity createDetalleVentaList(@RequestBody List<DetalleVentaEntity> detalleVenta) {
+        return detalleVentaService.createDetalleVentaList(detalleVenta);
     }
 
     @PutMapping("/{id}")

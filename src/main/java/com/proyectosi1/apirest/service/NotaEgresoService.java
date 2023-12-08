@@ -12,6 +12,7 @@ import com.proyectosi1.apirest.model.repository.EgresoProductoRepository;
 import com.proyectosi1.apirest.model.repository.NotaEgresoRepository;
 import com.proyectosi1.apirest.model.repository.TallaRepository;
 
+import org.hibernate.query.sqm.sql.ConversionException;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -41,28 +42,35 @@ public class NotaEgresoService {
         return notaEgresoRepository.findAll();
     }
 
-    public void createNota_Egreso(NotaEgresoDTO notaEgreso){
+    public void createNota_Egreso(NotaEgresoDTO notaEgreso) throws ConversionException{
         NotaEgresoEntity notaEgresoEntity = new NotaEgresoEntity();
         notaEgresoEntity.setDescripcion(notaEgreso.getDescripcion());
         notaEgresoEntity.setFecha(notaEgreso.getFecha());
 
         Integer idNota = notaEgresoRepository.saveAndFlush(notaEgresoEntity).getId();
 
-        for (EgresoProductoDTO detalle : notaEgreso.getDetalleIngreso()) {
-            EgresoProductoEntity egresoProductoEntity = new EgresoProductoEntity();
-
-            egresoProductoEntity.setId_nota_egreso(notaEgresoEntity);
-            egresoProductoEntity.setCantidad(detalle.getCantidad());
-            egresoProductoEntity.setId(null);
-
-            ProductoEntity producto = productoService.getProducto(detalle.getId_producto());
-            TallaEntity talla = tallaRepository.findById(detalle.getId_talla()).orElse(null);
-
-
-            egresoProductoEntity.setProducto(producto);
-            egresoProductoEntity.setTalla(talla);
-
-            egresoProductoRepository.save(egresoProductoEntity);
+        try {
+            
+            for (EgresoProductoDTO detalle : notaEgreso.getDetalleIngreso()) {
+                EgresoProductoEntity egresoProductoEntity = new EgresoProductoEntity();
+    
+                egresoProductoEntity.setId_nota_egreso(notaEgresoEntity);
+                egresoProductoEntity.setCantidad(detalle.getCantidad());
+                egresoProductoEntity.setId(null);
+    
+                ProductoEntity producto = productoService.getProducto(detalle.getId_producto());
+                TallaEntity talla = tallaRepository.findById(detalle.getId_talla()).orElse(null);
+    
+    
+                egresoProductoEntity.setProducto(producto);
+                egresoProductoEntity.setTalla(talla);
+    
+                egresoProductoRepository.save(egresoProductoEntity);
+            }
+        } catch (Exception e) {
+            notaEgresoRepository.deleteById(idNota);
+            System.out.println("gsdfd-----"+idNota);
+            throw new ConversionException("Error al procesar la nota de egreso", e);
         }
     }
 

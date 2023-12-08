@@ -20,14 +20,14 @@ public class DetalleVentaService {
         return detalleVentaRepository.save(detalleVentaEntity);
     }
 
-    public void createDetalleVentaList(List<DetalleVentaEntity> detalleVenta){
+    public NotaVentaEntity createDetalleVentaList(List<DetalleVentaEntity> detalleVenta){
         
         NotaVentaEntity notaVentaEntity = notaVentaService.crearNotaVenta(detalleVenta.get(0).getNotaVenta());
         detalleVenta.forEach(detalleVentaEntity -> {
             detalleVentaEntity.setNotaVenta(notaVentaService.crearNotaVenta(notaVentaEntity));
             createDetalleVenta(detalleVentaEntity);
         });
-        
+        return notaVentaEntity;
     }
 
     public DetalleVentaEntity updateDetalleVenta(Integer id, DetalleVentaEntity detalleVentaEntity){
