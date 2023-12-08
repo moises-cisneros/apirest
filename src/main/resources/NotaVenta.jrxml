@@ -54,9 +54,9 @@
 	<title>
 		<band height="250" splitType="Stretch">
 			<staticText>
-				<reportElement x="60" y="30" width="329" height="60" uuid="002116cf-dc06-4f41-88e5-7fa0043dd876"/>
+				<reportElement x="60" y="30" width="250" height="40" uuid="002116cf-dc06-4f41-88e5-7fa0043dd876"/>
 				<textElement>
-					<font size="40"/>
+					<font size="30"/>
 				</textElement>
 				<text><![CDATA[NOTA DE VENTA]]></text>
 			</staticText>
