@@ -39,7 +39,7 @@
 		<field name="accion" class="java.lang.String"/>
 		<field name="hora" class="java.lang.String"/>
 	</subDataset>
-	<parameter name="alterImage" class="java.io.FileInputStream"/>
+	<parameter name="alterImage" class="java.io.InputStream"/>
 	<parameter name="ds" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
 	<parameter name="nombreEncargado" class="java.lang.String"/>
 	<queryString>
