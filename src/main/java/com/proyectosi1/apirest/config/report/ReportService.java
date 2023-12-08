@@ -29,6 +29,7 @@ import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -88,19 +89,25 @@ public class ReportService {
 
     @NonNull
     public byte[] reportNoteSale(Integer idNotaVenta) {
-
         // Obtener la nota de venta, el cliente y los parametros de la tabla sale_detail
         Optional<NotaVentaEntity> notaVenta = notaVentaRepository.findById(idNotaVenta);
         UserEntity cliente = userRepository.findById(notaVenta.get().getUser().getId()).orElse(null);
         Iterable<TableParametersDTO> tableParametersDTOS = tableParameters(idNotaVenta);
+
+        // Obtener el recurso del archivo Jasper
         Resource resource = resourceLoader.getResource("classpath:NotaVenta.jasper");
 
         // Verificar si la nota de venta existe
         try {
-            File file = resource.getFile();
-            final File imgLogo = ResourceUtils.getFile("classpath:images/logo.png");
-            final File imgCheck = ResourceUtils.getFile("classpath:images/check.png");
-            final JasperReport report = (JasperReport) JRLoader.loadObject(file);
+            InputStream reportInputStream = resource.getInputStream();
+
+            final Resource imgLogoResource = resourceLoader.getResource("classpath:images/logo.png");
+            final Resource imgCheckResource = resourceLoader.getResource("classpath:images/check.png");
+
+            InputStream imgLogoInputStream = imgLogoResource.getInputStream();
+            InputStream imgCheckInputStream = imgCheckResource.getInputStream();
+
+            final JasperReport report = (JasperReport) JRLoader.loadObject(reportInputStream);
 
             // Agregando los parametros del reporte
             final HashMap<String, Object> parameters = new HashMap<>();
@@ -110,8 +117,8 @@ public class ReportService {
             parameters.put("email_cliente", cliente != null ? cliente.getEmail() : "-----");
             parameters.put("phone_cliente", cliente != null ? cliente.getPhone() : "-----");
             parameters.put("amount", notaVenta.get().getMonto());
-            parameters.put("imgLogo", new FileInputStream(imgLogo));
-            parameters.put("imgCheck", new FileInputStream(imgCheck));
+            parameters.put("imgLogo", imgLogoInputStream);
+            parameters.put("imgCheck", imgCheckInputStream);
             parameters.put("sale_detail", new JRBeanCollectionDataSource((Collection<?>) tableParametersDTOS));
 
             // Llenar el informe Jasper con los datos proporcionados y exportarlo a un arreglo de bytes en formato PDF
@@ -123,6 +130,7 @@ public class ReportService {
         }
         return null;
     }
+
 
     // Obtener la cantidad, precio, nombre del producto, subtotal, descuento y la talla para rellenar la tabla
     public List<TableParametersDTO> tableParameters(Integer idNotaVenta) {
@@ -181,15 +189,18 @@ public class ReportService {
     public byte[] reportBitacora(BitacoraQueryDTO bitacoraQueryDTO) {
         String usuario = bitacoraQueryDTO.getUsuario();
         Iterable<TableBitacoraDTO> tableBitacora = tableBitacora(bitacoraQueryDTO);
-        Resource resource = resourceLoader.getResource("classpath:Bitacora.jasper");
 
         try {
-            File file = resource.getFile();
-            File imgLogo = ResourceUtils.getFile("classpath:images/logo.png");
-            final JasperReport report = (JasperReport) JRLoader.loadObject(file);
+            Resource reportResource = resourceLoader.getResource("classpath:Bitacora.jasper");
+            Resource imgLogoResource = resourceLoader.getResource("classpath:images/logo.png");
+
+            InputStream reportInputStream = reportResource.getInputStream();
+            InputStream imgLogoInputStream = imgLogoResource.getInputStream();
+
+            final JasperReport report = (JasperReport) JRLoader.loadObject(reportInputStream);
 
             final HashMap<String, Object> parameters = new HashMap<>();
-            parameters.put("alterImage", new FileInputStream(imgLogo));
+            parameters.put("alterImage", imgLogoInputStream);
             parameters.put("ds", new JRBeanCollectionDataSource((Collection<?>) tableBitacora));
             parameters.put("nombreEncargado", usuario != null ? usuario: "------");
 
@@ -199,7 +210,6 @@ public class ReportService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
         return null;
     }
