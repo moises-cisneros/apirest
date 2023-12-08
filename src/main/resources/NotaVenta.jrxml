@@ -43,8 +43,8 @@
 	<parameter name="phone_cliente" class="java.lang.String"/>
 	<parameter name="sale_detail" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
 	<parameter name="amount" class="java.lang.Float"/>
-	<parameter name="imgLogo" class="java.io.FileInputStream"/>
-	<parameter name="imgCheck" class="java.io.FileInputStream"/>
+	<parameter name="imgLogo" class="java.io.InputStream"/>
+	<parameter name="imgCheck" class="java.io.InputStream"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
